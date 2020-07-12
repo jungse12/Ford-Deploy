@@ -1249,7 +1249,7 @@ def calc(request):
     # ***** MAIN FUNCTION *****
     warnings.filterwarnings("ignore")
     problem = MyProblem(const)
-    '''
+    
     ga = GA(pop_size=10,eliminate_duplicates=True)
     #ga = NelderMead()
     #de = de(pop_size=20,eliminate_duplicates=True)
@@ -1269,7 +1269,7 @@ def calc(request):
 
     print("Best solution found: \nX = %s\nF = %s" % (res.X, res.F))
     _, data, pv_power_matrix, Elec_consumption_matrix = evaluate(res.X, const)
-
+    '''
     final_soc_matrix = data['final_soc_matrix']
     total_net_met_benf=data['total_net_met_benf']
     elec_bought_grid=data['elec_bought_grid']
