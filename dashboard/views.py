@@ -546,7 +546,6 @@ def calc(request):
 
     ced = CED.objects.get(year=_year, eGRID_subregion=e_grid_code)
     ced_coef = ced.ced
-    '''
 
     pv_lower_limit = int(_pv_lower_limit)
     pv_upper_limit = int(_pv_upper_limit)
@@ -558,7 +557,7 @@ def calc(request):
 
     print("pop size", pop_size)
     print("calc amount", calc_amount)
-
+    '''
     #print("here start pvlib irrad")
     const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
     '''
