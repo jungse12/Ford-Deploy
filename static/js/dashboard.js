@@ -391,6 +391,9 @@ $(document).ready(function() {
                 year: year,
                 csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
             },
+            error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
+            }   
             /*
             success: function(data){
                 console.log(data);
