@@ -1634,12 +1634,7 @@ def calc(request):
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2)
     }) '''
-    return render(request, 'result.html', {
-        'zipcode': _zipcode,
-        'state': _state,
-        'proj_lifetime': _proj_lifetime,
-        'year': _year,
-    })
+    return render(request, 'result.html', {})
 
 def apitest(request):
     zipcode = 48823
