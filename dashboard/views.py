@@ -401,7 +401,7 @@ def baseline(year_analysis,discnt_rate,infl_rate,sales_tax_perc,base_fee_conec_c
     return base_AC,base_LCOE,base_GWP,base_CED
 
 def load(request, format=None):
-    '''
+    
     print('hi')
     _zipcode = request.POST['zipcode']
     _state = request.POST['state']
@@ -429,8 +429,7 @@ def load(request, format=None):
     
 
     return HttpResponse(data, content_type='json')
-    '''
-     return HttpResponse('')
+
 
 def matrixDatabase(request, format=None):
     #print('received database for matrix')
@@ -467,6 +466,7 @@ def assignDatabase(request, format=None):
     return HttpResponse('')
 
 def calc(request):
+    '''
     #print("here")
 
     #check = HomeESS.objects.get(Zone_1='Zone_1')
@@ -1634,6 +1634,8 @@ def calc(request):
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2)
     })
+    '''
+    return render(request,'result.html')
 
 def apitest(request):
     zipcode = 48823

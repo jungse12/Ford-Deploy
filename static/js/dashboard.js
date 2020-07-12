@@ -378,19 +378,11 @@ $(document).ready(function() {
         var zipcode = $('#zipcode').val();
         var state = $('#state').val();
         var year = $('#year').val();
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://161.35.8.246/load');
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                var userInfo = JSON.parse(xhr.responseText);
-                console.log(userInfo);
-            }
-            console.log("shiet");
-        };
-        /*
+        
         req = $.ajax({
             url:'load',
-            type: 'PUT',
+            type: 'POST',
+            
             data: {
                 file: JSON.stringify(fileUpload),
                 filecheck: fileCheck,
@@ -400,12 +392,13 @@ $(document).ready(function() {
                 csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
             },
             success: function(data){
+                console.log(data);
                 console.log("after loaded" + data);
                 document.getElementById('Elec-GWP').value = data[0]['fields']['gwp'];
                 document.getElementById('Elec-CED').value = data[1]['fields']['ced'];
                 climateZone = data[2]['fields']['climate_zone'];
             }
-        });*/
+        });
     });
     $('#chooseButton').on('click', function(e) {
         const weatherData = document.getElementById('weather-data');
