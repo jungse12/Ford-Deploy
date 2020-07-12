@@ -562,6 +562,7 @@ def calc(request):
     #print("here start pvlib irrad")
     const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
     
+    '''
     def evaluate(x, const):
         arbit_solar_panel_size, capacity_of_batt_module = x
 
@@ -1632,6 +1633,12 @@ def calc(request):
         'base_LCOE': round(base_LCOE,2),
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2)
+    }) '''
+    return render(request, 'result.html', {
+        'zipcode': _zipcode,
+        'state': _state,
+        'proj_lifetime': _proj_lifetime,
+        'year': _year,
     })
 
 def apitest(request):
