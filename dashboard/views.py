@@ -694,7 +694,7 @@ def calc(request):
         Transposed_ghi_vector=ghi_column_vector.transpose() #Transposing the column vector into a row vector 
         
         ghi_matrix=np.reshape(Transposed_ghi_vector,(24,365),order='F')
-        
+        '''
         #ghi_matrix_pv=ghi_matrix/1000 #convert the GHI into kW/m2
         
         
@@ -1633,7 +1633,7 @@ def calc(request):
         'base_LCOE': round(base_LCOE,2),
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2)
-    }) '''
+    })'''
     return render(request, 'result.html', {})
 
 def apitest(request):
