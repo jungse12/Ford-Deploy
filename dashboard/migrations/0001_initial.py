@@ -102,20 +102,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Weather',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('time_stamp', models.CharField(default='', max_length=200000)),
-                ('dni', models.CharField(default='', max_length=120000)),
-                ('dhi', models.CharField(default='', max_length=120000)),
-                ('ghi', models.CharField(default='', max_length=120000)),
-                ('extra_dni', models.CharField(default='', max_length=120000)),
-                ('elev', models.CharField(default='', max_length=120000)),
-                ('wind_speed', models.CharField(default='', max_length=120000)),
-                ('temp', models.CharField(default='', max_length=120000)),
-            ],
-        ),
-        migrations.CreateModel(
             name='ZipcodeCounty',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
