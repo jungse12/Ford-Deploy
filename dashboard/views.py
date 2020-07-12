@@ -427,7 +427,7 @@ def load(request, format=None):
     data = json.dumps(struct[:])
     
 
-    return HttpResponse(data, content_type='json')'''
+    return HttpResponse(data, content_type='json')
 
 
 
