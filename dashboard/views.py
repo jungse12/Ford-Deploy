@@ -1230,7 +1230,7 @@ def calc(request):
                 "percent_dec_matrix":percent_dec_matrix} 
         
         return obj, data, pv_power_matrix, Elec_consumption_matrix
-
+    '''
     class MyProblem(Problem):
         def __init__(self,const):
             super().__init__(n_var=2, n_obj=1, n_constr=0,
@@ -1422,7 +1422,7 @@ def calc(request):
 
         for name in manager.get_scenario_names():
             print("\t {}".format(name))
-    '''
+    
     scenario_manager_labor={
         "smTemp":
             {
