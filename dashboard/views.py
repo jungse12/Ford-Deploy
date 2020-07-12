@@ -412,23 +412,23 @@ def load(request, format=None):
         customEss.set_array(json.loads(_file))
 
     zipcode_county = ZipcodeCounty.objects.filter(zip_code=int(_zipcode)).first()
-    county_name = zipcode_county.county_name[:-7]
+    #county_name = zipcode_county.county_name[:-7]
 
-    climate_zone = ClimateZone.objects.get(county_name=county_name, state=_state)
+    #climate_zone = ClimateZone.objects.get(county_name=county_name, state=_state)
 
-    e_grid = EGRID.objects.get(zip_code = int(_zipcode))
-    e_grid_code = e_grid.eGRID_subregion
+    #e_grid = EGRID.objects.get(zip_code = int(_zipcode))
+    #e_grid_code = e_grid.eGRID_subregion
 
-    gwp = GWP.objects.get(year=_year, eGRID_subregion=e_grid_code)
-    ced = CED.objects.get(year=_year, eGRID_subregion=e_grid_code)
+    #gwp = GWP.objects.get(year=_year, eGRID_subregion=e_grid_code)
+    #ced = CED.objects.get(year=_year, eGRID_subregion=e_grid_code)
 
-    check = serializers.serialize('json',[gwp,ced,climate_zone])
-    struct = json.loads(check)
-    data = json.dumps(struct[:])
+    #check = serializers.serialize('json',[gwp,ced,climate_zone])
+    #struct = json.loads(check)
+    #data = json.dumps(struct[:])
     
 
-    return HttpResponse(data, content_type='json')
-
+    #return HttpResponse(data, content_type='json')
+    return HttpResponse('')
 
 
 def matrixDatabase(request, format=None):
