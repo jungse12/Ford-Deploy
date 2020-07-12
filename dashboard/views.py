@@ -402,6 +402,7 @@ def baseline(year_analysis,discnt_rate,infl_rate,sales_tax_perc,base_fee_conec_c
 
 def load(request, format=None):
     
+    '''
     print('hi')
     _zipcode = request.POST['zipcode']
     _state = request.POST['state']
@@ -428,7 +429,8 @@ def load(request, format=None):
     data = json.dumps(struct[:])
     
 
-    return HttpResponse(data, content_type='json')
+    return HttpResponse(data, content_type='json')'''
+    return False
 
 
 def matrixDatabase(request, format=None):
