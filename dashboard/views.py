@@ -278,7 +278,7 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
     tim_stmp=pd.date_range('1988-01-01',periods=8760,freq='H')
     tim_stmp=tim_stmp.tz_localize(t_z)
 
-    '''
+    
     #calling in the values of direct normal irradiance
     dni=pd.read_csv(file_location + weather_file_name,usecols=[7],skiprows=1,)
     dni_vector=dni.as_matrix()
@@ -321,8 +321,7 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
 
     
     return tot_irrad
-    '''
-    return 0
+
 
 def calc_env_impact(year_analysis,arbit_solar_panel_size,pv_lifetime,invrtr_lifetime,capacity_of_batt_module,batt_replc,batt_replc_hour,batt_rplcmt_year,ILR,elec_bought_grid,total_net_met_benf,rate_matrix,total_feed_in_tarff_benf,feed_in_tariff_rate,PV_GWP,PV_CED,Batt_GWP,Batt_CED,Inv_GWP,Inv_CED,Elec_GWP,Elec_CED):
     
@@ -562,10 +561,9 @@ def calc(request):
     print("calc amount", calc_amount)
     
     #print("here start pvlib irrad")
-    calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))
+    #calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))
     #const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
-    
-    '''
+    const = {"ghi_column_vector": np.zeros((8760,1))}
     def evaluate(x, const):
         arbit_solar_panel_size, capacity_of_batt_module = x
 
