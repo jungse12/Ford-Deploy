@@ -395,7 +395,7 @@ $(document).ready(function() {
                 alert("Status: " + textStatus); alert("Error: " + errorThrown); 
             },
             success: function(data){
-                console.log('holy');
+                console.log(data);
                 /*
                 console.log(data);
                 console.log("after loaded" + data);

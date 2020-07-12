@@ -430,7 +430,8 @@ def load(request, format=None):
     
 
     return HttpResponse(data, content_type='json')'''
-    return HttpResponse('')
+    _zipcode = request.POST['zipcode']
+    return HttpResponse(_zipcode)
 
 
 
