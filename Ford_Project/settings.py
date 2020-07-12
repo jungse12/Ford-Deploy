@@ -94,7 +94,7 @@ else:
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'fordProject',
             'USER': 'ford_admin',
-            'PASSWORD': 'adam242529',
+            'PASSWORD': 'test123',
             'HOST': 'localhost',
             'PORT': '',
         }
