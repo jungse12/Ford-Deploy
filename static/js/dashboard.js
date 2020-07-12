@@ -563,7 +563,7 @@ $(document).ready(function() {
         e.preventDefault();
         var category = document.querySelector('input[name="system-app"]:checked').value;
         req = $.ajax({
-            url:'ford-onboarding.herokuapp.com/matrixDatabase',
+            url:'matrixDatabase',
             type: 'POST',
             data: {
                 filecheck: fileCheck,
