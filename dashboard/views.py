@@ -1230,7 +1230,7 @@ def calc(request):
                 "percent_dec_matrix":percent_dec_matrix} 
         
         return obj, data, pv_power_matrix, Elec_consumption_matrix
-    '''
+
     class MyProblem(Problem):
         def __init__(self,const):
             super().__init__(n_var=2, n_obj=1, n_constr=0,
@@ -1249,7 +1249,7 @@ def calc(request):
     # ***** MAIN FUNCTION *****
     warnings.filterwarnings("ignore")
     problem = MyProblem(const)
-
+    '''
     ga = GA(pop_size=10,eliminate_duplicates=True)
     #ga = NelderMead()
     #de = de(pop_size=20,eliminate_duplicates=True)
