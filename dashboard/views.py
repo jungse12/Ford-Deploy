@@ -557,10 +557,9 @@ def calc(request):
 
     print("pop size", pop_size)
     print("calc amount", calc_amount)
-    '''
+    
     #print("here start pvlib irrad")
     const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
-    '''
     
     '''
     def evaluate(x, const):
