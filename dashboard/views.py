@@ -777,7 +777,6 @@ def calc(request):
         rate_matrix_1=np.tile(rate_matrix,year_analysis)
         
         rate_matrix=np.multiply(rate_matrix_1,percent_inc_matrix)
-        '''
         
         """=========================================================================================================================================================================================== """   
         
@@ -1632,8 +1631,9 @@ def calc(request):
         'base_LCOE': round(base_LCOE,2),
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2)
-    })'''
-    return render(request, 'result.html', {})
+    })
+
+    #return render(request, 'result.html', {})
 
 def apitest(request):
     zipcode = 48823
