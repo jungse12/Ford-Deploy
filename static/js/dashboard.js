@@ -380,6 +380,12 @@ $(document).ready(function() {
         var year = $('#year').val();
         var xhr = new XMLHttpRequest();
         xhr.open('PUT', 'http://161.35.8.246/load');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var userInfo = JSON.parse(xhr.responseText);
+                console.log(userInfo);
+            }
+        };
         /*
         req = $.ajax({
             url:'load',
