@@ -402,8 +402,6 @@ def baseline(year_analysis,discnt_rate,infl_rate,sales_tax_perc,base_fee_conec_c
 
 def load(request, format=None):
     
-    '''
-    print('hi')
     _zipcode = request.POST['zipcode']
     _state = request.POST['state']
     _year = request.POST['year']
@@ -430,8 +428,6 @@ def load(request, format=None):
     
 
     return HttpResponse(data, content_type='json')'''
-    _zipcode = request.POST['zipcode']
-    return HttpResponse(_zipcode)
 
 
 
