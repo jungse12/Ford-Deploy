@@ -625,6 +625,17 @@ $(document).ready(function() {
                         //zone_list = JSON.parse(data);
                     }
                 });
+                $.ajax({
+                    url:'checkDatabase',
+                    type: 'POST',
+                    data: {
+                        csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                    },
+                    success: function(data){
+                        console.log("HERE2:" + data);
+                        //zone_list = JSON.parse(data);
+                    }
+                });
             }
         });
         weatherDataMsg.innerHTML = "";

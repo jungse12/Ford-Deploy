@@ -467,6 +467,10 @@ def assignDatabase(request, format=None):
 
     return HttpResponse(json.dumps(elecConsump.array_list))
 
+def checkDatabase(request, format=None):
+
+    return HttpResponse(json.dumps(elecConsump.array_list))
+
 def calc(request):
     #print("here")
 
