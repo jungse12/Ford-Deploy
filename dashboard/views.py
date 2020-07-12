@@ -532,7 +532,6 @@ def calc(request):
     _lat = request.POST['lat']
     _long = request.POST['long']
 
-    '''
     zipcode_county = ZipcodeCounty.objects.filter(zip_code=int(_zipcode)).first()
     county_name = zipcode_county.county_name[:-7]
 
@@ -547,6 +546,7 @@ def calc(request):
 
     ced = CED.objects.get(year=_year, eGRID_subregion=e_grid_code)
     ced_coef = ced.ced
+    '''
 
     pv_lower_limit = int(_pv_lower_limit)
     pv_upper_limit = int(_pv_upper_limit)
