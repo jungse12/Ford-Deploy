@@ -378,7 +378,9 @@ $(document).ready(function() {
         var zipcode = $('#zipcode').val();
         var state = $('#state').val();
         var year = $('#year').val();
-
+        var xhr = new XMLHttpRequest();
+        xhr.open('PUT', 'http://161.35.8.246/load');
+        /*
         req = $.ajax({
             url:'load',
             type: 'PUT',
@@ -396,7 +398,7 @@ $(document).ready(function() {
                 document.getElementById('Elec-CED').value = data[1]['fields']['ced'];
                 climateZone = data[2]['fields']['climate_zone'];
             }
-        });
+        });*/
     });
     $('#chooseButton').on('click', function(e) {
         const weatherData = document.getElementById('weather-data');
