@@ -401,6 +401,7 @@ def baseline(year_analysis,discnt_rate,infl_rate,sales_tax_perc,base_fee_conec_c
     return base_AC,base_LCOE,base_GWP,base_CED
 
 def load(request, format=None):
+    '''
     print('hi')
     _zipcode = request.POST['zipcode']
     _state = request.POST['state']
@@ -425,8 +426,11 @@ def load(request, format=None):
     check = serializers.serialize('json',[gwp,ced,climate_zone])
     struct = json.loads(check)
     data = json.dumps(struct[:])
+    
 
     return HttpResponse(data, content_type='json')
+    '''
+     return HttpResponse('')
 
 def matrixDatabase(request, format=None):
     #print('received database for matrix')
