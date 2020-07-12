@@ -476,7 +476,7 @@ def calc(request):
     _year = request.POST['year']
     _system_app = request.POST['system-app']
     t_z = request.POST['t_z']
-
+    '''
     _pop_size = request.POST['pop-size']
     _calc_amount = request.POST['calc-amount']
 
@@ -561,6 +561,7 @@ def calc(request):
 
     #print("here start pvlib irrad")
     const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
+    '''
     
     '''
     def evaluate(x, const):
