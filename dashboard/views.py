@@ -265,7 +265,7 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
 
     """===These values are obtained from the files and then transferrred to the function ===================================================="""
     
-    file_location='C:/Users/Ra/Desktop/code/Ford-Project-Onborading/static'
+    file_location='/static'
     weather_file_name='/samples/Detroit_TMY3_weather_data.csv'
 
     if t_z[3] == '-':
@@ -559,7 +559,8 @@ def calc(request):
     print("calc amount", calc_amount)
     
     #print("here start pvlib irrad")
-    const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
+    calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))
+    #const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
     
     '''
     def evaluate(x, const):
