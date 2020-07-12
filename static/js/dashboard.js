@@ -621,6 +621,7 @@ $(document).ready(function() {
                         csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
                     },
                     success: function(data){
+                        console.log("HERE:" + data);
                         //zone_list = JSON.parse(data);
                     }
                 });
