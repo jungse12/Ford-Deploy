@@ -393,15 +393,16 @@ $(document).ready(function() {
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-            }   
-            /*
+            },
             success: function(data){
+                console.log('holy');
+                /*
                 console.log(data);
                 console.log("after loaded" + data);
                 document.getElementById('Elec-GWP').value = data[0]['fields']['gwp'];
                 document.getElementById('Elec-CED').value = data[1]['fields']['ced'];
-                climateZone = data[2]['fields']['climate_zone'];
-            }*/
+                climateZone = data[2]['fields']['climate_zone'];*/
+            }
         });
     });
     $('#chooseButton').on('click', function(e) {
