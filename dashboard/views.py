@@ -411,7 +411,7 @@ def load(request, format=None):
     if _fileCheck:
         customEss.set_array(json.loads(_file))
 
-    zipcode_county = ZipcodeCounty.objects.filter(zip_code=int(_zipcode)).first()
+    #zipcode_county = ZipcodeCounty.objects.filter(zip_code=int(_zipcode)).first()
     #county_name = zipcode_county.county_name[:-7]
 
     #climate_zone = ClimateZone.objects.get(county_name=county_name, state=_state)
