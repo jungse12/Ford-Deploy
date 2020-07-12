@@ -1,6 +1,19 @@
 '''
 import csv
-from dashboard.models import HomeESS
+from dashboard.models import GWP
+
+CSV_PATH = 'static/data/gwp.csv'
+years = [2016, 2020, 2025, 2030, 2035, 2040, 2045, 2050]
+index = 0
+with open(CSV_PATH, newline='') as csvfile:
+    reader = csv.reader(csvfile)
+    for row in reader:
+        if index != 0:
+            code = row[0]
+            for i in range(1, len(row)):
+                #print(years[i], code, row[i])
+                GWP.objects.create(year=years[i], eGRID_subregion=code, gwp=row[i])
+        index += 1
 
 CSV_PATH = 'static/data/HomeESS.csv'
 index = 0

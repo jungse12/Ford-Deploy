@@ -466,7 +466,6 @@ def assignDatabase(request, format=None):
     return HttpResponse('')
 
 def calc(request):
-    '''
     #print("here")
 
     #check = HomeESS.objects.get(Zone_1='Zone_1')
@@ -1634,8 +1633,6 @@ def calc(request):
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2)
     })
-    '''
-    return render(request,'result.html')
 
 def apitest(request):
     zipcode = 48823
