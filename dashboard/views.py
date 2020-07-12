@@ -666,7 +666,7 @@ def calc(request):
         
         
         """=====================================================GHI data================================================================================================================"""
-'''       
+        '''       
         #Importing the values of direct Normal Irradiance
         #dni=pd.read_csv(file_location + weather_file_name,usecols=[7],skiprows=1,) # downloading GHI data in the python dataframe
         
@@ -1229,7 +1229,7 @@ def calc(request):
                 "percent_dec_matrix":percent_dec_matrix} 
         
         return obj, data, pv_power_matrix, Elec_consumption_matrix
-'''
+        '''
         return 0
     class MyProblem(Problem):
         def __init__(self,const):
