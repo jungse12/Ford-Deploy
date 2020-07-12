@@ -380,7 +380,7 @@ $(document).ready(function() {
         var year = $('#year').val();
 
         req = $.ajax({
-            url:'load',
+            url:'http://161.35.8.246/load',
             type: 'POST',
             data: {
                 file: JSON.stringify(fileUpload),
