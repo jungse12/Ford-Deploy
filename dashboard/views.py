@@ -694,7 +694,6 @@ def calc(request):
         Transposed_ghi_vector=ghi_column_vector.transpose() #Transposing the column vector into a row vector 
         
         ghi_matrix=np.reshape(Transposed_ghi_vector,(24,365),order='F')
-        '''
         #ghi_matrix_pv=ghi_matrix/1000 #convert the GHI into kW/m2
         
         
@@ -778,7 +777,7 @@ def calc(request):
         rate_matrix_1=np.tile(rate_matrix,year_analysis)
         
         rate_matrix=np.multiply(rate_matrix_1,percent_inc_matrix)
-        
+        '''
         
         """=========================================================================================================================================================================================== """   
         
