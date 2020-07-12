@@ -430,7 +430,8 @@ def load(request, format=None):
     
 
     return HttpResponse(data, content_type='json')'''
-    return False
+    return HttpResponse('')
+
 
 
 def matrixDatabase(request, format=None):
