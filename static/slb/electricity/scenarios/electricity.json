@@ -1,0 +1,26 @@
+{
+  "smTransport":
+  {
+      "source":"simulation_models/SLBremanelectricity.xmile",
+      "model":"simulation_models/SLBremanelectricity",
+      "base_constants": {
+        "startYearForReman": 2020,
+        "yearOfSwitchFromEaToGp": 2028,
+        "updfEa": 0.62,
+        "updfGp": 0.59,
+        "ppEa": 0.37,
+        "ppGp": 0.44,
+        "technicallyFeasibleBatteriesFraction": 0.95,
+        "valueOfThroughputOldBattery":0.8,
+        "allowableProfit%":0
+       },
+      "scenarios":
+      {
+        "base": { },
+
+        "scenario1": {
+          "allowableProfit%":0.2
+          }
+      }     
+  }
+}

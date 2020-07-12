@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="/static/images/favicon.png"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.anychart.com/releases/8.7.1/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.anychart.com/releases/8.7.1/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-base.min.js" type="text/javascript"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-heatmap.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Dashboard</h1>
+        </div>
+    </header>
+    <div class="container">
+        <form method="post" action="calc">
+            <div class="box-container-12">
+            {% csrf_token %}
+                <div class="box">
+                    <h3>System infomation</h3>
+                    <div class="box-grid">
+                        <div class="box-item">
+                            <div class="form-group">
+                                <label for="zipcode">Zip Code</label>
+                                <input type="number" class="form-control" id="zipcode" name="zipcode" autocomplete="off" maxlength="5" required>
+                            </div>
+                        </div>
+                        <div class="box-item">
+                            <div class="form-group">
+                                <label for="state" class="control-label">State</label>
+                                <select class="form-control" id="state" name="state" required>
+                                    <option value="">N/A</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DC">District of Columbia</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NY">New York</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="PR">Puerto Rico</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="proj-lifetime">Project lifetime</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="proj-lifetime" name="proj-lifetime"
+                                    value="5" onkeyup="updateSliderValue(this.value, 'proj-lifetime-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Years</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="proj-lifetime-slider"
+                                    name="proj-lifetime-slider" min="1" max="12" value="5"
+                                    onchange="updateTextInput(this.value, 'proj-lifetime');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="year">Year</label>
+                            <div class="input-group">
+                                <select class="form-control" id="year" name="year">
+                                    <option value="2016">2016</option>
+                                    <option value="2020">2020</option>
+                                    <option value="2025">2025</option>
+                                    <option value="2030">2030</option>
+                                    <option value="2035">2035</option>
+                                    <option value="2040">2040</option>
+                                    <option value="2045">2045</option>
+                                    <option value="2050">2050</option>
+                                  </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item text-center">
+                        <div class="btn-group-vertical btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-outline-success active">
+                                <input type="radio" name="system-app" value="home-ESS" checked> Home ESS
+                            </label>
+                            <label class="btn btn-outline-success">
+                                <input type="radio" name="system-app" value="micro-ESS"> Micro-grid ESS
+                            </label>
+                            <label class="btn btn-outline-success">
+                                <input type="radio" name="system-app" value="fast-charger"> Fast Charger
+                            </label>
+                            <label class="btn btn-outline-success">
+                                <input type="radio" name="system-app" value="home-charger">Home ESS+EV Charger
+                            </label>
+                        </div>
+                    </div>
+                    <div class="box-item" style = "padding-top : 20px; display:none" id="fast-charger-div">
+                        <label for="fast-charger-watt">Power</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="fast-charger-watt" name="fast-charger-watt"
+                                value="100" onkeyup="updateSliderValue(this.value, 'fast-charger-watt-slider')">
+                            <div class="input-group-append">
+                                <span class="input-group-text">kW</span>
+                            </div>
+                            <input type="range" class="form-control-range slider" id="fast-charger-watt-slider"
+                                    name="fast-charger-watt-slider" min="52" max="200" value="100"
+                                    onchange="updateTextInput(this.value, 'fast-charger-watt');">
+                        </div>
+                    </div>
+                    <div class="box-item text-center">
+                        <div class="text-center">
+                            <label class="btn btn-success m-3 mx-auto" for="custom-file">
+                                <input id="custom-file" type="file" style="display:none" onchange="$('#upload-file-info').html(this.files[0].name)" accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                                Upload Database File
+                            </label>
+                            <span class='label label-info' id="upload-file-info"></span>
+                        </div>
+                        <div class="text-center">
+                            <button onclick="callGoogleAPI()" type="submit" class="btn btn-success m-3 mx-auto" data-toggle="modal" data-target="#exampleModal" id="loadData">Load Data</button>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Pick your electricity rate</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="resetAPIdata()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="modal-form">
+                                        <p id="location-error-msg" style="color: red;">error message</p>
+                                        <span id="weather-data-msg"></span><a href="#" id="weather-data" target="_blank"></a><br>
+                                        <span id="utility-data-msg">
+                                            
+                                        </span>
+                                        <div id="utility-data">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="resetAPIdata()">Close</button>
+                                    <button type="submit" class="btn btn-primary" data-dismiss="modal" id='chooseButton'>Choose</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="discnt_rate">Annual Discount Rate</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="discnt_rate" name="discnt_rate"
+                                    value="6.9" onkeyup="updateSliderValue(this.value, 'discnt_rate-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="discnt_rate-slider"
+                                    name="discnt_rate-slider" min="0" max="100" value="5"
+                                    onchange="updateTextInput(this.value, 'discnt_rate');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="infl_rate">Annual Inflation Rate</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="infl_rate" name="infl_rate"
+                                    value="2.5" onkeyup="updateSliderValue(this.value, 'infl_rate-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="infl_rate-slider"
+                                    name="infl_rate-slider" min="0" max="100" value="2.5"
+                                    onchange="updateTextInput(this.value, 'infl_rate');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="lat">Latitude</label>
+                            <input type="number" class="form-control" id="lat" name="lat" autocomplete="off" maxlength="5" value='0' readonly>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="long">Longitude</label>
+                            <input type="number" class="form-control" id="long" name="long" autocomplete="off" maxlength="5" value='0' readonly>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="t_z">Time Zone</label>
+                            <input type="text" class="form-control" id="t_z" name="t_z" autocomplete="off" value='' readonly>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success m-3 mx-auto" data-toggle="modal" data-target="#moreSystemModal">More System info Inputs</button>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="moreSystemModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">More System Information Inputs</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body" id="dialog-body-feed-in-tariff">
+                                <div class="box-grid">
+                                    <div class="box-item">
+                                        <div class="form-group">
+                                            <label for="pop-size">Number of solution for each generation</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="pop-size" name="pop-size" value="10">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-item">
+                                        <div class="form-group">
+                                            <label for="calc-amount">Number of generation</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="calc-amount" name="calc-amount" value="20">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Electricity</h3>
+                    <h4>Electricity price (&#162/kwh)</h4>
+                    <p class="text-center m0" id="utility-matrix-name1"></p>
+                    <p class="text-center" id="utility-matrix-name2" >&nbsp;</p>
+                    <div class="box-matrix-grid">
+                        <div class="utility-matrix" id="weekday">
+                        
+                        </div>
+                        <div class="utility-matrix" id="weekend">
+                            
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="conn-fee">Connection fee</label>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">$</span>
+                                </div>
+                                <input type="number" class="form-control" id="conn-fee" name="conn-fee" value="0.83" step="0.01"
+                                    onkeyup="updateSliderValue(this.value, 'conn-fee-slider')">
+                                
+                                <input type="range" class="form-control-range slider" id="conn-fee-slider"
+                                    name="conn-fee-slider" min="0" max="2" value="0.83" step="0.01" onchange="updateTextInput(this.value, 'conn-fee');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="elec-price-change">Annual increase in price of electricity</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="elec-price-change" name="elec-price-change" value="20">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="box-item text-center">
+                            <div class="btn-group-toggle btn-group-inline" data-toggle="buttons">
+                                <label class="btn btn-outline-success" id="btn-net-metering" onchange="netMetering(); showAlert('elec-alert');">
+                                    <input type="checkbox" checked="false" class="no-focus" id="net-metering" name="net-metering" value="0"> Net metering
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-grid" id="compensation-grid">
+                        <div class="box-item">
+                            <div class="form-group">
+                                <label for="feed-in-tariff-rate">Compensation for excess generation</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="feed-in-tariff-rate" name="feed-in-tariff-rate" value="0" readonly>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">$ / kWh</span>
+                                    </div>
+                                    <div class="btn-group-toggle btn-group-inline" style = "padding-left : 20px;" data-toggle="buttons">
+                                        <label class="btn btn-outline-success" id="btn-feed-in-tariff" onchange="feedTariff(); showAlert('elec-alert');">
+                                            <input type="checkbox" checked="false" class="no-focus" id="feed-in-tariff" name="feed-in-tariff" value="0"> Feed-in Tariff
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success m-3 mx-auto" data-toggle="modal" data-target="#moreElecModal">More Electricity Inputs</button>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="moreElecModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">More Battery Inputs</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body" id="dialog-body-feed-in-tariff">
+                                <div class="box-item">
+                                    <div class="form-group">
+                                        <label for="sales-tax-perc">Sales tax on Monthly Electricity</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="sales-tax-perc" name="sales-tax-perc" value="4.5" 
+                                                onkeyup="updateSliderValue(this.value, 'sales-tax-perc-slider')">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">%</span>
+                                            </div>
+                                            <input type="range" class="form-control-range slider" id="sales-tax-perc-slider"
+                                                name="sales-tax-perc-slider" min="0" max="100" value="4.5"
+                                                onchange="updateTextInput(this.value, 'sales-tax-perc');">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="hourly-limit">Hourly limit on grid purchase</label>
+                                        <div class="input-group">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">$</span>
+                                            </div>
+                                            <input type="number" class="form-control" id="hourly-limit" name="hourly-limit" value="1000"
+                                                onkeyup="updateSliderValue(this.value, 'hourly-limit-slider')">
+                                            
+                                            <input type="range" class="form-control-range slider" id="hourly-limit-slider"
+                                                name="hourly-limit-slider" min="0" max="1000" value="1000" onchange="updateTextInput(this.value, 'hourly-limit');">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-grid">
+                                    <div class="box-item">
+                                        <div class="form-group">
+                                            <label for="one-time-conec-fee">One-time connection fee</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="one-time-conec-fee" name="one-time-conec-fee" value="1000" 
+                                                    onkeyup="updateSliderValue(this.value, 'one-time-conec-fee-slider')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input type="range" class="form-control-range slider" id="one-time-conec-fee-slider"
+                                                    name="one-time-conec-fee-slider" min="0" max="10000" value="4.5"
+                                                    onchange="updateTextInput(this.value, 'one-time-conec-fee');">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Elec-GWP">Global Warming Potential</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="Elec-GWP" name="Elec-GWP" value="0.57" 
+                                                    onkeyup="updateSliderValue(this.value, 'Elec-GWP-slider')" step='Any'>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">KgCO<sub>2</sub>/kWh</span>
+                                                </div>
+                                                <input type="range" class="form-control-range slider" id="Elec-GWP-slider"
+                                                    name="Elec-GWP-slider" min="0" max="10" value="0.57"
+                                                    onchange="updateTextInput(this.value, 'Elec-GWP');">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-item">
+                                        <div class="form-group">
+                                            <label for="liab-insu-fee">Monthly Liability Insurance fee</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="liab-insu-fee" name="liab-insu-fee" value="0" 
+                                                    onkeyup="updateSliderValue(this.value, 'liab-insu-fee-slider')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input type="range" class="form-control-range slider" id="liab-insu-fee-slider"
+                                                    name="liab-insu-fee-slider" min="0" max="10000" value="0"
+                                                    onchange="updateTextInput(this.value, 'liab-insu-fee');">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Elec-CED">Cumulative Energy Demand</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="Elec-CED" name="Elec-CED" value="11.50" 
+                                                    onkeyup="updateSliderValue(this.value, 'Elec-CED-slider')" step='Any'>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">MJ/kWh</span>
+                                                </div>
+                                                <input type="range" class="form-control-range slider" id="Elec-CED-slider"
+                                                    name="Elec-CED-slider" min="0" max="100" value="11.50"
+                                                    onchange="updateTextInput(this.value, 'Elec-CED');">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-container-21">
+                <div class="box">
+                    <h3>PV & Inverter Specification</h3>
+                    <div class="box-grid">
+                        <div class="box-item">
+                            <div class="form-group">
+                                <label for="PV-cost">PV cost (including BOS)</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="PV-cost" name="PV-cost" value="350" 
+                                        onkeyup="updateSliderValue(this.value, 'PV-cost-slider')">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">$/kW</span>
+                                    </div>
+                                    <input type="range" class="form-control-range slider" id="PV-cost-slider"
+                                        name="PV-cost-slider" min="300" max="400" value="350"
+                                        onchange="updateTextInput(this.value, 'PV-cost');">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="PV-effi">PV efficiency</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="PV-effi" name="PV-effi" value="20"
+                                        onkeyup="updateSliderValue(this.value, 'PV-effi-slider')">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                    <input type="range" class="form-control-range slider" id="PV-effi-slider"
+                                        name="PV-effi-slider" min="0" max="100" value="20" step="1"
+                                        onchange="updateTextInput(this.value, 'PV-effi');">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pv-lifetime">PV lifetime</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="pv-lifetime" name="pv-lifetime" value="15"
+                                        onkeyup="updateSliderValue(this.value, 'pv-lifetime-slider')">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Years</span>
+                                    </div>
+                                    <input type="range" class="form-control-range slider" id="pv-lifetime-slider"
+                                        name="pv-lifetime-slider" min="0" max="50" value="15"
+                                        onchange="updateTextInput(this.value, 'pv-lifetime');">
+                                </div>
+                            </div>
+                            <div class="box-item">
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-success m-3 mx-auto" data-toggle="modal" data-target="#morePvModal">More PV Inputs</button>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="morePvModal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">More PV Inputs</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body" id="dialog-body">
+                                        <div class="box-grid">
+                                            <div class="box-item">
+                                                <div class="form-group">
+                                                    <label for="max-power-temp-coeff">Maximum power temperature</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="max-power-temp-coeff" name="max-power-temp-coeff" value="0.5" 
+                                                            onkeyup="updateSliderValue(this.value, 'max-power-temp-coeff-slider')">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">%/&#8451;</span>
+                                                        </div>
+                                                        <input type="range" class="form-control-range slider" id="max-power-temp-coeff-slider"
+                                                            name="max-power-temp-coeff-slider" min="0" max="5" value="0.5"
+                                                            onchange="updateTextInput(this.value, 'max-power-temp-coeff');">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-item">
+                                                <div class="form-group">
+                                                    <label for="pv-onm">Annual PV operation and Maintenance</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="pv-onm" name="pv-onm" value="15" 
+                                                            onkeyup="updateSliderValue(this.value, 'pv-onm-slider')">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">$</span>
+                                                        </div>
+                                                        <input type="range" class="form-control-range slider" id="pv-onm-slider"
+                                                            name="pv-onm-slider" min="0" max="100" value="15"
+                                                            onchange="updateTextInput(this.value, 'pv-onm');">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-item">
+                                            <div class="form-group">
+                                                <label for="gamma-s">PV Azimuth</label>
+                                                <p id="gamma-description">Take Zero for south facing PV in northern hemisphere and north facing PV in southern hemisphere</p>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control" id="gamma-s" name="gamma-s" value="0" 
+                                                        onkeyup="updateSliderValue(this.value, 'gamma-s-slider')">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text"><sup>0</sup></span>
+                                                    </div>
+                                                    <input type="range" class="form-control-range slider" id="gamma-s-slider"
+                                                        name="gamma-s-slider" min="0" max="360" value="0"
+                                                        onchange="updateTextInput(this.value, 'gamma-s');">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-grid">
+                                            <div class="box-item">
+                                                <div class="form-group">
+                                                    <label for="tilt-value">PV tilt</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="tilt-value" name="tilt-value" value="0" step='Any'>
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text"><sup>0</sup></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-item">
+                                                <div class="form-group">
+                                                    <label for="soil-shad-loss">Annual soiling losses</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="soil-shad-loss" name="soil-shad-loss" value="3" 
+                                                            onkeyup="updateSliderValue(this.value, 'soil-shad-loss-slider')">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">%</span>
+                                                        </div>
+                                                        <input type="range" class="form-control-range slider" id="soil-shad-loss-slider"
+                                                            name="soil-shad-loss-slider" min="0" max="20" value="3"
+                                                            onchange="updateTextInput(this.value, 'soil-shad-loss');">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="box-grid">
+                                            <div class="box-item">
+                                                <div class="form-group">
+                                                    <label for="PV-GWP">Global Warming Potential</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="PV-GWP" name="PV-GWP" value="1853.64" 
+                                                            onkeyup="updateSliderValue(this.value, 'PV-GWP-slider')">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">KgCO<sub>2</sub>/kW</span>
+                                                        </div>
+                                                        <input type="range" class="form-control-range slider" id="PV-GWP-slider"
+                                                            name="PV-GWP-slider" min="0" max="10000" value="1853.64"
+                                                            onchange="updateTextInput(this.value, 'PV-GWP');">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pv-lower-limit">PV lower limit</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="pv-lower-limit" name="pv-lower-limit" value="0">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">kW</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-item">
+                                                <div class="form-group">
+                                                    <label for="PV-CED">Cumulative Energy Demand</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="PV-CED" name="PV-CED" value="30618.39" 
+                                                            onkeyup="updateSliderValue(this.value, 'PV-CED-slider')">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">MJ/kW</span>
+                                                        </div>
+                                                        <input type="range" class="form-control-range slider" id="PV-CED-slider"
+                                                            name="PV-CED-slider" min="0" max="100000" value="30618.39"
+                                                            onchange="updateTextInput(this.value, 'PV-CED');">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="pv-upper-limit">PV upper limit</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="pv-upper-limit" name="pv-upper-limit" value="100">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">kW</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-item">
+                            <div class="form-group">
+                                <label for="inv-cost">Inverter cost (including BOS)</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="inv-cost" name="inv-cost" value="0"
+                                        onkeyup="updateSliderValue(this.value, 'inv-cost-slider')">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">$/kW</span>
+                                    </div>
+                                    <input type="range" class="form-control-range slider" id="inv-cost-slider"
+                                        name="inv-cost-slider" min="0" max="100" value="0"
+                                        onchange="updateTextInput(this.value, 'inv-cost');">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inv-effi">Inverter efficiency</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="inv-effi" name="inv-effi" value="90"
+                                        onkeyup="updateSliderValue(this.value, 'inv-effi-slider')">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                    <input type="range" class="form-control-range slider" id="inv-effi-slider"
+                                        name="inv-effi-slider" min="80" max="100" value="90"
+                                        onchange="updateTextInput(this.value, 'inv-effi');">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="invrtr-lifetime">Inverter lifetime</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="invrtr-lifetime" name="invrtr-lifetime" value="30"
+                                        onkeyup="updateSliderValue(this.value, 'invrtr-lifetime-slider')">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">Years</span>
+                                    </div>
+                                    <input type="range" class="form-control-range slider" id="invrtr-lifetime-slider"
+                                        name="invrtr-lifetime-slider" min="0" max="50" value="30"
+                                        onchange="updateTextInput(this.value, 'invrtr-lifetime');">
+                                </div>
+                            </div>
+                            <div class="box-item">
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-success m-3 mx-auto" data-toggle="modal" data-target="#moreInverterModal">More Inverter Inputs</button>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="moreInverterModal" tabindex="-1" role="dialog">
+                                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">More Inverter Inputs</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body" id="dialog-body-inverter">
+                                        <div class="box-grid">
+                                            <div class="box-item">
+                                                <div class="form-group">
+                                                    <label for="annual-invert-op-main">Annual Inverter operation and Maintenance</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="annual-invert-op-main" name="annual-invert-op-main" value="10" 
+                                                            onkeyup="updateSliderValue(this.value, 'annual-invert-op-main-slider')">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">$</span>
+                                                        </div>
+                                                        <input type="range" class="form-control-range slider" id="annual-invert-op-main-slider"
+                                                            name="annual-invert-op-main-slider" min="0" max="100" value="10"
+                                                            onchange="updateTextInput(this.value, 'annual-invert-op-main');">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inv-GWP">Global Warming Potential</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="inv-GWP" name="inv-GWP" value="81.01" 
+                                                            onkeyup="updateSliderValue(this.value, 'inv-GWP-slider')">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">KgCO<sub>2</sub>/kW</span>
+                                                        </div>
+                                                        <input type="range" class="form-control-range slider" id="inv-GWP-slider"
+                                                            name="inv-GWP-slider" min="0" max="1000" value="81.01"
+                                                            onchange="updateTextInput(this.value, 'inv-GWP');">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-item">
+                                                <div class="form-group">
+                                                    <label for="invert-load-ratio">Inverter Loading Ratio</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="invert-load-ratio" name="invert-load-ratio" value="1.25" 
+                                                            onkeyup="updateSliderValue(this.value, 'invert-load-ratio-slider')">
+                                                        <input type="range" class="form-control-range slider" id="invert-load-ratio-slider"
+                                                            name="invert-load-ratio-slider" min="0" max="10" value="1.25"
+                                                            onchange="updateTextInput(this.value, 'invert-load-ratio');">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="inv-CED">Cumulative Energy Demand</label>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="inv-CED" name="inv-CED" value="1263.69" 
+                                                            onkeyup="updateSliderValue(this.value, 'inv-CED-slider')">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">MJ/kW</span>
+                                                        </div>
+                                                        <input type="range" class="form-control-range slider" id="inv-CED-slider"
+                                                            name="inv-CED-slider" min="0" max="5000" value="1263.69"
+                                                            onchange="updateTextInput(this.value, 'inv-CED');">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>Battery Specification</h3>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="bat-cost">Battery cost (including BOS)</label>
+                            <div class="input-group">
+                                
+                                <input type="number" class="form-control" id="bat-cost" name="bat-cost" value="150"
+                                    onkeyup="updateSliderValue(this.value, 'bat-cost-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">$/kWh</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="bat-cost-slider"
+                                    name="bat-cost-slider" min="50" max="250" value="150"
+                                    onchange="updateTextInput(this.value, 'bat-cost');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="bat-effi">Battery roundtrip efficiency</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="bat-effi" name="bat-effi" value="85"
+                                    onkeyup="updateSliderValue(this.value, 'bat-effi-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="bat-effi-slider"
+                                    name="bat-effi-slider" min="70" max="100" value="85"
+                                    onchange="updateTextInput(this.value, 'bat-effi');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="bat-warranty">Replacement year</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="bat-warranty" name="bat-warranty" value="5"
+                                    onkeyup="updateSliderValue(this.value, 'bat-warranty-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Years</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="bat-warranty-slider"
+                                    name="bat-warranty-slider" min="0" max="10" value="5"
+                                    onchange="updateTextInput(this.value, 'bat-warranty');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="text-center">
+                            <button type="button" class="btn btn-success m-3 mx-auto" data-toggle="modal" data-target="#moreBatteryModal">More Battery Inputs</button>
+                        </div>
+                    </div>
+                    <div class="box-item text-center">
+                        <div class="btn-group-responsive btn-group btn-group-toggle btn-group-inline" data-toggle="buttons">
+                            <label class="btn btn-outline-success active" id="new-battery-life" onclick="toggleSecondBatteryLife(0)">
+                                <input type="radio" name="bat-app" value="new" checked> New battery
+                            </label>
+                            <label class="btn btn-outline-success" id="second-battery-life" onclick="toggleSecondBatteryLife(1)">
+                                <input type="radio" name="bat-app" value="second">Second life battery
+                                
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="moreBatteryModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">More Battery Inputs</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body" id="dialog-body-battery">
+                                <div class="box-grid">
+                                    <div class="box-item">
+                                        <div class="form-group">
+                                            <label for="annual-bat-op-main">Annual battery operation and maintenance</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="annual-bat-op-main" name="annual-bat-op-main" value="10"
+                                                    onkeyup="updateSliderValue(this.value, 'annual-bat-op-main-slider')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">$</span>
+                                                </div>
+                                                <input type="range" class="form-control-range slider" id="annual-bat-op-main-slider"
+                                                    name="annual-bat-op-main-slider" min="0" max="100" value="10"
+                                                    onchange="updateTextInput(this.value, 'annual-bat-op-main');">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="voltage">Voltage</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="voltage" name="voltage" value="14.4"
+                                                    onkeyup="updateSliderValue(this.value, 'voltage-slider')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">V</span>
+                                                </div>
+                                                <input type="range" class="form-control-range slider" id="voltage-slider"
+                                                    name="voltage-slider" min="0" max="100" value="14.4"
+                                                    onchange="updateTextInput(this.value, 'voltage');">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-item">
+                                        <div class="form-group">
+                                            <label for="maximum-depth-discharge">Maximum allowable depth of discharge</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="maximum-depth-discharge" name="maximum-depth-discharge" value="80"
+                                                    onkeyup="updateSliderValue(this.value, 'maximum-depth-discharge-slider')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <input type="range" class="form-control-range slider" id="maximum-depth-discharge-slider"
+                                                    name="maximum-depth-discharge-slider" min="0" max="100" value="80"
+                                                    onchange="updateTextInput(this.value, 'maximum-depth-discharge');">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cap-ea-string">Capacity of each string</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="cap-ea-string" name="cap-ea-string" value="0.918"
+                                                    onkeyup="updateSliderValue(this.value, 'cap-ea-string-slider')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">kWh</span>
+                                                </div>
+                                                <input type="range" class="form-control-range slider" id="cap-ea-string-slider"
+                                                    name="cap-ea-string-slider" min="0" max="10" value="0.918"
+                                                    onchange="updateTextInput(this.value, 'cap-ea-string');">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-item">
+                                    <div class="form-group">
+                                        <label for="max-allow-per-kwh">Maximum allowable throughput per kWh</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="max-allow-per-kwh" name="max-allow-per-kwh" value="2200"
+                                                onkeyup="updateSliderValue(this.value, 'max-allow-per-kwh-slider')">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">kWh</span>
+                                            </div>
+                                            <input type="range" class="form-control-range slider" id="max-allow-per-kwh-slider"
+                                                name="max-allow-per-kwh-slider" min="0" max="5000" value="2200"
+                                                onchange="updateTextInput(this.value, 'max-allow-per-kwh');">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-grid">
+                                    <div class="box-item">
+                                        <div class="form-group">
+                                            <label for="glob-warm-pot-bat">Global Warming Potential</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="glob-warm-pot-bat" name="glob-warm-pot-bat" value="16.10"
+                                                    onkeyup="updateSliderValue(this.value, 'glob-warm-pot-bat-slider')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">KgCO<sub>2</sub>/kWh</span>
+                                                </div>
+                                                <input type="range" class="form-control-range slider" id="glob-warm-pot-bat-slider"
+                                                    name="glob-warm-pot-bat-slider" min="0" max="100" value="16.10"
+                                                    onchange="updateTextInput(this.value, 'glob-warm-pot-bat');">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="bat-lower-limit">Battery lower limit</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="bat-lower-limit" name="bat-lower-limit" value="0">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">kWh</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cal-ageing-param">Calendar ageing parameter</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="cal-ageing-param" name="cal-ageing-param" value="0.001483"
+                                                    onkeyup="updateSliderValue(this.value, 'cal-ageing-param-slider')">
+                                                <input type="range" class="form-control-range slider" id="cal-ageing-param-slider"
+                                                    name="cal-ageing-param-slider" min="0" max="1" value="0.001483"
+                                                    onchange="updateTextInput(this.value, 'cal-ageing-param');">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-item">
+                                        <div class="form-group">
+                                            <label for="cum-energy-demand-bat">Cumulative Energy Demand</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="cum-energy-demand-bat" name="cum-energy-demand-bat" value="268.04"
+                                                    onkeyup="updateSliderValue(this.value, 'cum-energy-demand-bat-slider')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">MJ/kWh</span>
+                                                </div>
+                                                <input type="range" class="form-control-range slider" id="cum-energy-demand-bat-slider"
+                                                    name="cum-energy-demand-bat-slider" min="0" max="1000" value="268.04"
+                                                    onchange="updateTextInput(this.value, 'cum-energy-demand-bat');">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="bat-upper-limit">Battery upper limit</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="bat-upper-limit" name="bat-upper-limit" value="100">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">kWh</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cyclic-ageing-param">Cyclic ageing parameter</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" id="cyclic-ageing-param" name="cyclic-ageing-param" value="0.004"
+                                                    onkeyup="updateSliderValue(this.value, 'cyclic-ageing-param-slider')">
+                                                <input type="range" class="form-control-range slider" id="cyclic-ageing-param-slider"
+                                                    name="cyclic-ageing-param-slider" min="0" max="1" value="0.004"
+                                                    onchange="updateTextInput(this.value, 'cyclic-ageing-param');">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box" id="second-life-battery-container" style="display:none">
+                <h3>Second-life Battery Specification</h3>
+                <div class="box-grid">
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="ouput-model" class="control-label">Inputs for the model with default values</label>
+                            <select class="form-control" id="ouput-model" name="ouput-model" onchange="secondLifeBatteryOption()">
+                                <option value="eol-remanufact-recycle">End-of-life value from remanufacturing & recycling</option>
+                                <option value="pot-labor-cost" >Potential labor costs to be expected</option>
+                                <option value="pot-elect-cost">Potential electricity costs to be expected</option>
+                                <option value="pot-trans-distance">Potential transportation distance to be expected</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="used-product-dis-fact-early">Used Product discount factor (Early adopter) <sup>1</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="used-product-dis-fact-early" name="used-product-dis-fact-early" value="62"
+                                        onkeyup="updateSliderValue(this.value, 'used-product-dis-fact-early-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="used-product-dis-fact-early-slider"
+                                        name="used-product-dis-fact-early-slider" min="0" max="100" value="62"
+                                        onchange="updateTextInput(this.value, 'used-product-dis-fact-early');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="year-start-remanufact">Year to start remanufacturing</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="year-start-remanufact" name="year-start-remanufact" value="2020"
+                                        onkeyup="updateSliderValue(this.value,'year-start-remanufact-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Years</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="year-start-remanufact-slider"
+                                        name="year-start-remanufact-slider" min="2020" max="2050" value="2020"
+                                        onchange="updateTextInput(this.value, 'year-start-remanufact');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="used-product-dis-fact-general">Used product discount factor (General public) <sup>1</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="used-product-dis-fact-general" name="used-product-dis-fact-general" value="59"
+                                        onkeyup="updateSliderValue(this.value, 'used-product-dis-fact-general-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="used-product-dis-fact-general-slider"
+                                        name="used-product-dis-fact-general-slider" min="0" max="100" value="59"
+                                        onchange="updateTextInput(this.value, 'used-product-dis-fact-general');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="year-switch-general">Year to switch to general public</label>
+                            <div class = "input-group">
+                                <input type="number" class="form-control" id="year-switch-general" name="year-switch-general" value="2028"
+                                        onkeyup="updateSliderValue(this.value,'year-switch-general-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Years</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="year-switch-general-slider"
+                                        name="year-switch-general-slider" min="2020" max="2050" value="2028"
+                                        onchange="updateTextInput(this.value, 'year-switch-general');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="tech-feasible-eol-bat">Technically feasible end-of-life batteries</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="tech-feasible-eol-bat" name="tech-feasible-eol-bat" value="95"
+                                        onkeyup="updateSliderValue(this.value, 'tech-feasible-eol-bat-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="tech-feasible-eol-bat-slider"
+                                        name="tech-feasible-eol-bat-slider" min="0" max="100" value="95"
+                                        onchange="updateTextInput(this.value, 'tech-feasible-eol-bat');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="perception-early">Willingness to buy SLB over a new battery (Early Adaptor) <sup>1</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="perception-early" name="perception-early" value="37"
+                                        onkeyup="updateSliderValue(this.value, 'perception-early-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="perception-early-slider"
+                                        name="perception-early-slider" min="0" max="100" value="37"
+                                        onchange="updateTextInput(this.value, 'perception-early');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="val-slb">Value of SLB throughput</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="val-slb" name="val-slb" value="80"
+                                        onkeyup="updateSliderValue(this.value, 'val-slb-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="val-slb-slider"
+                                        name="val-slb-slider" min="0" max="100" value="80"
+                                        onchange="updateTextInput(this.value, 'val-slb');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="perception-general">Willingness to buy SLB over a new battery (General Public) <sup>1</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="perception-general" name="perception-general" value="44"
+                                        onkeyup="updateSliderValue(this.value, 'perception-general-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="perception-general-slider"
+                                        name="perception-general-slider" min="0" max="100" value="44"
+                                        onchange="updateTextInput(this.value, 'perception-general');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="allow-profit">Allowable profit</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="allow-profit" name="allow-profit" value="10"
+                                        onkeyup="updateSliderValue(this.value, 'allow-profit-slider')">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input type="range" class="form-control-range slider" id="allow-profit-slider"
+                                        name="allow-profit-slider" min="0" max="100" value="0"
+                                        onchange="updateTextInput(this.value, 'allow-profit');">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="equip-fac-cost">Equipment and facility cost <sup>2</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="equip-fac-cost" name="equip-fac-cost" value="11.35">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">$/kWh SLB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="labor-hours">Labor hours <sup>7</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="labor-hours" name="labor-hours" value="2016">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">h/year</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="elec-used">Electricity used <sup>3</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="elec-used" name="elec-used" value="7.5">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">kWh/kWh SLB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="labor-cost">Labor cost <sup>8</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="labor-cost" name="labor-cost" value="20.67">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">$/h</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="elect-cost">Electricity cost <sup>4</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="elect-cost" name="elect-cost" value="0.0688">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">$/kWh</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="output-per-hour">Output per hour <sup>7</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="output-per-hour" name="output-per-hour" value="3">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">packs/h</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="trans-cost">Transportation cost <sup>5</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="trans-cost" name="trans-cost" value="1.891">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">$/mile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="num-labor-shift">Number of laborers per 3 shift</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="num-labor-shift" name="num-labor-shift" value="10">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">NUM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="trans-distance">Transportation distance <sup>6</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="trans-distance" name="trans-distance" value="526.8">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">ton-mile</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-item">
+                        <div class="form-group">
+                            <label for="recycle-value">Recycling value <sup>9*</sup></label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="recycle-value" name="recycle-value" value="-4.1">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">$/kWh</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="description">
+                    <p>
+                        <sup>1</sup>Survey results; <sup>2</sup>Assuming 10 years facility life as in ldjis and Costa (2016); <sup>3</sup>Cready et al. (2003); <sup>4</sup>US EIA (2018);
+                        <sup>5</sup>ATRI Marginal costs (2017); <sup>6</sup>US DOT, US BTS (2017); <sup>7</sup>Batpac model (2019); <sup>8</sup>US BLS (2020); 
+                        <sup>9</sup>BNEF (2019); <sup>*</sup>10% increase in revenue assumed
+                    </p>
+                </div>
+            </div>
+            <div class="box-item">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success btn-lg btn-custom-width" onclick = "showAlert('load-alert')" name="submit">Submit</button>
+                    <img src="../static/images/info-2.png" id="info-image" data-toggle="modal" data-target="#moreSubmitModal">
+                    <div class="modal fade" id="moreSubmitModal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title">Optimization Options</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body" id="dialog-body-submit">
+                                <div class="container-opt">
+                                    <div class="box-item vertical-center">
+                                        <label class="opt-options">
+                                            <input type="radio" name="ios" checked="checked" value = "1" id = "minimize-cost" onchange = "updateOptOptions(this)"> Minimize cost
+                                        </label>
+                                        <label class="opt-options">
+                                            <input type="radio" name="ios" value = "0" id = "carbn-ftprnt" onchange = "updateOptOptions(this)"> Minimized Carbon footprin
+                                        </label>
+                                        <label class="opt-options">
+                                            <input type="radio" name="ios" value = "0" id = "cum-dem" onchange = "updateOptOptions(this)"> Minimize Cumulative Energy Demand
+                                        </label>                    
+                                    </div>
+                                </div>
+                                
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sticky-top alert-box warning" id="elec-alert">
+                <strong>Warning!</strong> Check the upper limit of PV for your area.
+            </div>
+            <div class="sticky-top alert-box loading" id="load-alert">
+                <strong>Loading!</strong> Optimization in progress, please wait ...
+            </div>
+        </form>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</html>
+{% endblock %}

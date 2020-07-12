@@ -1,0 +1,131 @@
+2020-05-18 12:25:55.256321, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 12:25:55.258872, [ERROR] ABMModel monitor: Source model file not found: "SLB reman_transport_05.11.2020_2.itmx". Not attempting to monitor changes to it.
+2020-05-18 12:25:55.265853, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 12:27:23.391563, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 12:27:23.403530, [ERROR] ABMModel monitor: Source model file not found: "SLB reman_transport_05.11.2020_2.stmx". Not attempting to monitor changes to it.
+2020-05-18 12:27:23.422481, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 12:27:26.265529, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 12:27:26.269642, [ERROR] ABMModel monitor: Source model file not found: "SLB reman_transport_05.11.2020_2.stmx". Not attempting to monitor changes to it.
+2020-05-18 12:27:26.276388, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 12:27:27.370066, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 12:27:27.373059, [ERROR] ABMModel monitor: Source model file not found: "SLB reman_transport_05.11.2020_2.stmx". Not attempting to monitor changes to it.
+2020-05-18 12:27:27.380040, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 12:29:46.390539, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 12:29:46.393536, [ERROR] ABMModel monitor: Source model file not found: "SLB reman_transport_05.11.2020_2.stmx". Not attempting to monitor changes to it.
+2020-05-18 12:29:46.402046, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 12:29:46.431430, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 12:29:46.435235, [ERROR] ABMModel monitor: Source model file not found: "SLB reman_transport_05.11.2020_2.stmx". Not attempting to monitor changes to it.
+2020-05-18 12:29:46.445393, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 13:20:54.153493, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-18 13:20:54.155488, [ERROR] ABMModel monitor: Source model file not found: "SLB reman_transport_05.11.2020_2.stmx". Not attempting to monitor changes to it.
+2020-05-18 13:20:54.162468, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models'
+2020-05-19 11:22:15.187774, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models.SLB reman_transport_05'
+2020-05-19 11:22:15.190766, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/SLB reman_transport_05.11.2020_2.itmx". Not attempting to monitor changes to it.
+2020-05-19 11:22:15.193725, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: No module named 'simulation_models.SLB reman_transport_05'
+2020-05-19 11:24:05.360027, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB reman_transport_may11'
+2020-05-19 11:24:05.367288, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/SLB reman_transport_may11.itmx". Not attempting to monitor changes to it.
+2020-05-19 11:24:05.374273, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB reman_transport_may11'
+2020-05-19 11:24:20.894259, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB reman_transport_may11'
+2020-05-19 11:24:20.897253, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/SLB reman_transport_may11.itmx". Not attempting to monitor changes to it.
+2020-05-19 11:24:20.906226, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB reman_transport_may11'
+2020-05-19 11:25:22.215714, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB reman_transport_may11'
+2020-05-19 11:25:22.216712, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/SLB reman_transport_may11.itmx". Not attempting to monitor changes to it.
+2020-05-19 11:25:22.222697, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB reman_transport_may11'
+2020-05-19 11:26:19.295020, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:26:19.299928, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/SLB_reman_transport_may11.itmx". Not attempting to monitor changes to it.
+2020-05-19 11:26:19.304914, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:26:19.534897, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:26:19.536892, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/SLB_reman_transport_may11.itmx". Not attempting to monitor changes to it.
+2020-05-19 11:26:19.540882, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:26:20.061486, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:26:20.067447, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/SLB_reman_transport_may11.itmx". Not attempting to monitor changes to it.
+2020-05-19 11:26:20.073430, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:26:21.567377, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:26:21.569372, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/SLB_reman_transport_may11.itmx". Not attempting to monitor changes to it.
+2020-05-19 11:26:21.575356, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:26:55.591047, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:26:55.594632, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/SLB_reman_transport_may11.itmx". Not attempting to monitor changes to it.
+2020-05-19 11:26:55.602607, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:27:33.517711, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:27:33.519704, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/SLB_reman_transport_may11.itmx". Not attempting to monitor changes to it.
+2020-05-19 11:27:33.526686, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'SLB_reman_transport_may11'
+2020-05-19 11:28:36.362784, [WARN] Could not reload scenario file. Will keep monitoring anyway...
+2020-05-19 11:28:36.663677, [WARN] Could not reload scenario file. Will keep monitoring anyway...
+2020-05-19 11:28:36.811857, [WARN] Could not reload scenario file. Will keep monitoring anyway...
+2020-05-19 11:28:37.003907, [WARN] Could not reload scenario file. Will keep monitoring anyway...
+2020-05-19 11:28:37.061305, [WARN] Could not reload scenario file. Will keep monitoring anyway...
+2020-05-19 11:28:37.062388, [WARN] Could not reload scenario file. Will keep monitoring anyway...
+2020-05-19 12:35:17.237292, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'trial1'
+2020-05-19 12:35:17.240286, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/trial1.stmx". Not attempting to monitor changes to it.
+2020-05-19 12:35:17.244274, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'trial1'
+2020-05-19 12:35:53.086303, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'trial1'
+2020-05-19 12:35:53.087263, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/trial1.stmx". Not attempting to monitor changes to it.
+2020-05-19 12:35:53.092250, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'trial1'
+2020-05-19 12:35:55.110849, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'trial1'
+2020-05-19 12:35:55.112843, [ERROR] ABMModel monitor: Source model file not found: "simulation_models/trial1.stmx". Not attempting to monitor changes to it.
+2020-05-19 12:35:55.116833, [ERROR] Module not found Error when trying to load simulation class from external file. Only use relative paths and do not rename the class inside the generated class! Error Message: module 'simulation_models' has no attribute 'trial1'
+2020-05-19 12:38:21.319458, [ERROR] Scenario manager "trail1" not found! Did you maybe mean one of "smTransport"?
+2020-05-19 12:38:21.322448, [ERROR] Scenario "base" not found in any scenario manager!
+2020-05-19 12:38:21.323445, [WARN] No output data produced. Hopefully this was your intention.
+2020-05-19 12:38:36.105567, [WARN] Unable to simulate equation "Population". Doesn't seem like it's part of the model.
+2020-05-19 12:38:36.108555, [ERROR] No simulation model containing equation "Population". Did you maybe mean one of "population, death, deathRate"?
+2020-05-19 12:38:36.120523, [ERROR] No output data produced.
+2020-05-19 14:58:59.591736, [WARN] Unable to simulate equation "collectedEOLB". Doesn't seem like it's part of the model.
+2020-05-19 14:58:59.613678, [ERROR] No simulation model containing equation "collectedEOLB". Did you maybe mean one of "collectedeolb, smoothed, phev40Life"?
+2020-05-19 15:43:25.428443, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-19 15:43:25.433753, [ERROR] No output data produced.
+2020-05-19 15:43:30.787698, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-19 15:43:30.791849, [ERROR] No output data produced.
+2020-05-19 15:44:09.909426, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-19 15:44:09.912418, [ERROR] No output data produced.
+2020-05-19 15:45:35.255009, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-19 15:45:35.259940, [ERROR] No output data produced.
+2020-05-19 15:48:14.987816, [WARN] Unable to simulate equation "transportationCostsPerSlbKwh". Doesn't seem like it's part of the model.
+2020-05-19 15:48:14.990808, [ERROR] No output data produced.
+2020-05-25 13:04:51.565018, [ERROR] Scenario manager "smTemp" not found! Did you maybe mean one of "smTransport"?
+2020-05-25 13:04:51.567713, [ERROR] Scenario "UserInput" not found in any scenario manager!
+2020-05-25 13:04:51.569714, [WARN] No output data produced. Hopefully this was your intention.
+2020-05-25 13:07:08.218428, [WARN] The scenario manager already exists. Will not change the model. Use another name to avoid surprising errors!
+2020-05-25 15:04:47.601888, [WARN] The scenario manager already exists. Will not change the model. Use another name to avoid surprising errors!
+2020-05-31 14:38:28.213882, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-31 14:38:45.029878, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-31 14:39:06.433197, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-31 14:39:29.135866, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-31 14:41:15.792801, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-31 14:41:49.751117, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-31 14:43:49.265764, [ERROR] Scenario "scenario80" not found in any scenario manager! Did you maybe mean one of "UserInput"?
+2020-05-31 14:43:58.904773, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-31 14:45:41.367404, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-31 14:45:53.092129, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-31 14:46:35.933999, [WARN] Unable to simulate equation "transportDistancePerKwh". Doesn't seem like it's part of the model.
+2020-05-31 14:46:41.113254, [WARN] The scenario manager already exists. Will not change the model. Use another name to avoid surprising errors!
+2020-05-31 14:46:47.902184, [WARN] The scenario manager already exists. Will not change the model. Use another name to avoid surprising errors!
+2020-05-31 14:47:14.569383, [ERROR] Scenario "Base" not found in any scenario manager! Did you maybe mean one of "base, scenario1"?
+2020-05-31 14:47:14.571388, [ERROR] No output data produced.
+2020-05-31 14:47:23.842884, [WARN] Unable to simulate equation "transportDistancePerKwh". Doesn't seem like it's part of the model.
+2020-05-31 14:49:24.651078, [WARN] Unable to simulate equation "transportDistancePerKwh". Doesn't seem like it's part of the model.
+2020-05-31 14:49:36.398833, [WARN] Unable to simulate equation "transportDistancePerKwh". Doesn't seem like it's part of the model.
+2020-05-31 14:50:08.345095, [WARN] Unable to simulate equation "transportationCostPerTonneSlbBasedOnEnergy". Doesn't seem like it's part of the model.
+2020-05-31 14:50:08.346819, [ERROR] No output data produced.
+2020-05-31 14:50:24.054350, [WARN] Unable to simulate equation "transportationCostPerTonneSlbBasedOnEnergy". Doesn't seem like it's part of the model.
+2020-05-31 14:50:24.057339, [ERROR] No output data produced.
+2020-05-31 14:50:37.194167, [WARN] Unable to simulate equation "transportationCostPerTonneSlbBasedOnEnergy". Doesn't seem like it's part of the model.
+2020-05-31 14:50:37.197151, [ERROR] No output data produced.
+2020-05-31 14:52:45.701932, [WARN] Unable to simulate equation "transportationCostsPerSlbKwh". Doesn't seem like it's part of the model.
+2020-05-31 14:52:45.705917, [ERROR] No output data produced.
+2020-05-31 14:52:53.461371, [WARN] Unable to simulate equation "transportationCostsPerSlbKwh". Doesn't seem like it's part of the model.
+2020-05-31 14:52:53.463685, [ERROR] No output data produced.
+2020-05-31 14:52:58.322263, [WARN] Unable to simulate equation "transportationCostsPerSlbKwh". Doesn't seem like it's part of the model.
+2020-05-31 14:52:58.325257, [ERROR] No output data produced.
+2020-05-31 14:53:20.336731, [WARN] Unable to simulate equation "transportationCostsPerSlbKwh". Doesn't seem like it's part of the model.
+2020-05-31 14:53:20.339721, [ERROR] No output data produced.
+2020-05-31 14:54:13.455326, [WARN] Unable to simulate equation "totalCostPerSlbKwhTransport". Doesn't seem like it's part of the model.
+2020-05-31 14:54:13.510180, [ERROR] No simulation model containing equation "totalCostPerSlbKwhTransport". Did you maybe mean one of "totalCostPerSlbKwhNoTransport, tonnePerSlbKwh, costOfLaborPerSlbKwh"?
+2020-05-31 14:54:13.512175, [ERROR] No output data produced.
+2020-05-31 14:54:21.171997, [WARN] Unable to simulate equation "totalCostPerSlbKwhnoTransport". Doesn't seem like it's part of the model.
+2020-05-31 14:54:21.241811, [ERROR] No simulation model containing equation "totalCostPerSlbKwhnoTransport". Did you maybe mean one of "totalCostPerSlbKwhNoTransport, tonnePerSlbKwh, costOfLaborPerSlbKwh"?
+2020-05-31 14:54:21.244812, [ERROR] No output data produced.
+2020-05-31 14:57:54.439590, [WARN] Unable to simulate equation "transportDistancePossible". Doesn't seem like it's part of the model.
+2020-05-31 19:14:35.829844, [WARN] Unable to simulate equation "costOfLaborPerHourPossible". Doesn't seem like it's part of the model.
+2020-05-31 19:14:35.889737, [ERROR] No simulation model containing equation "costOfLaborPerHourPossible". Did you maybe mean one of "costOfLaborPerHour, costOfLaborPerSlbKwh, costOfLaborInFacility"?
+2020-05-31 19:14:35.894669, [ERROR] No output data produced.

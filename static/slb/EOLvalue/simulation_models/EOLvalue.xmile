@@ -1,0 +1,3325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xmile version="1.0" xmlns="http://docs.oasis-open.org/xmile/ns/XMILE/v1.0" xmlns:isee="http://iseesystems.com/XMILE">
+	<header>
+		<smile version="1.0" namespace="std, isee"/>
+		<name>EOLvalue</name>
+		<uuid>b4c83fe1-8d20-4016-b127-29aee4d8b0f5</uuid>
+		<vendor>isee systems, inc.</vendor>
+		<product version="1.7.1" isee:build_number="1574" isee:saved_by_v1="true" lang="en">Stella Architect</product>
+	</header>
+	<sim_specs isee:simulation_delay="0.0382353" method="Euler" time_units="Months" isee:instantaneous_flows="false">
+		<start>2017</start>
+		<stop>2050</stop>
+		<dt reciprocal="true">1</dt>
+	</sim_specs>
+	<isee:prefs show_module_prefix="true" live_update_on_drag="true" show_restore_buttons="false" layer="model" interface_scale_ui="true" interface_max_page_width="10000" interface_max_page_height="10000" interface_min_page_width="0" interface_min_page_height="0" saved_runs="5" keep="false" rifp="true"/>
+	<isee:multiplayer_settings include_chat="true" allow_observers="false" advance_time_increment="1" observer_start_page="home_page" enabled="false"/>
+	<isee:time_formats default_format="Builtin">
+		<isee:time_format name="Builtin" type="adaptive"/>
+	</isee:time_formats>
+	<default_format precision="0.01"/>
+	<model_units>
+		<unit name="Miles">
+			<eqn/>
+			<alias>mi</alias>
+			<alias>mile</alias>
+		</unit>
+		<unit name="Kilograms">
+			<eqn/>
+			<alias>kg</alias>
+			<alias>kilogram</alias>
+		</unit>
+		<unit name="US Dollars">
+			<eqn/>
+			<alias>USD</alias>
+			<alias>$</alias>
+		</unit>
+		<unit name="Hours">
+			<eqn/>
+			<alias>hr</alias>
+			<alias>hour</alias>
+		</unit>
+		<unit name="Years">
+			<eqn/>
+			<alias>yr</alias>
+			<alias>year</alias>
+		</unit>
+	</model_units>
+	<model>
+		<variables>
+			<flow name="hyb out a">
+				<eqn>0.1*hyb_stock/6</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<flow name="hyb in">
+				<eqn>TIME</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="750000"/>
+				<non_negative/>
+				<gf type="extrapolate">
+					<xscale min="2017" max="2050"/>
+					<yscale min="0" max="1000000"/>
+					<ypts>418124,497531,497566,497038,493931,493773,516047,542335,553572,578453,608728,637378,666725,694289,725454,744822,762482,779577,791153,800683,809566,819083,825239,832722,840717,843018,844323,848329,851079,852109,848900,844630,841638,836532</ypts>
+				</gf>
+			</flow>
+			<stock name="hyb stock">
+				<eqn>3.57392</eqn>
+				<format precision="1" scale_by="1"/>
+				<inflow>hyb_in</inflow>
+				<outflow>hyb_out_a</outflow>
+				<outflow>hyb_out_b</outflow>
+				<outflow>hyb_out_c</outflow>
+				<outflow>hyb_out_d</outflow>
+				<non_negative/>
+			</stock>
+			<flow name="hyb out b">
+				<eqn>0.4*hyb_stock/8</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<flow name="hyb out c">
+				<eqn>0.4*hyb_stock/10</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<flow name="hyb out d">
+				<eqn>0.1*hyb_stock/12</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<aux name="total hyb out">
+				<eqn>hyb_out_a+hyb_out_b+hyb_out_c+hyb_out_d</eqn>
+			</aux>
+			<aux name="hyb battery energy">
+				<eqn>5.3</eqn>
+			</aux>
+			<aux name="hyb battery energy out per year">
+				<eqn>hyb_battery_energy*total_hyb_out</eqn>
+			</aux>
+			<flow name="PHEV10 in">
+				<eqn>TIME</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="750000"/>
+				<non_negative/>
+				<gf>
+					<xscale min="2017" max="2050"/>
+					<yscale min="0" max="100000"/>
+					<ypts>22827,29022,32499,37421,53468,62236,67023,71854,78188,79583,81446,82679,83616,84385,85340,86039,86582,87349,87777,88601,89745,88789,89421,90217,90522,90703,91057,91530,91753,92020,92236,92220,92279,92619</ypts>
+				</gf>
+			</flow>
+			<flow name="PHEV10 out a">
+				<eqn>0.1*PHEV10_stock/6</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<stock name="PHEV10 stock">
+				<eqn>3.57392</eqn>
+				<format precision="1" scale_by="1"/>
+				<inflow>PHEV10_in</inflow>
+				<outflow>PHEV10_out_a</outflow>
+				<outflow>PHEV10_out_b</outflow>
+				<outflow>PHEV10_out_c</outflow>
+				<outflow>PHEV10_out_d</outflow>
+				<non_negative/>
+			</stock>
+			<flow name="PHEV10 out b">
+				<eqn>0.4*PHEV10_stock/8</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<flow name="PHEV10 out c">
+				<eqn>0.4*PHEV10_stock/10</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<flow name="PHEV10 out d">
+				<eqn>0.1*PHEV10_stock/12</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<aux name="total PHEV10 out">
+				<eqn>PHEV10_out_a+PHEV10_out_b+PHEV10_out_c+PHEV10_out_d</eqn>
+			</aux>
+			<aux name="PHEV10 battery energy">
+				<eqn>4.4</eqn>
+			</aux>
+			<aux name="PHEV10 battery energy out per year">
+				<eqn>PHEV10_battery_energy*total_PHEV10_out</eqn>
+			</aux>
+			<flow name="PHEV40 out a">
+				<eqn>0.1*PHEV40_stock/6</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<stock name="PHEV40 stock">
+				<eqn>3.57392</eqn>
+				<format precision="1" scale_by="1"/>
+				<inflow>PHEV40_in</inflow>
+				<outflow>PHEV40_out_a</outflow>
+				<outflow>PHEV40_out_b</outflow>
+				<outflow>PHEV40_out_c</outflow>
+				<outflow>PHEV40_out_d</outflow>
+				<non_negative/>
+			</stock>
+			<flow name="PHEV40 out b">
+				<eqn>0.4*PHEV40_stock/8</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<flow name="PHEV40 out c">
+				<eqn>0.4*PHEV40_stock/10</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<flow name="PHEV40 out d">
+				<eqn>0.1*PHEV40_stock/12</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<aux name="total PHEV40 out">
+				<eqn>PHEV40_out_a+PHEV40_out_b+PHEV40_out_c+PHEV40_out_d</eqn>
+			</aux>
+			<aux name="PHEV40 battery energy">
+				<eqn>18</eqn>
+			</aux>
+			<aux name="PHEV40 battery\nenergy out per year">
+				<eqn>PHEV40_battery_energy*total_PHEV40_out</eqn>
+			</aux>
+			<flow name="PHEV40 in">
+				<eqn>TIME</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="750000"/>
+				<non_negative/>
+				<gf>
+					<xscale min="2017" max="2050"/>
+					<yscale min="0" max="300000"/>
+					<ypts>47444,107649,113503,118546,110668,101893,98666,99143,96735,98697,103601,109448,121749,128817,135848,142723,149379,156815,163128,169391,174708,179846,185177,190777,193623,196556,198553,200789,202810,204662,205672,206798,207491,208189</ypts>
+				</gf>
+			</flow>
+			<flow name="BEV out a">
+				<eqn>0.1*BEV_stock/6</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<stock name="BEV stock">
+				<eqn>3.57392</eqn>
+				<format precision="1" scale_by="1"/>
+				<inflow>EV100_in</inflow>
+				<inflow>EV200_in</inflow>
+				<inflow>EV300_in</inflow>
+				<outflow>BEV_out_a</outflow>
+				<outflow>BEV_out_b</outflow>
+				<outflow>BEV_out_c</outflow>
+				<outflow>BEV_out_d</outflow>
+				<non_negative/>
+			</stock>
+			<flow name="BEV out b">
+				<eqn>0.4*BEV_stock/8</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<flow name="BEV out c">
+				<eqn>0.4*BEV_stock/10</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<flow name="BEV out d">
+				<eqn>0.1*BEV_stock/12</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<aux name="total BEV out">
+				<eqn>BEV_out_a+BEV_out_b+BEV_out_c+BEV_out_d</eqn>
+			</aux>
+			<aux name="BEV battery energy">
+				<eqn>39</eqn>
+			</aux>
+			<aux name="BEV battery\nenergy out per year">
+				<eqn>BEV_battery_energy*total_BEV_out</eqn>
+			</aux>
+			<flow name="EV100 in">
+				<eqn>TIME</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="750000"/>
+				<non_negative/>
+				<gf>
+					<xscale min="2017" max="2050"/>
+					<yscale min="0" max="500000"/>
+					<ypts>36860,19825,75341,86740,105663,129707,136803,153022,163241,159558,160771,154415,156671,157530,161096,155506,158267,163282,168110,173956,176991,183759,191141,199681,206635,214662,223435,233428,243772,255642,267801,280834,295111,311008</ypts>
+				</gf>
+			</flow>
+			<flow name="EV200 in">
+				<eqn>TIME</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="750000"/>
+				<non_negative/>
+				<gf>
+					<xscale min="2017" max="2050"/>
+					<yscale min="0" max="1000000"/>
+					<ypts>39031,48594,173583,221596,241157,256255,279229,313864,343888,343982,348808,355275,373298,381611,408645,433491,464839,500733,535643,571334,604425,642147,679570,720112,743004,763037,780672,799028,816715,835056,849953,865570,880396,893826</ypts>
+				</gf>
+			</flow>
+			<flow name="EV300 in">
+				<eqn>TIME</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="750000"/>
+				<non_negative/>
+				<gf>
+					<xscale min="2017" max="2050"/>
+					<yscale min="0" max="2000000"/>
+					<ypts>32202,137843,221603,290816,372729,399582,425971,442494,454965,459696,473874,493811,519854,562392,608889,650409,694481,738001,777088,811103,840807,866144,885781,902296,921157,939614,960781,982347,1001593,1021100,1037172,1051891,1069414,1083464</ypts>
+				</gf>
+			</flow>
+			<aux name="total EV battery\nenergy per year">
+				<eqn>BEV_battery_energy_out_per_year+hyb_battery_energy_out_per_year+PHEV10_battery_energy_out_per_year+PHEV40_battery_energy_out_per_year</eqn>
+			</aux>
+			<aux name="sum total cap eol bat">
+				<eqn>total_EV_battery_energy_per_year*value_of_throughput_old_battery</eqn>
+				<format precision="1" scale_by="1"/>
+				<units>kWh</units>
+			</aux>
+			<aux name="collectedEOLB">
+				<eqn>collectionefficiency*sum_total_cap_eol_bat</eqn>
+			</aux>
+			<aux name="collectionefficiency">
+				<eqn>1</eqn>
+			</aux>
+			<aux name="year of switch from EA to GP">
+				<eqn>2028</eqn>
+			</aux>
+			<aux name="Start year for reman">
+				<eqn>2020</eqn>
+			</aux>
+			<aux name="demand for\nenergy storage">
+				<eqn>TIME</eqn>
+				<gf>
+					<xscale min="2020" max="2050"/>
+					<yscale min="0" max="200000000"/>
+					<ypts>2666670,4000000,5333330,5333330,4000000,2666670,2666670,4000000,6666670,9333330,18666670,25333330,33333330,50666670,104000000,165333330</ypts>
+				</gf>
+				<units>kWh</units>
+			</aux>
+			<aux name="SLBdemand">
+				<eqn>IF TIME&gt; (Start_year_for_reman-1) THEN demand_for_energy_storage*PP_total ELSE 0</eqn>
+			</aux>
+			<aux name="PP EA">
+				<doc>choosing SLB over new LIB</doc>
+				<eqn>0.37</eqn>
+			</aux>
+			<aux name="PP GP">
+				<doc>choosing SLB over new LIB</doc>
+				<eqn>0.44</eqn>
+			</aux>
+			<aux name="PP total">
+				<eqn>IF TIME&gt; (year_of_switch_from_EA_to_GP-1) THEN PP_GP ELSE PP_EA</eqn>
+			</aux>
+			<aux name="value of throughput new battery">
+				<eqn>1</eqn>
+			</aux>
+			<aux name="value of throughput\nold battery">
+				<doc>0.8*0.5</doc>
+				<eqn>0.8</eqn>
+			</aux>
+			<aux name="value parameter">
+				<eqn>value_of_throughput_old_battery/value_of_throughput_new_battery</eqn>
+			</aux>
+			<aux name="used product discount factor">
+				<eqn>IF TIME&lt;Start_year_for_reman_1 THEN 0 ELSE UPDF</eqn>
+			</aux>
+			<aux name="selling price of SLB">
+				<eqn>value_parameter*used_product_discount_factor*cost_of_new_battery_BNEF</eqn>
+				<units>$/kWh</units>
+			</aux>
+			<aux name="cost of new battery BNEF">
+				<doc>https://about.bnef.com/blog/behind-scenes-take-lithium-ion-battery-prices/
+Reduce by 1% after 2030</doc>
+				<eqn>TIME</eqn>
+				<gf>
+					<xscale min="2010" max="2050"/>
+					<yscale min="0" max="1000"/>
+					<ypts>1160,899,707,650,577,373,288,214,176,162.3333333,148.6666667,135,121.3333333,107.6666667,94,88.66666667,83.33333333,78,72.66666667,67.33333333,62,61.38,60.7662,60.158538,59.55695262,58.96138309,58.37176926,57.78805157,57.21017105,56.63806934,56.07168865,55.51097176,54.95586205,54.40630343,53.86224039,53.32361799,52.79038181,52.26247799,51.73985321,51.22245468,50.71023013</ypts>
+				</gf>
+				<units>$/kWh</units>
+			</aux>
+			<aux name="year of switch from EA to GP 1">
+				<eqn>2028</eqn>
+			</aux>
+			<aux name="UPDF EA">
+				<eqn>0.6152</eqn>
+			</aux>
+			<aux name="UPDF GP">
+				<eqn>0.5853</eqn>
+			</aux>
+			<aux name="UPDF">
+				<eqn>IF TIME&gt; (year_of_switch_from_EA_to_GP_1-1) THEN UPDF_GP ELSE UPDF_EA</eqn>
+			</aux>
+			<aux name="Start year for reman 1">
+				<eqn>2020</eqn>
+			</aux>
+			<aux name="technically feasible\nbatteries fraction">
+				<eqn>0.95</eqn>
+			</aux>
+			<aux name="SLB tonnes">
+				<eqn>1.1/(&quot;kWh/kg&quot;*1000)</eqn>
+				<units>tonnes</units>
+			</aux>
+			<aux name="kWh/kg">
+				<doc>https://www.epectec.com/batteries/cell-comparison.html</doc>
+				<eqn>0.15</eqn>
+			</aux>
+			<aux name="technically feasible collectedEOLB">
+				<eqn>collectedEOLB*technically_feasible_batteries_fraction</eqn>
+			</aux>
+			<aux name="reman SLB possible">
+				<eqn>IF technically_feasible_collectedEOLB&gt;SLBdemand THEN SLBdemand ELSE technically_feasible_collectedEOLB</eqn>
+			</aux>
+			<aux name="recycledEOLB">
+				<eqn>IF TIME&gt; Start_year_for_reman THEN collectedEOLB-reman_SLB+total_SLB_out ELSE 0</eqn>
+			</aux>
+			<flow name="SLB out a">
+				<eqn>0.1*SLB_stock/3</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="7.4e-323" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<stock name="SLB stock">
+				<eqn>3.57392</eqn>
+				<format precision="1" scale_by="1"/>
+				<inflow>SLB_in</inflow>
+				<outflow>SLB_out_a</outflow>
+				<outflow>SLB_out_b</outflow>
+				<outflow>SLB_out_c</outflow>
+				<outflow>SLB_out_d</outflow>
+				<non_negative/>
+			</stock>
+			<flow name="SLB out b">
+				<eqn>0.4*SLB_stock/4</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="7.4e-323" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<flow name="SLB out c">
+				<eqn>0.4*SLB_stock/5</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="7.4e-323" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<flow name="SLB out d">
+				<eqn>0.1*SLB_stock/6</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="0" max="2000000"/>
+				<non_negative/>
+			</flow>
+			<aux name="total SLB out">
+				<eqn>SLB_out_a+SLB_out_b+SLB_out_c+SLB_out_d</eqn>
+			</aux>
+			<flow name="SLB in">
+				<eqn>reman_SLB</eqn>
+				<format precision="1" scale_by="1"/>
+				<scale min="7.4e-323" max="750000"/>
+				<non_negative/>
+			</flow>
+			<stock name="reman capacity">
+				<eqn>500000</eqn>
+				<inflow>capacity_addition</inflow>
+				<units>kWh</units>
+			</stock>
+			<aux name="addition over n years">
+				<doc>IF reman_SLB_possible&gt;reman_capacity THEN (reman_SLB_possible-reman_capacity) ELSE 0</doc>
+				<eqn>IF reman_SLB_possible&gt;reman_capacity THEN (reman_SLB_possible-reman_capacity) ELSE 0</eqn>
+			</aux>
+			<flow name="capacity addition">
+				<eqn>IF TIME &gt; Start_year_for_reman THEN addition_over_n_years ELSE 0</eqn>
+				<non_negative/>
+				<units>kWh/year</units>
+			</flow>
+			<aux name="reman SLB">
+				<eqn>reman_capacity*technically_feasible_batteries_fraction</eqn>
+			</aux>
+			<aux name="Cost of labor per SLB kWh without increase">
+				<eqn>cost_of_labor_in_facility/reman_SLB</eqn>
+			</aux>
+			<aux name="cost of labor in facility">
+				<eqn>cost_of_labor_per_hour*number_of_hours_per_year_per_laborer*min_labor_needed</eqn>
+				<units>$</units>
+			</aux>
+			<aux name="labor in facility">
+				<eqn>10</eqn>
+			</aux>
+			<aux name="cost of labor per hour">
+				<doc>Kim et al. (2016)  0.08kWh/kg</doc>
+				<eqn>20.67</eqn>
+				<units>kWh/kg</units>
+			</aux>
+			<aux name="number of shifts">
+				<doc>Kim et al. (2016)  0.08kWh/kg</doc>
+				<eqn>3</eqn>
+				<units>number</units>
+			</aux>
+			<aux name="number of hours per year per laborer">
+				<eqn>8*252</eqn>
+				<units>Hours</units>
+			</aux>
+			<aux name="output per hour">
+				<eqn>3</eqn>
+				<units>battery pack</units>
+			</aux>
+			<aux name="output per hour kWh">
+				<eqn>10*output_per_hour</eqn>
+			</aux>
+			<aux name="number of laborers needed">
+				<eqn>reman_SLB/(output_per_hour_kWh*number_of_hours_per_year_per_laborer*number_of_shifts)</eqn>
+			</aux>
+			<aux name="min labor needed">
+				<eqn>MIN(number_of_laborers_needed, (labor_in_facility*reman_capacity/115000))</eqn>
+			</aux>
+			<aux name="cost of reman\ncapacity per SLB kWh">
+				<eqn>cost_of_reman_capacity_total/reman_SLB</eqn>
+			</aux>
+			<aux name="cost of reman capacity">
+				<eqn>((1124990/10)+1192854)/115000</eqn>
+				<units>$/kWh</units>
+			</aux>
+			<aux name="cost of electricity per SLB kWh">
+				<eqn>electricity_per_kWh*cost_of_electricity_with_increase/(1+technically_feasible_batteries_fraction)</eqn>
+			</aux>
+			<aux name="cost of electricity">
+				<eqn>0.0688</eqn>
+			</aux>
+			<aux name="electricity per kWh">
+				<eqn>7.5</eqn>
+				<units>kWh</units>
+			</aux>
+			<aux name="cost of materials\nper SLB kWh">
+				<eqn>cost_of_materials_constant_per_kWh+cost_of_materials_others_per_kWh+cost_of_materials_constant_based_on_mass_per_kWh</eqn>
+			</aux>
+			<aux name="cost of materials\nconstant per kWh">
+				<doc>Page 87, INL batpac
+only for battery pack values
+only assuming constant part
+
+</doc>
+				<eqn>(15+20+30)/23</eqn>
+			</aux>
+			<aux name="cost of materials\nconstant based on mass per kWh">
+				<doc>Page 87, INL batpac
+only for battery pack values
+only assuming constant part
+
+</doc>
+				<eqn>(7/&quot;kWh/kg&quot;)/23</eqn>
+			</aux>
+			<aux name="cost of materials\nothers per kWh">
+				<doc>Page 87, INL batpac
+only for battery pack values
+only assuming constant part
+
+</doc>
+				<eqn>(30+10)/23</eqn>
+			</aux>
+			<aux name="transportation costs per SLB kWh">
+				<eqn>transport_cost_per_kWh/(1+technically_feasible_batteries_fraction)</eqn>
+			</aux>
+			<aux name="tonne per SLB kWh">
+				<eqn>0.00110231/&quot;kWh/kg&quot;</eqn>
+			</aux>
+			<aux name="transporation cost per mile">
+				<doc>https://www.bulktransporter.com/fleet-management/article/21658321/atri-new-research-shows-increases-in-trucking-costs
+
+https://www.bulktransporter.com/fleet-management/article/21658321/atri-new-research-shows-increases-in-trucking-costs</doc>
+				<eqn>2.16</eqn>
+				<units>$/mile</units>
+			</aux>
+			<aux name="transportation\ncosts per tonmile">
+				<eqn>transportation_costs_per_mile_for_the_year/transport_truck_tonnage</eqn>
+				<units>$/ton-mile</units>
+			</aux>
+			<aux name="allowable max cost\nwith overheads">
+				<eqn>total_cost_per_SLB_kWh+overhead_and_launch_costs</eqn>
+				<units>$/kWh</units>
+			</aux>
+			<aux name="transport truck tonnage">
+				<doc>assumed tonnage for a freight truck</doc>
+				<eqn>16</eqn>
+				<units>ton</units>
+			</aux>
+			<aux name="transport cost per kWh">
+				<eqn>transportation_costs_per_tonmile*transport_distance_possible*tonne_per_SLB_kWh</eqn>
+			</aux>
+			<aux name="transport distance possible">
+				<eqn>MAX(transport_distance_min_input, transport_distance_from_reman_capacity)</eqn>
+				<units>mile</units>
+			</aux>
+			<aux name="total cost per SLB\nkWh">
+				<eqn>Cost_of_labor_per_SLB_kWh+cost_of_reman_capacity_per_SLB_kWh+cost_of_electricity_per_SLB_kWh+cost_of_materials_per_SLB_kWh+transportation_costs_per_SLB_kWh</eqn>
+			</aux>
+			<aux name="overhead and launch costs">
+				<doc>for launch
+5% material
+10% direct labor
+for variable overhead 
+40% direct labor
+working capital 
+15% variable overhead = 0.15*0.4 = 0.06 direct labor
+
+(0.05*cost_of_materials_per_SLB_kWh)+(0.65*Cost_of_labor_per_SLB_kWh)</doc>
+				<eqn>(0.05*cost_of_materials_per_SLB_kWh)+(0.65*Cost_of_labor_per_SLB_kWh)</eqn>
+				<units>%</units>
+			</aux>
+			<aux name="allowable max cost">
+				<eqn>allowable_max_cost_with_overheads*(1+&quot;allowable_profit_%&quot;)</eqn>
+				<units>$/kWh</units>
+			</aux>
+			<aux name="allowable profit %">
+				<eqn>0.1</eqn>
+				<units>%</units>
+			</aux>
+			<aux name="EOL value from remanufacturing">
+				<eqn>IF TIME&gt;Start_year_for_reman THEN (selling_price_of_SLB-allowable_max_cost)*reman_SLB/1000000 ELSE 0</eqn>
+				<units>Million $/year</units>
+			</aux>
+			<aux name="total EOL value">
+				<eqn>IF TIME&gt;Start_year_for_reman THEN EOL_Recycling_value+EOL_value_from_remanufacturing ELSE 0</eqn>
+				<units>Million $/year</units>
+			</aux>
+			<aux name="EOL Recycling value">
+				<eqn>recycledEOLB*Recycled_material_value/1000000</eqn>
+				<units>Million $/year</units>
+			</aux>
+			<aux name="recycled material value in 2020">
+				<doc>0.00
+0.00
+0.00
+-3.65
+-3.27
+-2.98
+-2.50
+-2.12
+-1.54
+-1.06
+-0.58
+-0.29
+0.19
+0.48
+0.77
+0.96
+1.15
+1.25
+1.44
+1.73
+2.02
+2.21
+2.40
+2.60
+2.79
+3.08
+3.37
+3.65
+3.75
+4.13
+4.23
+4.52
+4.81
+5.19</doc>
+				<eqn>-4.1</eqn>
+				<units>$/kWh</units>
+			</aux>
+			<aux name="transport distance min input">
+				<eqn>100</eqn>
+				<units>mile</units>
+			</aux>
+			<aux name="transport distance from reman capacity">
+				<doc>(x-500,000)/(y-2500)=(50,000,000-500,000)/(100-2500)</doc>
+				<eqn>2524.2424-(reman_capacity/20625)</eqn>
+				<units>mile</units>
+			</aux>
+			<aux name="percentage increase in cost of\nelectricity">
+				<doc>https://www.eia.gov/outlooks/aeo/data/browser/#/?id=8-AEO2020&amp;cases=ref2020&amp;sourcekey=0</doc>
+				<eqn>0.02</eqn>
+			</aux>
+			<aux name="cost of electricity\nwith increase">
+				<eqn>cost_of_electricity+increase_in_cost_of_electricity_over_year</eqn>
+			</aux>
+			<aux name="increase in cost of\nelectricity over year">
+				<doc>https://www.eia.gov/outlooks/aeo/data/browser/#/?id=8-AEO2020&amp;cases=ref2020&amp;sourcekey=0</doc>
+				<eqn>cost_of_electricity*(TIME-2019)*percentage_increase_in_cost_of_electricity/(32)</eqn>
+			</aux>
+			<aux name="percentage increase in labor cost">
+				<doc>https://www.bls.gov/news.release/eci.nr0.htm#:~:text=Compensation%20costs%20for%20private%20industry,increase%20was%20also%202.8%20percent.&amp;text=Compensation%20costs%20for%20state%20and,3.0%20percent%20in%20March%202019.</doc>
+				<eqn>0.028</eqn>
+			</aux>
+			<aux name="increase\nin labor cost">
+				<doc>https://www.bls.gov/news.release/eci.nr0.htm#:~:text=Compensation%20costs%20for%20private%20industry,increase%20was%20also%202.8%20percent.&amp;text=Compensation%20costs%20for%20state%20and,3.0%20percent%20in%20March%202019.</doc>
+				<eqn>Cost_of_labor_per_SLB_kWh_without_increase*(TIME-2019)*percentage_increase_in_labor_cost</eqn>
+			</aux>
+			<aux name="Cost of labor per SLB kWh">
+				<doc>https://www.bls.gov/news.release/eci.nr0.htm#:~:text=Compensation%20costs%20for%20private%20industry,increase%20was%20also%202.8%20percent.&amp;text=Compensation%20costs%20for%20state%20and,3.0%20percent%20in%20March%202019.</doc>
+				<eqn>Cost_of_labor_per_SLB_kWh_without_increase+increase_in_labor_cost</eqn>
+			</aux>
+			<aux name="transportation\ncosts per mile for the year">
+				<eqn>transporation_cost_per_mile*(TIME-2019)*percentage_increase_in_transportation_cost</eqn>
+				<units>$/ton-mile</units>
+			</aux>
+			<aux name="percentage increase in transportation cost">
+				<doc>An Analysis of the Operational Costs of Trucking: 2019 Update (ATRI)</doc>
+				<eqn>0.03</eqn>
+			</aux>
+			<aux name="hyb battery energy\nin per year">
+				<eqn>hyb_battery_energy*hyb_in</eqn>
+			</aux>
+			<aux name="PHEV10 battery energy\nin per year">
+				<eqn>PHEV10_battery_energy*PHEV10_in</eqn>
+			</aux>
+			<aux name="PHEV40 battery\nenergy in per year">
+				<eqn>PHEV40_battery_energy*PHEV40_in</eqn>
+			</aux>
+			<aux name="BEV battery\nenergy in per year">
+				<eqn>BEV_battery_energy*(EV100_in+EV200_in+EV300_in)</eqn>
+			</aux>
+			<aux name="sum total cap in bat">
+				<eqn>PHEV40_battery_energy_in_per_year+hyb_battery_energy_in_per_year+PHEV10_battery_energy_in_per_year+BEV_battery_energy_in_per_year</eqn>
+				<format precision="1" scale_by="1"/>
+				<units>kWh</units>
+			</aux>
+			<aux name="total LIB demand">
+				<eqn>demand_for_energy_storage+sum_total_cap_in_bat</eqn>
+			</aux>
+			<aux name="modified LIB demand">
+				<eqn>IF TIME&gt;Start_year_for_reman THEN total_LIB_demand-reman_SLB ELSE total_LIB_demand</eqn>
+			</aux>
+			<aux name="Aluminum in">
+				<eqn>aluminum_fraction*total_LIB_demand</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Cobalt in">
+				<eqn>Cobalt_fraction*total_LIB_demand</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Copper in">
+				<eqn>Copper_fraction*total_LIB_demand</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Nickel in">
+				<eqn>Nickel_fraction*total_LIB_demand</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Steel in">
+				<eqn>Steel_fraction*total_LIB_demand</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Iron in">
+				<eqn>Iron_fraction*total_LIB_demand</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Lithium in">
+				<eqn>Lithium_fraction*total_LIB_demand</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Manganese in">
+				<eqn>Manganese_fraction*total_LIB_demand</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Aluminum after recycl">
+				<eqn>Aluminum_RE*aluminum_fraction*recycledEOLB</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Cobalt after recycl">
+				<eqn>Cobalt_RE*Cobalt_fraction*recycledEOLB</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Copper after recycl">
+				<eqn>Copper_RE*Copper_fraction*recycledEOLB</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Nickel after recycl">
+				<eqn>Nickel_RE*Nickel_fraction*recycledEOLB</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Steel after recycl">
+				<eqn>Steel_RE*Steel_fraction*recycledEOLB</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Iron after recycl">
+				<eqn>Iron_RE*Iron_fraction*recycledEOLB</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Lithium after recycl">
+				<eqn>Lithium_RE*Lithium_fraction*recycledEOLB</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Aluminum demand modified">
+				<eqn>Aluminum_in-Aluminum_after_recycl</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Cobalt demand modified">
+				<eqn>Cobalt_in-Cobalt_after_recycl</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Copper demand modified">
+				<eqn>Copper_in-Copper_after_recycl</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Lithium demand modified">
+				<eqn>Lithium_in-Lithium_after_recycl</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Manganese after recycl">
+				<eqn>Manganese_RE*Manganese_fraction*recycledEOLB</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Manganese demand modified">
+				<eqn>Manganese_in-Manganese_after_recycl</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Iron demand modified">
+				<eqn>Iron_in-Iron_after_recycl</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Steel demand modified">
+				<eqn>Steel_in-Steel_after_recycl</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Nickel demand modified">
+				<eqn>Nickel_in-Nickel_after_recycl</eqn>
+				<units>kg</units>
+			</aux>
+			<aux name="Aluminum RE">
+				<eqn>0.42</eqn>
+			</aux>
+			<aux name="Cobalt RE">
+				<eqn>0.89</eqn>
+			</aux>
+			<aux name="Copper RE">
+				<eqn>0.9</eqn>
+			</aux>
+			<aux name="Nickel RE">
+				<eqn>0.62</eqn>
+			</aux>
+			<aux name="Steel RE">
+				<eqn>0.52</eqn>
+			</aux>
+			<aux name="Iron RE">
+				<eqn>0.52</eqn>
+			</aux>
+			<aux name="Manganese RE">
+				<eqn>0</eqn>
+			</aux>
+			<aux name="Lithium RE">
+				<eqn>0</eqn>
+			</aux>
+			<aux name="LiCoO2 fraction">
+				<eqn>0.1</eqn>
+			</aux>
+			<aux name="LiMn2O4 fraction">
+				<eqn>0.3</eqn>
+			</aux>
+			<aux name="LiFePO4 fraction">
+				<eqn>0.3</eqn>
+			</aux>
+			<aux name="NMC fraction">
+				<eqn>0.3</eqn>
+			</aux>
+			<aux name="aluminum fraction">
+				<eqn>(LiCoO2_fraction*0.304)+(LiMn2O4_fraction*0.075)+(LiFePO4_fraction*0.457)+(NMC_fraction*0.263)</eqn>
+				<units>kg/kWh</units>
+			</aux>
+			<aux name="Cobalt fraction">
+				<eqn>(LiCoO2_fraction*1.01)+(LiMn2O4_fraction*0)+(LiFePO4_fraction*0)+(NMC_fraction*0.483)</eqn>
+				<units>kg/kWh</units>
+			</aux>
+			<aux name="Copper fraction">
+				<eqn>(LiCoO2_fraction*0.426)+(LiMn2O4_fraction*0.075)+(LiFePO4_fraction*0.571)+(NMC_fraction*0.390)</eqn>
+				<units>kg/kWh</units>
+			</aux>
+			<aux name="Lithium fraction">
+				<eqn>(LiCoO2_fraction*0.119)+(LiMn2O4_fraction*0.104)+(LiFePO4_fraction*0.084)+(NMC_fraction*0.057)</eqn>
+				<units>kg/kWh</units>
+			</aux>
+			<aux name="Manganese fraction">
+				<eqn>(LiCoO2_fraction*0)+(LiMn2O4_fraction*1.37)+(LiFePO4_fraction*0)+(NMC_fraction*0.451)</eqn>
+				<units>kg/kWh</units>
+			</aux>
+			<aux name="Nickel fraction">
+				<eqn>(LiCoO2_fraction*0.071)+(LiMn2O4_fraction*0)+(LiFePO4_fraction*0)+(NMC_fraction*0.482)</eqn>
+				<units>kg/kWh</units>
+			</aux>
+			<aux name="Steel fraction">
+				<eqn>(LiCoO2_fraction*0.963)+(LiMn2O4_fraction*1.105)+(LiFePO4_fraction*2.348)+(NMC_fraction*0.866)</eqn>
+				<units>kg/kWh</units>
+			</aux>
+			<aux name="Iron fraction">
+				<eqn>(LiCoO2_fraction*0)+(LiMn2O4_fraction*0)+(LiFePO4_fraction*0.68)+(NMC_fraction*0)</eqn>
+				<units>kg/kWh</units>
+			</aux>
+			<aux name="cost of reman\ncapacity total">
+				<eqn>reman_capacity*cost_of_reman_capacity</eqn>
+			</aux>
+			<aux name="recycled material value percent increase">
+				<doc>0.00
+0.00
+0.00
+-3.65
+-3.27
+-2.98
+-2.50
+-2.12
+-1.54
+-1.06
+-0.58
+-0.29
+0.19
+0.48
+0.77
+0.96
+1.15
+1.25
+1.44
+1.73
+2.02
+2.21
+2.40
+2.60
+2.79
+3.08
+3.37
+3.65
+3.75
+4.13
+4.23
+4.52
+4.81
+5.19</doc>
+				<eqn>0.10</eqn>
+			</aux>
+			<aux name="Recycled material value">
+				<eqn>recycled_material_value_in_2020 + (ABS(recycled_material_value_in_2020)*recycled_material_value_percent_increase*(TIME-2020))</eqn>
+				<units>$/kWh</units>
+			</aux>
+			<isee:dependencies>
+				<var name="hyb_out_a">
+					<in>hyb_stock</in>
+				</var>
+				<var name="hyb_out_b">
+					<in>hyb_stock</in>
+				</var>
+				<var name="hyb_out_c">
+					<in>hyb_stock</in>
+				</var>
+				<var name="hyb_out_d">
+					<in>hyb_stock</in>
+				</var>
+				<var name="total_hyb_out">
+					<in>hyb_out_a</in>
+					<in>hyb_out_b</in>
+					<in>hyb_out_c</in>
+					<in>hyb_out_d</in>
+				</var>
+				<var name="hyb_battery_energy_out_per_year">
+					<in>hyb_battery_energy</in>
+					<in>total_hyb_out</in>
+				</var>
+				<var name="PHEV10_out_a">
+					<in>PHEV10_stock</in>
+				</var>
+				<var name="PHEV10_out_b">
+					<in>PHEV10_stock</in>
+				</var>
+				<var name="PHEV10_out_c">
+					<in>PHEV10_stock</in>
+				</var>
+				<var name="PHEV10_out_d">
+					<in>PHEV10_stock</in>
+				</var>
+				<var name="total_PHEV10_out">
+					<in>PHEV10_out_a</in>
+					<in>PHEV10_out_b</in>
+					<in>PHEV10_out_c</in>
+					<in>PHEV10_out_d</in>
+				</var>
+				<var name="PHEV10_battery_energy_out_per_year">
+					<in>PHEV10_battery_energy</in>
+					<in>total_PHEV10_out</in>
+				</var>
+				<var name="PHEV40_out_a">
+					<in>PHEV40_stock</in>
+				</var>
+				<var name="PHEV40_out_b">
+					<in>PHEV40_stock</in>
+				</var>
+				<var name="PHEV40_out_c">
+					<in>PHEV40_stock</in>
+				</var>
+				<var name="PHEV40_out_d">
+					<in>PHEV40_stock</in>
+				</var>
+				<var name="total_PHEV40_out">
+					<in>PHEV40_out_a</in>
+					<in>PHEV40_out_b</in>
+					<in>PHEV40_out_c</in>
+					<in>PHEV40_out_d</in>
+				</var>
+				<var name="PHEV40_battery_energy_out_per_year">
+					<in>PHEV40_battery_energy</in>
+					<in>total_PHEV40_out</in>
+				</var>
+				<var name="BEV_out_a">
+					<in>BEV_stock</in>
+				</var>
+				<var name="BEV_out_b">
+					<in>BEV_stock</in>
+				</var>
+				<var name="BEV_out_c">
+					<in>BEV_stock</in>
+				</var>
+				<var name="BEV_out_d">
+					<in>BEV_stock</in>
+				</var>
+				<var name="total_BEV_out">
+					<in>BEV_out_a</in>
+					<in>BEV_out_b</in>
+					<in>BEV_out_c</in>
+					<in>BEV_out_d</in>
+				</var>
+				<var name="BEV_battery_energy_out_per_year">
+					<in>BEV_battery_energy</in>
+					<in>total_BEV_out</in>
+				</var>
+				<var name="total_EV_battery_energy_per_year">
+					<in>BEV_battery_energy_out_per_year</in>
+					<in>hyb_battery_energy_out_per_year</in>
+					<in>PHEV10_battery_energy_out_per_year</in>
+					<in>PHEV40_battery_energy_out_per_year</in>
+				</var>
+				<var name="sum_total_cap_eol_bat">
+					<in>total_EV_battery_energy_per_year</in>
+					<in>value_of_throughput_old_battery</in>
+				</var>
+				<var name="collectedEOLB">
+					<in>collectionefficiency</in>
+					<in>sum_total_cap_eol_bat</in>
+				</var>
+				<var name="SLBdemand">
+					<in>demand_for_energy_storage</in>
+					<in>Start_year_for_reman</in>
+					<in>PP_total</in>
+				</var>
+				<var name="PP_total">
+					<in>year_of_switch_from_EA_to_GP</in>
+					<in>PP_EA</in>
+					<in>PP_GP</in>
+				</var>
+				<var name="value_parameter">
+					<in>value_of_throughput_old_battery</in>
+					<in>value_of_throughput_new_battery</in>
+				</var>
+				<var name="used_product_discount_factor">
+					<in>UPDF</in>
+					<in>Start_year_for_reman_1</in>
+				</var>
+				<var name="selling_price_of_SLB">
+					<in>value_parameter</in>
+					<in>cost_of_new_battery_BNEF</in>
+					<in>used_product_discount_factor</in>
+				</var>
+				<var name="UPDF">
+					<in>year_of_switch_from_EA_to_GP_1</in>
+					<in>UPDF_EA</in>
+					<in>UPDF_GP</in>
+				</var>
+				<var name="SLB_tonnes">
+					<in>&quot;kWh/kg&quot;</in>
+				</var>
+				<var name="technically_feasible_collectedEOLB">
+					<in>collectedEOLB</in>
+					<in>technically_feasible_batteries_fraction</in>
+				</var>
+				<var name="reman_SLB_possible">
+					<in>technically_feasible_collectedEOLB</in>
+					<in>SLBdemand</in>
+				</var>
+				<var name="recycledEOLB">
+					<in>collectedEOLB</in>
+					<in>total_SLB_out</in>
+					<in>reman_SLB</in>
+					<in>Start_year_for_reman</in>
+				</var>
+				<var name="SLB_out_a">
+					<in>SLB_stock</in>
+				</var>
+				<var name="SLB_out_b">
+					<in>SLB_stock</in>
+				</var>
+				<var name="SLB_out_c">
+					<in>SLB_stock</in>
+				</var>
+				<var name="SLB_out_d">
+					<in>SLB_stock</in>
+				</var>
+				<var name="total_SLB_out">
+					<in>SLB_out_a</in>
+					<in>SLB_out_b</in>
+					<in>SLB_out_c</in>
+					<in>SLB_out_d</in>
+				</var>
+				<var name="SLB_in">
+					<in>reman_SLB</in>
+				</var>
+				<var name="addition_over_n_years">
+					<in>reman_capacity</in>
+					<in>reman_SLB_possible</in>
+				</var>
+				<var name="capacity_addition">
+					<in>addition_over_n_years</in>
+					<in>Start_year_for_reman</in>
+				</var>
+				<var name="reman_SLB">
+					<in>reman_capacity</in>
+					<in>technically_feasible_batteries_fraction</in>
+				</var>
+				<var name="Cost_of_labor_per_SLB_kWh_without_increase">
+					<in>cost_of_labor_in_facility</in>
+					<in>reman_SLB</in>
+				</var>
+				<var name="cost_of_labor_in_facility">
+					<in>cost_of_labor_per_hour</in>
+					<in>min_labor_needed</in>
+					<in>number_of_hours_per_year_per_laborer</in>
+				</var>
+				<var name="output_per_hour_kWh">
+					<in>output_per_hour</in>
+				</var>
+				<var name="number_of_laborers_needed">
+					<in>output_per_hour_kWh</in>
+					<in>reman_SLB</in>
+					<in>number_of_hours_per_year_per_laborer</in>
+					<in>number_of_shifts</in>
+				</var>
+				<var name="min_labor_needed">
+					<in>number_of_laborers_needed</in>
+					<in>labor_in_facility</in>
+					<in>reman_capacity</in>
+				</var>
+				<var name="cost_of_reman_capacity_per_SLB_kWh">
+					<in>reman_SLB</in>
+					<in>cost_of_reman_capacity_total</in>
+				</var>
+				<var name="cost_of_electricity_per_SLB_kWh">
+					<in>electricity_per_kWh</in>
+					<in>technically_feasible_batteries_fraction</in>
+					<in>cost_of_electricity_with_increase</in>
+				</var>
+				<var name="cost_of_materials_per_SLB_kWh">
+					<in>cost_of_materials_constant_per_kWh</in>
+					<in>cost_of_materials_others_per_kWh</in>
+					<in>cost_of_materials_constant_based_on_mass_per_kWh</in>
+				</var>
+				<var name="cost_of_materials_constant_based_on_mass_per_kWh">
+					<in>&quot;kWh/kg&quot;</in>
+				</var>
+				<var name="transportation_costs_per_SLB_kWh">
+					<in>transport_cost_per_kWh</in>
+					<in>technically_feasible_batteries_fraction</in>
+				</var>
+				<var name="tonne_per_SLB_kWh">
+					<in>&quot;kWh/kg&quot;</in>
+				</var>
+				<var name="transportation_costs_per_tonmile">
+					<in>transport_truck_tonnage</in>
+					<in>transportation_costs_per_mile_for_the_year</in>
+				</var>
+				<var name="allowable_max_cost_with_overheads">
+					<in>total_cost_per_SLB_kWh</in>
+					<in>overhead_and_launch_costs</in>
+				</var>
+				<var name="transport_cost_per_kWh">
+					<in>transport_distance_possible</in>
+					<in>tonne_per_SLB_kWh</in>
+					<in>transportation_costs_per_tonmile</in>
+				</var>
+				<var name="transport_distance_possible">
+					<in>transport_distance_min_input</in>
+					<in>transport_distance_from_reman_capacity</in>
+				</var>
+				<var name="total_cost_per_SLB_kWh">
+					<in>cost_of_reman_capacity_per_SLB_kWh</in>
+					<in>cost_of_electricity_per_SLB_kWh</in>
+					<in>cost_of_materials_per_SLB_kWh</in>
+					<in>transportation_costs_per_SLB_kWh</in>
+					<in>Cost_of_labor_per_SLB_kWh</in>
+				</var>
+				<var name="overhead_and_launch_costs">
+					<in>cost_of_materials_per_SLB_kWh</in>
+					<in>Cost_of_labor_per_SLB_kWh</in>
+				</var>
+				<var name="allowable_max_cost">
+					<in>&quot;allowable_profit_%&quot;</in>
+					<in>allowable_max_cost_with_overheads</in>
+				</var>
+				<var name="EOL_value_from_remanufacturing">
+					<in>allowable_max_cost</in>
+					<in>selling_price_of_SLB</in>
+					<in>reman_SLB</in>
+					<in>Start_year_for_reman</in>
+				</var>
+				<var name="total_EOL_value">
+					<in>EOL_value_from_remanufacturing</in>
+					<in>EOL_Recycling_value</in>
+					<in>Start_year_for_reman</in>
+				</var>
+				<var name="EOL_Recycling_value">
+					<in>recycledEOLB</in>
+					<in>Recycled_material_value</in>
+				</var>
+				<var name="transport_distance_from_reman_capacity">
+					<in>reman_capacity</in>
+				</var>
+				<var name="cost_of_electricity_with_increase">
+					<in>cost_of_electricity</in>
+					<in>increase_in_cost_of_electricity_over_year</in>
+				</var>
+				<var name="increase_in_cost_of_electricity_over_year">
+					<in>percentage_increase_in_cost_of_electricity</in>
+					<in>cost_of_electricity</in>
+				</var>
+				<var name="increase_in_labor_cost">
+					<in>Cost_of_labor_per_SLB_kWh_without_increase</in>
+					<in>percentage_increase_in_labor_cost</in>
+				</var>
+				<var name="Cost_of_labor_per_SLB_kWh">
+					<in>Cost_of_labor_per_SLB_kWh_without_increase</in>
+					<in>increase_in_labor_cost</in>
+				</var>
+				<var name="transportation_costs_per_mile_for_the_year">
+					<in>transporation_cost_per_mile</in>
+					<in>percentage_increase_in_transportation_cost</in>
+				</var>
+				<var name="hyb_battery_energy_in_per_year">
+					<in>hyb_battery_energy</in>
+					<in>hyb_in</in>
+				</var>
+				<var name="PHEV10_battery_energy_in_per_year">
+					<in>PHEV10_in</in>
+					<in>PHEV10_battery_energy</in>
+				</var>
+				<var name="PHEV40_battery_energy_in_per_year">
+					<in>PHEV40_battery_energy</in>
+					<in>PHEV40_in</in>
+				</var>
+				<var name="BEV_battery_energy_in_per_year">
+					<in>BEV_battery_energy</in>
+					<in>EV100_in</in>
+					<in>EV200_in</in>
+					<in>EV300_in</in>
+				</var>
+				<var name="sum_total_cap_in_bat">
+					<in>PHEV40_battery_energy_in_per_year</in>
+					<in>hyb_battery_energy_in_per_year</in>
+					<in>PHEV10_battery_energy_in_per_year</in>
+					<in>BEV_battery_energy_in_per_year</in>
+				</var>
+				<var name="total_LIB_demand">
+					<in>demand_for_energy_storage</in>
+					<in>sum_total_cap_in_bat</in>
+				</var>
+				<var name="modified_LIB_demand">
+					<in>total_LIB_demand</in>
+					<in>reman_SLB</in>
+					<in>Start_year_for_reman</in>
+				</var>
+				<var name="Aluminum_in">
+					<in>total_LIB_demand</in>
+					<in>aluminum_fraction</in>
+				</var>
+				<var name="Cobalt_in">
+					<in>total_LIB_demand</in>
+					<in>Cobalt_fraction</in>
+				</var>
+				<var name="Copper_in">
+					<in>total_LIB_demand</in>
+					<in>Copper_fraction</in>
+				</var>
+				<var name="Nickel_in">
+					<in>total_LIB_demand</in>
+					<in>Nickel_fraction</in>
+				</var>
+				<var name="Steel_in">
+					<in>total_LIB_demand</in>
+					<in>Steel_fraction</in>
+				</var>
+				<var name="Iron_in">
+					<in>total_LIB_demand</in>
+					<in>Iron_fraction</in>
+				</var>
+				<var name="Lithium_in">
+					<in>total_LIB_demand</in>
+					<in>Lithium_fraction</in>
+				</var>
+				<var name="Manganese_in">
+					<in>total_LIB_demand</in>
+					<in>Manganese_fraction</in>
+				</var>
+				<var name="Aluminum_after_recycl">
+					<in>recycledEOLB</in>
+					<in>Aluminum_RE</in>
+					<in>aluminum_fraction</in>
+				</var>
+				<var name="Cobalt_after_recycl">
+					<in>recycledEOLB</in>
+					<in>Cobalt_RE</in>
+					<in>Cobalt_fraction</in>
+				</var>
+				<var name="Copper_after_recycl">
+					<in>recycledEOLB</in>
+					<in>Copper_RE</in>
+					<in>Copper_fraction</in>
+				</var>
+				<var name="Nickel_after_recycl">
+					<in>recycledEOLB</in>
+					<in>Nickel_RE</in>
+					<in>Nickel_fraction</in>
+				</var>
+				<var name="Steel_after_recycl">
+					<in>recycledEOLB</in>
+					<in>Steel_RE</in>
+					<in>Steel_fraction</in>
+				</var>
+				<var name="Iron_after_recycl">
+					<in>recycledEOLB</in>
+					<in>Iron_RE</in>
+					<in>Iron_fraction</in>
+				</var>
+				<var name="Lithium_after_recycl">
+					<in>recycledEOLB</in>
+					<in>Lithium_RE</in>
+					<in>Lithium_fraction</in>
+				</var>
+				<var name="Aluminum_demand_modified">
+					<in>Aluminum_in</in>
+					<in>Aluminum_after_recycl</in>
+				</var>
+				<var name="Cobalt_demand_modified">
+					<in>Cobalt_in</in>
+					<in>Cobalt_after_recycl</in>
+				</var>
+				<var name="Copper_demand_modified">
+					<in>Copper_after_recycl</in>
+					<in>Copper_in</in>
+				</var>
+				<var name="Lithium_demand_modified">
+					<in>Lithium_in</in>
+					<in>Lithium_after_recycl</in>
+				</var>
+				<var name="Manganese_after_recycl">
+					<in>recycledEOLB</in>
+					<in>Manganese_RE</in>
+					<in>Manganese_fraction</in>
+				</var>
+				<var name="Manganese_demand_modified">
+					<in>Manganese_in</in>
+					<in>Manganese_after_recycl</in>
+				</var>
+				<var name="Iron_demand_modified">
+					<in>Iron_after_recycl</in>
+					<in>Iron_in</in>
+				</var>
+				<var name="Steel_demand_modified">
+					<in>Steel_after_recycl</in>
+					<in>Steel_in</in>
+				</var>
+				<var name="Nickel_demand_modified">
+					<in>Nickel_after_recycl</in>
+					<in>Nickel_in</in>
+				</var>
+				<var name="aluminum_fraction">
+					<in>LiCoO2_fraction</in>
+					<in>LiMn2O4_fraction</in>
+					<in>LiFePO4_fraction</in>
+					<in>NMC_fraction</in>
+				</var>
+				<var name="Cobalt_fraction">
+					<in>LiCoO2_fraction</in>
+					<in>LiMn2O4_fraction</in>
+					<in>LiFePO4_fraction</in>
+					<in>NMC_fraction</in>
+				</var>
+				<var name="Copper_fraction">
+					<in>LiCoO2_fraction</in>
+					<in>LiMn2O4_fraction</in>
+					<in>LiFePO4_fraction</in>
+					<in>NMC_fraction</in>
+				</var>
+				<var name="Lithium_fraction">
+					<in>LiCoO2_fraction</in>
+					<in>LiMn2O4_fraction</in>
+					<in>LiFePO4_fraction</in>
+					<in>NMC_fraction</in>
+				</var>
+				<var name="Manganese_fraction">
+					<in>LiCoO2_fraction</in>
+					<in>LiMn2O4_fraction</in>
+					<in>LiFePO4_fraction</in>
+					<in>NMC_fraction</in>
+				</var>
+				<var name="Nickel_fraction">
+					<in>LiCoO2_fraction</in>
+					<in>LiMn2O4_fraction</in>
+					<in>LiFePO4_fraction</in>
+					<in>NMC_fraction</in>
+				</var>
+				<var name="Steel_fraction">
+					<in>LiCoO2_fraction</in>
+					<in>LiMn2O4_fraction</in>
+					<in>LiFePO4_fraction</in>
+					<in>NMC_fraction</in>
+				</var>
+				<var name="Iron_fraction">
+					<in>LiCoO2_fraction</in>
+					<in>LiMn2O4_fraction</in>
+					<in>LiFePO4_fraction</in>
+					<in>NMC_fraction</in>
+				</var>
+				<var name="cost_of_reman_capacity_total">
+					<in>reman_capacity</in>
+					<in>cost_of_reman_capacity</in>
+				</var>
+				<var name="Recycled_material_value">
+					<in>recycled_material_value_percent_increase</in>
+					<in>recycled_material_value_in_2020</in>
+				</var>
+			</isee:dependencies>
+		</variables>
+		<views>
+			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+				<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<numeric_display color="blue" background="white" font_size="9pt" isee:transparent="false"/>
+				<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+					<isee:series_styles>
+						<isee:series_style color="blue" thickness="1"/>
+						<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF7F00" thickness="1"/>
+						<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF007F" thickness="1"/>
+						<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#C8C8C8" thickness="1"/>
+					</isee:series_styles>
+				</graph>
+				<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				<button color="black" background="#E0E0E0" font_size="12pt" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595"/>
+				<isee:annotation color="black" background="#E0E0E0" font_size="12pt" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595" popup_background_color="#FFFECF"/>
+				<slider color="black" background="#E0E0E0" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" vertical="false" isee:always_show_hover_tip="false" input_expands="true" input_width="100"/>
+				<isee:sim_speed_slider color="black" background="white"/>
+				<isee:time_slider color="#E95F74" background="silver"/>
+				<isee:pie_input color="black" background="white" font_size="12pt" legend_position="bottom" isee:transparent="false"/>
+				<knob color="#66CC66" background="#E0E0E0" font_size="12pt" label_side="bottom" wrap_title="true"/>
+				<numeric_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<switch color="black" background="#E0E0E0" font_size="12pt" label_side="top" wrap_title="true" isee:appearance="switch"/>
+				<options color="black" background="white" appearance="radio-buttons" arrangement="vertical"/>
+				<graphical_input color="black" background="#E0E0E0" font_size="12pt"/>
+				<group_input color="black" background="#E0E0E0" font_size="12pt"/>
+				<lamp color="black" background="white" font_size="9pt"/>
+				<gauge color="black" background="white" font_size="9pt" needle_color="#F09F72" bar_color="#EEEEEE" bar_progress_color="black" appearance="radial" num_major_ticks="11" num_minor_ticks="11" show_numeric_value="true"/>
+				<isee:spatial_map color="black" background="white" font_size="12pt"/>
+				<isee:animation_object color="black" background="white" font_size="12pt"/>
+			</style>
+			<view isee:show_pages="false" page_width="792" page_height="612" isee:page_cols="5" isee:page_rows="4" isee:scroll_x="2103.33" zoom="60" isee:popup_graphs_are_comparative="true" type="stock_flow">
+				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+					<stock color="#00007F" background="white" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="45" height="35"/>
+					</stock>
+					<flow color="#00007F" background="white" font_size="9pt" label_side="bottom"/>
+					<module color="#550000" background="white" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="55" height="45"/>
+					</module>
+					<aux color="#550000" background="white" font_size="9pt" label_side="bottom">
+						<shape type="circle" radius="18"/>
+					</aux>
+					<group color="#55007F" background="white" font_color="#55007F" font_size="9pt"/>
+					<connector color="black" background="white" font_size="9pt" isee:thickness="1"/>
+					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+					<isee:loop_indicator color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+					<numeric_display color="blue" background="white" font_size="9pt" isee:transparent="false"/>
+					<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+						<isee:series_styles>
+							<isee:series_style color="blue" thickness="1"/>
+							<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF7F00" thickness="1"/>
+							<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF007F" thickness="1"/>
+							<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#C8C8C8" thickness="1"/>
+						</isee:series_styles>
+					</graph>
+					<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				</style>
+				<flow color="black" x="217.75" y="96.75" name="hyb out a">
+					<pts>
+						<pt x="179.5" y="96.75"/>
+						<pt x="280" y="96.75"/>
+					</pts>
+				</flow>
+				<flow color="black" x="80.75" y="117" name="hyb in">
+					<pts>
+						<pt x="27" y="117"/>
+						<pt x="134.5" y="117"/>
+					</pts>
+				</flow>
+				<stock color="black" x="157" y="112" name="hyb stock"/>
+				<connector uid="1" color="black" polarity="+" isee:polarity_placement="outside" angle="98.7462">
+					<from>hyb_stock</from>
+					<to>hyb_out_a</to>
+				</connector>
+				<flow color="black" x="240.5" y="138.5" name="hyb out b">
+					<pts>
+						<pt x="175" y="129.5"/>
+						<pt x="175" y="138.5"/>
+						<pt x="330" y="138.5"/>
+					</pts>
+				</flow>
+				<connector uid="2" angle="0">
+					<from>hyb_stock</from>
+					<to>hyb_out_b</to>
+				</connector>
+				<flow color="black" x="260.5" y="182.75" name="hyb out c">
+					<pts>
+						<pt x="165" y="129.5"/>
+						<pt x="165" y="182.75"/>
+						<pt x="380" y="182.75"/>
+					</pts>
+				</flow>
+				<connector uid="3" angle="316.397">
+					<from>hyb_stock</from>
+					<to>hyb_out_c</to>
+				</connector>
+				<flow color="black" x="279" y="232.75" name="hyb out d">
+					<pts>
+						<pt x="152" y="129.5"/>
+						<pt x="152" y="232.75"/>
+						<pt x="430" y="232.75"/>
+					</pts>
+				</flow>
+				<connector uid="4" angle="284.621">
+					<from>hyb_stock</from>
+					<to>hyb_out_d</to>
+				</connector>
+				<aux color="black" x="432" y="114.75" name="total hyb out"/>
+				<connector uid="5" angle="2.3533">
+					<from>hyb_out_a</from>
+					<to>total_hyb_out</to>
+				</connector>
+				<connector uid="6" angle="33.3664">
+					<from>hyb_out_b</from>
+					<to>total_hyb_out</to>
+				</connector>
+				<connector uid="7" angle="24.1666">
+					<from>hyb_out_c</from>
+					<to>total_hyb_out</to>
+				</connector>
+				<connector uid="8" angle="33.3212">
+					<from>hyb_out_d</from>
+					<to>total_hyb_out</to>
+				</connector>
+				<aux color="black" x="458" y="51.75" name="hyb battery energy"/>
+				<aux color="black" label_side="bottom" x="529" y="104.75" name="hyb battery energy out per year"/>
+				<connector uid="9" angle="338.875">
+					<from>hyb_battery_energy</from>
+					<to>hyb_battery_energy_out_per_year</to>
+				</connector>
+				<connector uid="10" angle="12.8407">
+					<from>total_hyb_out</from>
+					<to>hyb_battery_energy_out_per_year</to>
+				</connector>
+				<flow color="black" x="78.9169" y="365.333" name="PHEV10 in">
+					<pts>
+						<pt x="18.6667" y="365.333"/>
+						<pt x="139.167" y="365.333"/>
+					</pts>
+				</flow>
+				<flow color="black" x="222.417" y="350.083" name="PHEV10 out a">
+					<pts>
+						<pt x="184.167" y="350.083"/>
+						<pt x="284.667" y="350.083"/>
+					</pts>
+				</flow>
+				<stock color="black" x="161.667" y="365.333" name="PHEV10 stock"/>
+				<connector uid="11" color="black" polarity="+" isee:polarity_placement="outside" angle="98.7462">
+					<from>PHEV10_stock</from>
+					<to>PHEV10_out_a</to>
+				</connector>
+				<flow color="black" x="245.167" y="391.833" name="PHEV10 out b">
+					<pts>
+						<pt x="179.667" y="382.833"/>
+						<pt x="179.667" y="391.833"/>
+						<pt x="334.667" y="391.833"/>
+					</pts>
+				</flow>
+				<connector uid="12" angle="0">
+					<from>PHEV10_stock</from>
+					<to>PHEV10_out_b</to>
+				</connector>
+				<flow color="black" x="265.167" y="436.083" name="PHEV10 out c">
+					<pts>
+						<pt x="169.667" y="382.833"/>
+						<pt x="169.667" y="436.083"/>
+						<pt x="384.667" y="436.083"/>
+					</pts>
+				</flow>
+				<connector uid="13" angle="316.397">
+					<from>PHEV10_stock</from>
+					<to>PHEV10_out_c</to>
+				</connector>
+				<flow color="black" x="283.667" y="486.083" name="PHEV10 out d">
+					<pts>
+						<pt x="156.667" y="382.833"/>
+						<pt x="156.667" y="486.083"/>
+						<pt x="434.667" y="486.083"/>
+					</pts>
+				</flow>
+				<connector uid="14" angle="284.621">
+					<from>PHEV10_stock</from>
+					<to>PHEV10_out_d</to>
+				</connector>
+				<aux color="black" x="436.667" y="368.083" name="total PHEV10 out"/>
+				<connector uid="15" angle="2.3533">
+					<from>PHEV10_out_a</from>
+					<to>total_PHEV10_out</to>
+				</connector>
+				<connector uid="16" angle="33.3664">
+					<from>PHEV10_out_b</from>
+					<to>total_PHEV10_out</to>
+				</connector>
+				<connector uid="17" angle="24.1666">
+					<from>PHEV10_out_c</from>
+					<to>total_PHEV10_out</to>
+				</connector>
+				<connector uid="18" angle="33.3212">
+					<from>PHEV10_out_d</from>
+					<to>total_PHEV10_out</to>
+				</connector>
+				<aux color="black" x="462.667" y="305.083" name="PHEV10 battery energy"/>
+				<aux color="black" label_side="bottom" x="533.667" y="358.083" name="PHEV10 battery energy out per year"/>
+				<connector uid="19" angle="338.875">
+					<from>PHEV10_battery_energy</from>
+					<to>PHEV10_battery_energy_out_per_year</to>
+				</connector>
+				<connector uid="20" angle="12.8407">
+					<from>total_PHEV10_out</from>
+					<to>PHEV10_battery_energy_out_per_year</to>
+				</connector>
+				<flow color="black" x="190.75" y="599.667" name="PHEV40 out a">
+					<pts>
+						<pt x="152.5" y="599.667"/>
+						<pt x="253" y="599.667"/>
+					</pts>
+				</flow>
+				<stock color="black" x="130" y="614.917" name="PHEV40 stock"/>
+				<connector uid="21" color="black" polarity="+" isee:polarity_placement="outside" angle="98.7462">
+					<from>PHEV40_stock</from>
+					<to>PHEV40_out_a</to>
+				</connector>
+				<flow color="black" x="213.5" y="641.417" name="PHEV40 out b">
+					<pts>
+						<pt x="148" y="632.417"/>
+						<pt x="148" y="641.417"/>
+						<pt x="303" y="641.417"/>
+					</pts>
+				</flow>
+				<connector uid="22" angle="0">
+					<from>PHEV40_stock</from>
+					<to>PHEV40_out_b</to>
+				</connector>
+				<flow color="black" x="233.5" y="685.667" name="PHEV40 out c">
+					<pts>
+						<pt x="138" y="632.417"/>
+						<pt x="138" y="685.667"/>
+						<pt x="353" y="685.667"/>
+					</pts>
+				</flow>
+				<connector uid="23" angle="316.397">
+					<from>PHEV40_stock</from>
+					<to>PHEV40_out_c</to>
+				</connector>
+				<flow color="black" x="252" y="735.667" name="PHEV40 out d">
+					<pts>
+						<pt x="125" y="632.417"/>
+						<pt x="125" y="735.667"/>
+						<pt x="403" y="735.667"/>
+					</pts>
+				</flow>
+				<connector uid="24" angle="284.621">
+					<from>PHEV40_stock</from>
+					<to>PHEV40_out_d</to>
+				</connector>
+				<aux color="black" x="405" y="617.667" name="total PHEV40 out"/>
+				<connector uid="25" angle="2.3533">
+					<from>PHEV40_out_a</from>
+					<to>total_PHEV40_out</to>
+				</connector>
+				<connector uid="26" angle="33.3664">
+					<from>PHEV40_out_b</from>
+					<to>total_PHEV40_out</to>
+				</connector>
+				<connector uid="27" angle="24.1666">
+					<from>PHEV40_out_c</from>
+					<to>total_PHEV40_out</to>
+				</connector>
+				<connector uid="28" angle="33.3212">
+					<from>PHEV40_out_d</from>
+					<to>total_PHEV40_out</to>
+				</connector>
+				<aux color="black" x="431" y="554.667" name="PHEV40 battery energy"/>
+				<aux color="black" label_side="bottom" x="502" y="607.667" name="PHEV40 battery\nenergy out per year"/>
+				<connector uid="29" angle="338.875">
+					<from>PHEV40_battery_energy</from>
+					<to>PHEV40_battery_energy_out_per_year</to>
+				</connector>
+				<connector uid="30" angle="12.8407">
+					<from>total_PHEV40_out</from>
+					<to>PHEV40_battery_energy_out_per_year</to>
+				</connector>
+				<flow color="black" x="53.75" y="617.667" name="PHEV40 in">
+					<pts>
+						<pt x="0" y="617.667"/>
+						<pt x="107.5" y="617.667"/>
+					</pts>
+				</flow>
+				<flow color="black" label_side="bottom" x="232.083" y="866.667" name="BEV out a">
+					<pts>
+						<pt x="193.833" y="866.667"/>
+						<pt x="294.333" y="866.667"/>
+					</pts>
+				</flow>
+				<stock color="black" x="171.333" y="881.916" name="BEV stock"/>
+				<connector uid="31" color="black" polarity="+" isee:polarity_placement="outside" angle="98.7462">
+					<from>BEV_stock</from>
+					<to>BEV_out_a</to>
+				</connector>
+				<flow color="black" x="245.833" y="899.416" width="18" height="18" name="BEV out b">
+					<pts>
+						<pt x="189.333" y="899.416"/>
+						<pt x="189.333" y="908.416"/>
+						<pt x="344.333" y="908.416"/>
+					</pts>
+				</flow>
+				<connector uid="32" angle="0">
+					<from>BEV_stock</from>
+					<to>BEV_out_b</to>
+				</connector>
+				<flow color="black" x="274.833" y="952.666" name="BEV out c">
+					<pts>
+						<pt x="179.333" y="899.416"/>
+						<pt x="179.333" y="952.666"/>
+						<pt x="394.333" y="952.666"/>
+					</pts>
+				</flow>
+				<connector uid="33" angle="316.397">
+					<from>BEV_stock</from>
+					<to>BEV_out_c</to>
+				</connector>
+				<flow color="black" x="293.333" y="1002.67" name="BEV out d">
+					<pts>
+						<pt x="166.333" y="899.416"/>
+						<pt x="166.333" y="1002.67"/>
+						<pt x="444.333" y="1002.67"/>
+					</pts>
+				</flow>
+				<connector uid="34" angle="284.621">
+					<from>BEV_stock</from>
+					<to>BEV_out_d</to>
+				</connector>
+				<aux color="black" x="446.333" y="884.666" name="total BEV out"/>
+				<connector uid="35" angle="2.3533">
+					<from>BEV_out_a</from>
+					<to>total_BEV_out</to>
+				</connector>
+				<connector uid="36" angle="33.3664">
+					<from>BEV_out_b</from>
+					<to>total_BEV_out</to>
+				</connector>
+				<connector uid="37" angle="24.1666">
+					<from>BEV_out_c</from>
+					<to>total_BEV_out</to>
+				</connector>
+				<connector uid="38" angle="33.3212">
+					<from>BEV_out_d</from>
+					<to>total_BEV_out</to>
+				</connector>
+				<aux color="black" x="472.333" y="821.667" name="BEV battery energy"/>
+				<aux color="black" label_side="bottom" x="543.333" y="874.667" name="BEV battery\nenergy out per year"/>
+				<connector uid="39" angle="338.875">
+					<from>BEV_battery_energy</from>
+					<to>BEV_battery_energy_out_per_year</to>
+				</connector>
+				<connector uid="40" angle="12.8407">
+					<from>total_BEV_out</from>
+					<to>BEV_battery_energy_out_per_year</to>
+				</connector>
+				<flow color="black" x="90.3331" y="821.667" name="EV100 in">
+					<pts>
+						<pt x="15.3333" y="821.667"/>
+						<pt x="153.333" y="821.667"/>
+						<pt x="153.333" y="864.416"/>
+					</pts>
+				</flow>
+				<flow color="black" x="86.4581" y="866.666" name="EV200 in">
+					<pts>
+						<pt x="24.0833" y="866.666"/>
+						<pt x="148.833" y="866.666"/>
+					</pts>
+				</flow>
+				<flow color="black" x="93.5831" y="919.416" name="EV300 in">
+					<pts>
+						<pt x="24.0833" y="919.416"/>
+						<pt x="151.083" y="919.416"/>
+						<pt x="151.083" y="899.416"/>
+					</pts>
+				</flow>
+				<aux color="black" label_side="bottom" x="814.833" y="141.333" name="total EV battery\nenergy per year"/>
+				<connector uid="41" angle="4.96974">
+					<from>
+						<alias uid="42"/>
+					</from>
+					<to>total_EV_battery_energy_per_year</to>
+				</connector>
+				<connector uid="43" angle="320.614">
+					<from>
+						<alias uid="44"/>
+					</from>
+					<to>total_EV_battery_energy_per_year</to>
+				</connector>
+				<connector uid="45" angle="248.44">
+					<from>
+						<alias uid="46"/>
+					</from>
+					<to>total_EV_battery_energy_per_year</to>
+				</connector>
+				<connector uid="47" angle="202.306">
+					<from>
+						<alias uid="48"/>
+					</from>
+					<to>total_EV_battery_energy_per_year</to>
+				</connector>
+				<aux color="#008F44" font_color="#008F44" x="848.833" y="221" name="sum total cap eol bat"/>
+				<connector uid="49" angle="278.955">
+					<from>total_EV_battery_energy_per_year</from>
+					<to>sum_total_cap_eol_bat</to>
+				</connector>
+				<aux color="black" x="1202.58" y="561.167" name="collectedEOLB"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1125.83" y="629.417" name="collectionefficiency"/>
+				<connector uid="50" color="black" angle="87.2073">
+					<from>collectionefficiency</from>
+					<to>collectedEOLB</to>
+				</connector>
+				<connector uid="51" angle="350.134">
+					<from>
+						<alias uid="52"/>
+					</from>
+					<to>collectedEOLB</to>
+				</connector>
+				<aux color="#55007F" font_color="#55007F" x="1079.25" y="134.75" name="demand for\nenergy storage"/>
+				<aux color="black" x="1187" y="102" name="SLBdemand"/>
+				<connector uid="53" color="black" angle="16.9064">
+					<from>demand_for_energy_storage</from>
+					<to>SLBdemand</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" x="1314.75" y="181.25" name="PP EA"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1389.75" y="150" name="PP GP"/>
+				<aux color="black" label_side="bottom" x="1306" y="116.75" name="PP total"/>
+				<connector uid="54" color="black" angle="228.366">
+					<from>year_of_switch_from_EA_to_GP</from>
+					<to>PP_total</to>
+				</connector>
+				<connector uid="55" color="black" angle="97.7255">
+					<from>PP_EA</from>
+					<to>PP_total</to>
+				</connector>
+				<connector uid="56" color="black" angle="158.962">
+					<from>PP_GP</from>
+					<to>PP_total</to>
+				</connector>
+				<connector uid="57" color="black" angle="124.992">
+					<from>Start_year_for_reman</from>
+					<to>SLBdemand</to>
+				</connector>
+				<connector uid="58" color="black" angle="133.755">
+					<from>PP_total</from>
+					<to>SLBdemand</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" x="1216.25" y="187.5" name="Start year for reman"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1383.5" y="56.25" name="year of switch from EA to GP"/>
+				<aux color="black" x="1607.25" y="227.75" name="value of throughput new battery"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1524" y="198" name="value of throughput\nold battery"/>
+				<aux color="black" x="1625.25" y="180" name="value parameter"/>
+				<aux color="black" label_side="right" x="1719.5" y="147" name="used product discount factor"/>
+				<connector uid="59" color="black" angle="0">
+					<from>value_of_throughput_old_battery</from>
+					<to>value_parameter</to>
+				</connector>
+				<connector uid="60" color="black" angle="69.3454">
+					<from>value_of_throughput_new_battery</from>
+					<to>value_parameter</to>
+				</connector>
+				<aux color="black" label_side="right" label_angle="315" x="1773" y="193" name="selling price of SLB"/>
+				<connector uid="61" color="black" angle="0">
+					<from>value_parameter</from>
+					<to>selling_price_of_SLB</to>
+				</connector>
+				<aux color="black" x="1733.5" y="226.75" name="cost of new battery BNEF"/>
+				<connector uid="62" color="black" angle="40.5116">
+					<from>cost_of_new_battery_BNEF</from>
+					<to>selling_price_of_SLB</to>
+				</connector>
+				<connector uid="63" color="black" angle="320.194">
+					<from>used_product_discount_factor</from>
+					<to>selling_price_of_SLB</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" x="1565" y="128.25" name="year of switch from EA to GP 1"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1621.25" y="63" name="UPDF EA"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1686.75" y="73.5" name="UPDF GP"/>
+				<aux color="black" label_side="left" label_angle="135" x="1651.25" y="118.75" name="UPDF"/>
+				<connector uid="64" color="black" angle="6.2855">
+					<from>year_of_switch_from_EA_to_GP_1</from>
+					<to>UPDF</to>
+				</connector>
+				<connector uid="65" color="black" angle="298.285">
+					<from>UPDF_EA</from>
+					<to>UPDF</to>
+				</connector>
+				<connector uid="66" color="black" angle="231.885">
+					<from>UPDF_GP</from>
+					<to>UPDF</to>
+				</connector>
+				<connector uid="67" color="black" angle="337.514">
+					<from>UPDF</from>
+					<to>used_product_discount_factor</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" x="1773" y="100.75" name="Start year for reman 1"/>
+				<connector uid="68" color="black" angle="205.877">
+					<from>Start_year_for_reman_1</from>
+					<to>used_product_discount_factor</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" x="1246.5" y="443.25" name="technically feasible\nbatteries fraction"/>
+				<aux color="black" label_side="bottom" x="1376.75" y="360.5" name="SLB tonnes"/>
+				<connector uid="69" color="black" angle="306.995">
+					<from>&quot;kWh/kg&quot;</from>
+					<to>SLB_tonnes</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" x="1335.5" y="305.75" name="kWh/kg"/>
+				<aux color="black" x="1327.58" y="522.167" name="technically feasible collectedEOLB"/>
+				<connector uid="70" angle="20.006">
+					<from>collectedEOLB</from>
+					<to>technically_feasible_collectedEOLB</to>
+				</connector>
+				<connector uid="71" angle="299.56">
+					<from>technically_feasible_batteries_fraction</from>
+					<to>technically_feasible_collectedEOLB</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1459" y="537.167" name="reman SLB possible"/>
+				<connector uid="72" angle="353.489">
+					<from>technically_feasible_collectedEOLB</from>
+					<to>reman_SLB_possible</to>
+				</connector>
+				<connector uid="73" angle="307.405">
+					<from>
+						<alias uid="74"/>
+					</from>
+					<to>reman_SLB_possible</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1407" y="664.167" name="recycledEOLB"/>
+				<connector uid="75" angle="350.018">
+					<from>collectedEOLB</from>
+					<to>recycledEOLB</to>
+				</connector>
+				<flow color="black" x="988.25" y="771.417" name="SLB out a">
+					<pts>
+						<pt x="950" y="771.417"/>
+						<pt x="1050.5" y="771.417"/>
+					</pts>
+				</flow>
+				<stock color="black" x="927.5" y="786.667" name="SLB stock"/>
+				<connector uid="76" color="black" polarity="+" isee:polarity_placement="outside" angle="98.7462">
+					<from>SLB_stock</from>
+					<to>SLB_out_a</to>
+				</connector>
+				<flow color="black" x="1011" y="813.167" name="SLB out b">
+					<pts>
+						<pt x="945.5" y="804.167"/>
+						<pt x="945.5" y="813.167"/>
+						<pt x="1100.5" y="813.167"/>
+					</pts>
+				</flow>
+				<connector uid="77" angle="0">
+					<from>SLB_stock</from>
+					<to>SLB_out_b</to>
+				</connector>
+				<flow color="black" x="1031" y="857.417" name="SLB out c">
+					<pts>
+						<pt x="935.5" y="804.167"/>
+						<pt x="935.5" y="857.417"/>
+						<pt x="1150.5" y="857.417"/>
+					</pts>
+				</flow>
+				<connector uid="78" angle="316.397">
+					<from>SLB_stock</from>
+					<to>SLB_out_c</to>
+				</connector>
+				<flow color="black" x="1049.5" y="907.417" name="SLB out d">
+					<pts>
+						<pt x="922.5" y="804.167"/>
+						<pt x="922.5" y="907.417"/>
+						<pt x="1200.5" y="907.417"/>
+					</pts>
+				</flow>
+				<connector uid="79" angle="284.621">
+					<from>SLB_stock</from>
+					<to>SLB_out_d</to>
+				</connector>
+				<aux color="black" x="1202.5" y="789.417" name="total SLB out"/>
+				<connector uid="80" angle="2.3533">
+					<from>SLB_out_a</from>
+					<to>total_SLB_out</to>
+				</connector>
+				<connector uid="81" angle="33.3664">
+					<from>SLB_out_b</from>
+					<to>total_SLB_out</to>
+				</connector>
+				<connector uid="82" angle="24.1666">
+					<from>SLB_out_c</from>
+					<to>total_SLB_out</to>
+				</connector>
+				<connector uid="83" angle="33.3212">
+					<from>SLB_out_d</from>
+					<to>total_SLB_out</to>
+				</connector>
+				<flow color="black" x="851.25" y="789.417" name="SLB in">
+					<pts>
+						<pt x="797.5" y="789.417"/>
+						<pt x="905" y="789.417"/>
+					</pts>
+				</flow>
+				<connector uid="84" angle="56.3944">
+					<from>total_SLB_out</from>
+					<to>recycledEOLB</to>
+				</connector>
+				<stock color="black" x="1785.75" y="634.5" name="reman capacity"/>
+				<aux color="black" x="1592.75" y="675.25" name="addition over n years"/>
+				<connector uid="85" angle="235.597">
+					<from>reman_capacity</from>
+					<to>addition_over_n_years</to>
+				</connector>
+				<flow color="black" x="1677.88" y="618.75" name="capacity addition">
+					<pts>
+						<pt x="1592.5" y="618.75"/>
+						<pt x="1763.25" y="618.75"/>
+					</pts>
+				</flow>
+				<connector uid="86" angle="50.0291">
+					<from>addition_over_n_years</from>
+					<to>capacity_addition</to>
+				</connector>
+				<connector uid="87" angle="303.853">
+					<from>
+						<alias uid="88"/>
+					</from>
+					<to>capacity_addition</to>
+				</connector>
+				<connector uid="89" angle="314.087">
+					<from>reman_SLB_possible</from>
+					<to>addition_over_n_years</to>
+				</connector>
+				<stacked_container uid="90" x="3095" y="486.75">
+					<graph x="2920" y="361.75" width="350" height="250" type="time_series" isee:points_only="false" show_grid="false" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" title="Graph" isee:fill_intensity="0.1" left_axis_multi_scale="false" left_axis_auto_scale="true" right_axis_multi_scale="false" right_axis_auto_scale="true">
+						<plot color="blue" pen_width="1" index="0" show_y_axis="true">
+							<entity name="reman_capacity"/>
+						</plot>
+						<plot color="red" pen_style="dot_dashed" pen_width="1" index="1" show_y_axis="true">
+							<entity name="reman_SLB_possible"/>
+						</plot>
+						<plot color="fuchsia" pen_style="dotted" pen_width="1" index="2" show_y_axis="true">
+							<entity name="reman_SLB"/>
+						</plot>
+					</graph>
+				</stacked_container>
+				<aux color="black" label_side="bottom" x="1830.5" y="568.25" name="reman SLB"/>
+				<connector uid="91" angle="55.9621">
+					<from>reman_capacity</from>
+					<to>reman_SLB</to>
+				</connector>
+				<connector uid="92" angle="45">
+					<from>
+						<alias uid="93"/>
+					</from>
+					<to>SLB_in</to>
+				</connector>
+				<aux color="black" x="1799" y="507.25" name="Cost of labor per SLB kWh without increase"/>
+				<aux color="black" x="1830.5" y="424" name="cost of labor in facility"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1794" y="385.75" name="labor in facility"/>
+				<connector uid="94" color="black" angle="248.499">
+					<from>cost_of_labor_in_facility</from>
+					<to>Cost_of_labor_per_SLB_kWh_without_increase</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" x="1721.5" y="449" name="cost of labor per hour"/>
+				<connector uid="95" color="black" angle="16.336">
+					<from>cost_of_labor_per_hour</from>
+					<to>cost_of_labor_in_facility</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" x="1639.75" y="342.75" name="number of shifts"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1734.75" y="324.75" name="number of hours per year per laborer"/>
+				<aux color="#AA007F" font_color="#AA007F" x="2027.75" y="330.75" name="output per hour"/>
+				<aux color="black" x="1962.5" y="339.75" name="output per hour kWh"/>
+				<connector uid="96" angle="172.476">
+					<from>output_per_hour</from>
+					<to>output_per_hour_kWh</to>
+				</connector>
+				<aux color="black" x="1867.75" y="324.75" name="number of laborers needed"/>
+				<connector uid="97" angle="163.61">
+					<from>output_per_hour_kWh</from>
+					<to>number_of_laborers_needed</to>
+				</connector>
+				<connector uid="98" angle="351.254">
+					<from>
+						<alias uid="99"/>
+					</from>
+					<to>number_of_laborers_needed</to>
+				</connector>
+				<connector uid="100" angle="0">
+					<from>number_of_hours_per_year_per_laborer</from>
+					<to>number_of_laborers_needed</to>
+				</connector>
+				<connector uid="101" angle="28.2685">
+					<from>number_of_shifts</from>
+					<to>number_of_laborers_needed</to>
+				</connector>
+				<aux color="black" x="1896.5" y="374.75" name="min labor needed"/>
+				<connector uid="102" angle="302.76">
+					<from>number_of_laborers_needed</from>
+					<to>min_labor_needed</to>
+				</connector>
+				<connector uid="103" angle="10.5392">
+					<from>labor_in_facility</from>
+					<to>min_labor_needed</to>
+				</connector>
+				<connector uid="104" angle="164.558">
+					<from>
+						<alias uid="105"/>
+					</from>
+					<to>min_labor_needed</to>
+				</connector>
+				<connector uid="106" angle="218.967">
+					<from>min_labor_needed</from>
+					<to>cost_of_labor_in_facility</to>
+				</connector>
+				<connector uid="107" angle="289.486">
+					<from>number_of_hours_per_year_per_laborer</from>
+					<to>cost_of_labor_in_facility</to>
+				</connector>
+				<connector uid="108" angle="99.1114">
+					<from>reman_SLB</from>
+					<to>Cost_of_labor_per_SLB_kWh_without_increase</to>
+				</connector>
+				<aux color="black" x="1927" y="594.25" name="cost of reman\ncapacity per SLB kWh"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1994.25" y="643" name="cost of reman capacity"/>
+				<connector uid="109" angle="344.921">
+					<from>reman_SLB</from>
+					<to>cost_of_reman_capacity_per_SLB_kWh</to>
+				</connector>
+				<aux color="black" x="1755.63" y="777.75" name="cost of electricity per SLB kWh"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1830.5" y="964.5" name="cost of electricity"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1670.25" y="814.75" name="electricity per kWh"/>
+				<connector uid="110" color="black" angle="23.4298">
+					<from>electricity_per_kWh</from>
+					<to>cost_of_electricity_per_SLB_kWh</to>
+				</connector>
+				<connector uid="111" angle="254.745">
+					<from>
+						<alias uid="112"/>
+					</from>
+					<to>cost_of_electricity_per_SLB_kWh</to>
+				</connector>
+				<aux color="black" x="2017" y="806.75" name="cost of materials\nper SLB kWh"/>
+				<aux color="black" label_side="bottom" x="1927" y="871.75" name="cost of materials\nconstant per kWh"/>
+				<connector uid="113" angle="63.4349">
+					<from>cost_of_materials_constant_per_kWh</from>
+					<to>cost_of_materials_per_SLB_kWh</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="2088.5" y="871.75" name="cost of materials\nconstant based on mass per kWh"/>
+				<aux color="black" label_side="bottom" x="1994.25" y="916.75" name="cost of materials\nothers per kWh"/>
+				<connector uid="114" angle="66.7474">
+					<from>cost_of_materials_others_per_kWh</from>
+					<to>cost_of_materials_per_SLB_kWh</to>
+				</connector>
+				<connector uid="115" angle="138.641">
+					<from>cost_of_materials_constant_based_on_mass_per_kWh</from>
+					<to>cost_of_materials_per_SLB_kWh</to>
+				</connector>
+				<connector uid="116" angle="244.654">
+					<from>
+						<alias uid="117"/>
+					</from>
+					<to>cost_of_materials_constant_based_on_mass_per_kWh</to>
+				</connector>
+				<aux color="black" x="2228" y="674.5" name="transportation costs per SLB kWh"/>
+				<aux color="black" x="2105" y="768.75" name="tonne per SLB kWh"/>
+				<aux color="#AA007F" font_color="#AA007F" x="2642.75" y="814.75" name="transporation cost per mile"/>
+				<aux color="black" x="2462" y="884" name="transportation\ncosts per tonmile"/>
+				<aux color="#AA007F" font_color="#AA007F" x="2563.25" y="905.25" name="transport truck tonnage"/>
+				<connector uid="118" color="black" angle="168.147">
+					<from>transport_truck_tonnage</from>
+					<to>transportation_costs_per_tonmile</to>
+				</connector>
+				<aux color="black" x="2358.25" y="762.5" name="transport cost per kWh"/>
+				<aux color="black" x="2337" y="839.75" name="transport distance possible"/>
+				<connector uid="119" angle="51.2675">
+					<from>transport_distance_possible</from>
+					<to>transport_cost_per_kWh</to>
+				</connector>
+				<connector uid="120" angle="23.1428">
+					<from>tonne_per_SLB_kWh</from>
+					<to>transport_cost_per_kWh</to>
+				</connector>
+				<connector uid="121" angle="130.494">
+					<from>transportation_costs_per_tonmile</from>
+					<to>transport_cost_per_kWh</to>
+				</connector>
+				<connector uid="122" angle="122.137">
+					<from>transport_cost_per_kWh</from>
+					<to>transportation_costs_per_SLB_kWh</to>
+				</connector>
+				<aux color="black" x="2591" y="374.75" name="allowable max cost\nwith overheads"/>
+				<connector uid="123" angle="59.1534">
+					<from>
+						<alias uid="117"/>
+					</from>
+					<to>tonne_per_SLB_kWh</to>
+				</connector>
+				<aux color="black" x="2452.5" y="406" name="total cost per SLB\nkWh"/>
+				<connector uid="124" angle="39.2894">
+					<from>
+						<alias uid="125"/>
+					</from>
+					<to>transportation_costs_per_SLB_kWh</to>
+				</connector>
+				<connector uid="126" angle="8.1301">
+					<from>
+						<alias uid="127"/>
+					</from>
+					<to>total_cost_per_SLB_kWh</to>
+				</connector>
+				<connector uid="128" angle="29.0546">
+					<from>
+						<alias uid="129"/>
+					</from>
+					<to>total_cost_per_SLB_kWh</to>
+				</connector>
+				<connector uid="130" angle="42.3974">
+					<from>
+						<alias uid="131"/>
+					</from>
+					<to>total_cost_per_SLB_kWh</to>
+				</connector>
+				<connector uid="132" angle="92.6507">
+					<from>
+						<alias uid="133"/>
+					</from>
+					<to>total_cost_per_SLB_kWh</to>
+				</connector>
+				<stacked_container uid="134" x="3068.75" y="731.75" width="598.75" height="372.5">
+					<graph x="3068.75" y="731.75" width="598.75" height="372.5" type="time_series" isee:points_only="false" show_grid="true" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" num_x_grid_lines="0" num_y_grid_lines="2" num_x_labels="5" num_y_labels="5" title="Graph" isee:fill_intensity="0.1" left_axis_title="Million dollars per year" left_axis_multi_scale="false" left_axis_auto_scale="true" right_axis_title="Dollars per kWh" right_axis_multi_scale="false" right_axis_auto_scale="true">
+						<plot color="red" isee:keep_zero_visible="true" pen_width="0" index="0" show_y_axis="true">
+							<entity name="EOL_value_from_remanufacturing"/>
+						</plot>
+						<plot color="fuchsia" isee:keep_zero_visible="true" pen_width="1" index="1" show_y_axis="true">
+							<entity name="EOL_Recycling_value"/>
+						</plot>
+						<plot color="#008F44" isee:keep_zero_visible="true" pen_width="1" index="2" show_y_axis="true">
+							<entity name="total_EOL_value"/>
+						</plot>
+						<plot color="#FF7F00" pen_style="dashed" pen_width="1" index="0" right_axis="true" show_y_axis="true">
+							<entity name="selling_price_of_SLB"/>
+						</plot>
+						<plot color="blue" pen_style="dashed" isee:keep_zero_visible="true" pen_width="1" index="1" right_axis="true" show_y_axis="true">
+							<entity name="allowable_max_cost"/>
+						</plot>
+					</graph>
+				</stacked_container>
+				<connector uid="135" angle="47.7263">
+					<from>total_cost_per_SLB_kWh</from>
+					<to>allowable_max_cost_with_overheads</to>
+				</connector>
+				<aux color="black" label_side="top" x="2613.5" y="495" name="overhead and launch costs"/>
+				<connector uid="136" angle="36.6861">
+					<from>
+						<alias uid="137"/>
+					</from>
+					<to>overhead_and_launch_costs</to>
+				</connector>
+				<connector uid="138" angle="70.3959">
+					<from>overhead_and_launch_costs</from>
+					<to>allowable_max_cost_with_overheads</to>
+				</connector>
+				<aux color="black" x="2684.75" y="350.75" name="allowable max cost"/>
+				<aux color="#AA007F" font_color="#AA007F" label_side="top" x="2642.75" y="288.75" name="allowable profit %"/>
+				<connector uid="139" color="black" angle="299.604">
+					<from>&quot;allowable_profit_%&quot;</from>
+					<to>allowable_max_cost</to>
+				</connector>
+				<aux color="black" x="2812.25" y="389.5" name="EOL value from remanufacturing"/>
+				<connector uid="140" angle="359.582">
+					<from>allowable_max_cost</from>
+					<to>EOL_value_from_remanufacturing</to>
+				</connector>
+				<connector uid="141" angle="292.652">
+					<from>
+						<alias uid="142"/>
+					</from>
+					<to>EOL_value_from_remanufacturing</to>
+				</connector>
+				<connector uid="143" angle="218.157">
+					<from>
+						<alias uid="144"/>
+					</from>
+					<to>EOL_value_from_remanufacturing</to>
+				</connector>
+				<connector uid="145" angle="20.9245">
+					<from>allowable_max_cost_with_overheads</from>
+					<to>allowable_max_cost</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="2882.5" y="498" name="total EOL value"/>
+				<connector uid="146" angle="316.909">
+					<from>EOL_value_from_remanufacturing</from>
+					<to>total_EOL_value</to>
+				</connector>
+				<aux color="black" x="1468" y="716" name="EOL Recycling value"/>
+				<aux color="#AA007F" font_color="#AA007F" x="1570.42" y="813.167" name="recycled material value in 2020"/>
+				<connector uid="147" angle="319.596">
+					<from>recycledEOLB</from>
+					<to>EOL_Recycling_value</to>
+				</connector>
+				<connector uid="148" angle="38.3675">
+					<from>
+						<alias uid="149"/>
+					</from>
+					<to>total_EOL_value</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" x="2243" y="871.75" name="transport distance min input"/>
+				<connector uid="150" color="black" angle="18.7999">
+					<from>transport_distance_min_input</from>
+					<to>transport_distance_possible</to>
+				</connector>
+				<aux color="black" x="2274.5" y="954.75" name="transport distance from reman capacity"/>
+				<connector uid="151" angle="129.214">
+					<from>
+						<alias uid="152"/>
+					</from>
+					<to>transport_distance_from_reman_capacity</to>
+				</connector>
+				<connector uid="153" angle="78.887">
+					<from>transport_distance_from_reman_capacity</from>
+					<to>transport_distance_possible</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" x="1710.75" y="952.75" name="percentage increase in cost of\nelectricity"/>
+				<aux color="black" x="1805.63" y="827.75" name="cost of electricity\nwith increase"/>
+				<connector uid="154" angle="134.589">
+					<from>cost_of_electricity_with_increase</from>
+					<to>cost_of_electricity_per_SLB_kWh</to>
+				</connector>
+				<aux color="black" x="1773.63" y="898.75" name="increase in cost of\nelectricity over year"/>
+				<connector uid="155" angle="66.3959">
+					<from>percentage_increase_in_cost_of_electricity</from>
+					<to>increase_in_cost_of_electricity_over_year</to>
+				</connector>
+				<connector uid="156" angle="112.949">
+					<from>cost_of_electricity</from>
+					<to>increase_in_cost_of_electricity_over_year</to>
+				</connector>
+				<connector uid="157" angle="72.5651">
+					<from>cost_of_electricity</from>
+					<to>cost_of_electricity_with_increase</to>
+				</connector>
+				<connector uid="158" angle="74.1944">
+					<from>increase_in_cost_of_electricity_over_year</from>
+					<to>cost_of_electricity_with_increase</to>
+				</connector>
+				<aux color="black" x="1931.75" y="424.25" name="percentage increase in labor cost"/>
+				<aux color="black" x="1953.75" y="480.417" name="increase\nin labor cost"/>
+				<connector uid="159" angle="17.1027">
+					<from>Cost_of_labor_per_SLB_kWh_without_increase</from>
+					<to>increase_in_labor_cost</to>
+				</connector>
+				<connector uid="160" angle="305.579">
+					<from>percentage_increase_in_labor_cost</from>
+					<to>increase_in_labor_cost</to>
+				</connector>
+				<aux color="black" x="2003.75" y="530.417" name="Cost of labor per SLB kWh"/>
+				<connector uid="161" angle="355.601">
+					<from>Cost_of_labor_per_SLB_kWh_without_increase</from>
+					<to>Cost_of_labor_per_SLB_kWh</to>
+				</connector>
+				<connector uid="162" angle="314.932">
+					<from>increase_in_labor_cost</from>
+					<to>Cost_of_labor_per_SLB_kWh</to>
+				</connector>
+				<connector uid="163" angle="294.926">
+					<from>
+						<alias uid="164"/>
+					</from>
+					<to>total_cost_per_SLB_kWh</to>
+				</connector>
+				<connector uid="165" angle="132.138">
+					<from>
+						<alias uid="166"/>
+					</from>
+					<to>overhead_and_launch_costs</to>
+				</connector>
+				<aux color="black" x="2524.5" y="786.75" name="transportation\ncosts per mile for the year"/>
+				<connector uid="167" angle="164.228">
+					<from>transporation_cost_per_mile</from>
+					<to>transportation_costs_per_mile_for_the_year</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" x="2613.5" y="722.75" name="percentage increase in transportation cost"/>
+				<connector uid="168" angle="207.192">
+					<from>percentage_increase_in_transportation_cost</from>
+					<to>transportation_costs_per_mile_for_the_year</to>
+				</connector>
+				<connector uid="169" angle="223.877">
+					<from>transportation_costs_per_mile_for_the_year</from>
+					<to>transportation_costs_per_tonmile</to>
+				</connector>
+				<connector uid="170" angle="185.194">
+					<from>
+						<alias uid="171"/>
+					</from>
+					<to>recycledEOLB</to>
+				</connector>
+				<connector uid="172" angle="30.9638">
+					<from>
+						<alias uid="173"/>
+					</from>
+					<to>reman_SLB</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="574" y="46.75" name="hyb battery energy\nin per year"/>
+				<connector uid="174" angle="23.4399">
+					<from>hyb_battery_energy</from>
+					<to>hyb_battery_energy_in_per_year</to>
+				</connector>
+				<connector uid="175" angle="357.852">
+					<from>
+						<alias uid="176"/>
+					</from>
+					<to>hyb_battery_energy_in_per_year</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="601.167" y="287.083" name="PHEV10 battery energy\nin per year"/>
+				<connector uid="177" angle="5.98823">
+					<from>
+						<alias uid="178"/>
+					</from>
+					<to>PHEV10_battery_energy_in_per_year</to>
+				</connector>
+				<connector uid="179" angle="22.0391">
+					<from>PHEV10_battery_energy</from>
+					<to>PHEV10_battery_energy_in_per_year</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="589.5" y="554.667" name="PHEV40 battery\nenergy in per year"/>
+				<connector uid="180" angle="18.4366">
+					<from>PHEV40_battery_energy</from>
+					<to>PHEV40_battery_energy_in_per_year</to>
+				</connector>
+				<connector uid="181" angle="344.358">
+					<from>
+						<alias uid="182"/>
+					</from>
+					<to>PHEV40_battery_energy_in_per_year</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="627.083" y="814.667" name="BEV battery\nenergy in per year"/>
+				<connector uid="183" angle="33.0187">
+					<from>BEV_battery_energy</from>
+					<to>BEV_battery_energy_in_per_year</to>
+				</connector>
+				<connector uid="184" angle="329.744">
+					<from>
+						<alias uid="185"/>
+					</from>
+					<to>BEV_battery_energy_in_per_year</to>
+				</connector>
+				<connector uid="186" angle="287.819">
+					<from>
+						<alias uid="187"/>
+					</from>
+					<to>BEV_battery_energy_in_per_year</to>
+				</connector>
+				<connector uid="188" angle="262.569">
+					<from>
+						<alias uid="189"/>
+					</from>
+					<to>BEV_battery_energy_in_per_year</to>
+				</connector>
+				<aux color="#008F44" font_color="#008F44" x="923.583" y="474" name="sum total cap in bat"/>
+				<connector uid="190" angle="282.529">
+					<from>
+						<alias uid="191"/>
+					</from>
+					<to>sum_total_cap_in_bat</to>
+				</connector>
+				<connector uid="192" angle="317.916">
+					<from>
+						<alias uid="193"/>
+					</from>
+					<to>sum_total_cap_in_bat</to>
+				</connector>
+				<connector uid="194" angle="352.405">
+					<from>
+						<alias uid="195"/>
+					</from>
+					<to>sum_total_cap_in_bat</to>
+				</connector>
+				<connector uid="196" angle="19.0935">
+					<from>
+						<alias uid="197"/>
+					</from>
+					<to>sum_total_cap_in_bat</to>
+				</connector>
+				<connector uid="198" angle="197.103">
+					<from>
+						<alias uid="199"/>
+					</from>
+					<to>sum_total_cap_eol_bat</to>
+				</connector>
+				<aux x="1051.25" y="312.75" name="total LIB demand"/>
+				<connector uid="200" angle="257.905">
+					<from>demand_for_energy_storage</from>
+					<to>total_LIB_demand</to>
+				</connector>
+				<connector uid="201" angle="45.1108">
+					<from>sum_total_cap_in_bat</from>
+					<to>total_LIB_demand</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1202.58" y="327.75" name="modified LIB demand"/>
+				<connector uid="202" angle="10.8082">
+					<from>total_LIB_demand</from>
+					<to>modified_LIB_demand</to>
+				</connector>
+				<connector uid="203" angle="309.472">
+					<from>
+						<alias uid="204"/>
+					</from>
+					<to>modified_LIB_demand</to>
+				</connector>
+				<stacked_container uid="205" x="2155.75" y="15.083" width="439.75" height="287.5">
+					<graph x="2155.75" y="15.083" width="439.75" height="287.5" type="time_series" isee:points_only="false" show_grid="false" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" title="LIB demand changes with remanufacturing" isee:fill_intensity="0.1" left_axis_title="LIB demand in kWh" left_axis_multi_scale="false" left_axis_auto_scale="true" right_axis_multi_scale="false" right_axis_auto_scale="true">
+						<plot color="blue" pen_width="1" index="0" show_y_axis="true">
+							<entity name="total_LIB_demand"/>
+						</plot>
+						<plot color="blue" pen_style="dot_dashed" pen_width="1" index="1" show_y_axis="true">
+							<entity name="modified_LIB_demand"/>
+						</plot>
+					</graph>
+				</stacked_container>
+				<aux color="black" label_side="bottom" x="943.333" y="1036.75" name="Aluminum in"/>
+				<aux color="black" label_side="bottom" x="990" y="1085.5" name="Cobalt in"/>
+				<aux color="black" label_side="bottom" x="1037.08" y="1128" name="Copper in"/>
+				<aux color="black" label_side="bottom" x="1058.33" y="1188" name="Nickel in"/>
+				<aux color="black" label_side="bottom" x="1055.08" y="1233.5" name="Steel in"/>
+				<aux color="black" label_side="bottom" x="1004.33" y="1259.5" name="Iron in"/>
+				<aux color="black" label_side="bottom" x="885.083" y="1316.5" name="Lithium in"/>
+				<aux color="black" label_side="bottom" x="943.333" y="1289.75" name="Manganese in"/>
+				<connector uid="206" angle="59.701">
+					<from>
+						<alias uid="207"/>
+					</from>
+					<to>Aluminum_in</to>
+				</connector>
+				<connector uid="208" angle="35.8262">
+					<from>
+						<alias uid="207"/>
+					</from>
+					<to>Cobalt_in</to>
+				</connector>
+				<connector uid="209" angle="41.7387">
+					<from>
+						<alias uid="207"/>
+					</from>
+					<to>Copper_in</to>
+				</connector>
+				<connector uid="210" angle="344.019">
+					<from>
+						<alias uid="207"/>
+					</from>
+					<to>Nickel_in</to>
+				</connector>
+				<connector uid="211" angle="337.095">
+					<from>
+						<alias uid="207"/>
+					</from>
+					<to>Steel_in</to>
+				</connector>
+				<connector uid="212" angle="314.924">
+					<from>
+						<alias uid="207"/>
+					</from>
+					<to>Iron_in</to>
+				</connector>
+				<connector uid="213" angle="292.045">
+					<from>
+						<alias uid="207"/>
+					</from>
+					<to>Manganese_in</to>
+				</connector>
+				<connector uid="214" angle="258.544">
+					<from>
+						<alias uid="207"/>
+					</from>
+					<to>Lithium_in</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1275.25" y="1185.67" name="Aluminum after recycl"/>
+				<aux color="black" label_side="bottom" x="1385" y="1175.33" name="Cobalt after recycl"/>
+				<aux color="black" label_side="bottom" x="1519.33" y="1187" name="Copper after recycl"/>
+				<aux color="black" label_side="bottom" x="1652" y="1192" name="Nickel after recycl"/>
+				<aux color="black" label_side="bottom" x="1618.5" y="1323.83" name="Steel after recycl"/>
+				<aux color="black" label_side="bottom" x="1527.67" y="1404.67" name="Iron after recycl"/>
+				<aux color="black" label_side="bottom" x="1317.83" y="1431.67" name="Lithium after recycl"/>
+				<connector uid="215" angle="132.21">
+					<from>
+						<alias uid="216"/>
+					</from>
+					<to>Aluminum_after_recycl</to>
+				</connector>
+				<connector uid="217" angle="90">
+					<from>
+						<alias uid="216"/>
+					</from>
+					<to>Cobalt_after_recycl</to>
+				</connector>
+				<connector uid="218" angle="41.6953">
+					<from>
+						<alias uid="216"/>
+					</from>
+					<to>Copper_after_recycl</to>
+				</connector>
+				<connector uid="219" angle="23.2417">
+					<from>
+						<alias uid="216"/>
+					</from>
+					<to>Nickel_after_recycl</to>
+				</connector>
+				<connector uid="220" angle="355.795">
+					<from>
+						<alias uid="216"/>
+					</from>
+					<to>Steel_after_recycl</to>
+				</connector>
+				<connector uid="221" angle="325.514">
+					<from>
+						<alias uid="216"/>
+					</from>
+					<to>Iron_after_recycl</to>
+				</connector>
+				<connector uid="222" angle="276.009">
+					<from>
+						<alias uid="216"/>
+					</from>
+					<to>Lithium_after_recycl</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1305.25" y="1114.42" name="Aluminum demand modified"/>
+				<connector uid="223" angle="41.0091">
+					<from>
+						<alias uid="224"/>
+					</from>
+					<to>Aluminum_demand_modified</to>
+				</connector>
+				<connector uid="225" angle="53.5333">
+					<from>Aluminum_after_recycl</from>
+					<to>Aluminum_demand_modified</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1392.17" y="1040.75" name="Cobalt demand modified"/>
+				<connector uid="226" angle="119.171">
+					<from>
+						<alias uid="227"/>
+					</from>
+					<to>Cobalt_demand_modified</to>
+				</connector>
+				<connector uid="228" angle="86.9518">
+					<from>Cobalt_after_recycl</from>
+					<to>Cobalt_demand_modified</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1531" y="1110" name="Copper demand modified"/>
+				<connector uid="229" angle="81.3844">
+					<from>Copper_after_recycl</from>
+					<to>Copper_demand_modified</to>
+				</connector>
+				<connector uid="230" angle="299.072">
+					<from>
+						<alias uid="231"/>
+					</from>
+					<to>Copper_demand_modified</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1235.33" y="1481.67" name="Lithium demand modified"/>
+				<connector uid="232" angle="248.933">
+					<from>
+						<alias uid="233"/>
+					</from>
+					<to>Lithium_demand_modified</to>
+				</connector>
+				<connector uid="234" angle="215.439">
+					<from>Lithium_after_recycl</from>
+					<to>Lithium_demand_modified</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1438.58" y="1449.67" name="Manganese after recycl"/>
+				<connector uid="235" angle="312.879">
+					<from>
+						<alias uid="216"/>
+					</from>
+					<to>Manganese_after_recycl</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1354.83" y="1487.42" name="Manganese demand modified"/>
+				<connector uid="236" angle="151.711">
+					<from>
+						<alias uid="237"/>
+					</from>
+					<to>Manganese_demand_modified</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1586.42" y="1444.33" name="Iron demand modified"/>
+				<connector uid="238" angle="325.974">
+					<from>Iron_after_recycl</from>
+					<to>Iron_demand_modified</to>
+				</connector>
+				<connector uid="239" angle="142.963">
+					<from>
+						<alias uid="240"/>
+					</from>
+					<to>Iron_demand_modified</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1654.25" y="1382.75" name="Steel demand modified"/>
+				<connector uid="241" angle="317.632">
+					<from>Steel_after_recycl</from>
+					<to>Steel_demand_modified</to>
+				</connector>
+				<connector uid="242" angle="235.582">
+					<from>
+						<alias uid="243"/>
+					</from>
+					<to>Steel_demand_modified</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1744.5" y="1203.25" name="Nickel demand modified"/>
+				<connector uid="244" angle="9.54913">
+					<from>Nickel_after_recycl</from>
+					<to>Nickel_demand_modified</to>
+				</connector>
+				<connector uid="245" angle="344.932">
+					<from>
+						<alias uid="246"/>
+					</from>
+					<to>Nickel_demand_modified</to>
+				</connector>
+				<stacked_container uid="247" x="1997.5" y="1345.34" width="696.75" height="463.75">
+					<graph x="1997.5" y="1345.34" width="696.75" height="463.75" type="time_series" isee:points_only="false" show_grid="false" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" title="Graph" isee:fill_intensity="0.1" left_axis_title="Others (kg)" left_axis_multi_scale="false" left_axis_auto_scale="true" right_axis_title="Steel (kg)" right_axis_multi_scale="false" right_axis_auto_scale="true">
+						<plot color="blue" title="Aluminum needed " pen_width="1" index="0" show_y_axis="true">
+							<entity name="Aluminum_in"/>
+						</plot>
+						<plot color="blue" pen_style="dashed" title="Modified aluminum demand" pen_width="1" index="1" show_y_axis="true">
+							<entity name="Aluminum_after_recycl"/>
+						</plot>
+						<plot color="fuchsia" title="Nickel demand" pen_width="1" index="2" show_y_axis="true">
+							<entity name="Nickel_in"/>
+						</plot>
+						<plot color="fuchsia" pen_style="dashed" title="Modified nickel demand" pen_width="1" index="3" show_y_axis="true">
+							<entity name="Nickel_after_recycl"/>
+						</plot>
+						<plot color="#FF7F00" title="Iron demand" pen_width="1" index="4" show_y_axis="true">
+							<entity name="Iron_in"/>
+						</plot>
+						<plot color="#FF5500" pen_style="dashed" title="Modified iron demand" pen_width="1" index="5" show_y_axis="true">
+							<entity name="Iron_after_recycl"/>
+						</plot>
+						<plot color="red" title="Cobalt demand" pen_width="1" index="6" show_y_axis="true">
+							<entity name="Cobalt_in"/>
+						</plot>
+						<plot color="red" pen_style="dashed" title="Modified cobalt demand" pen_width="1" index="7" show_y_axis="true">
+							<entity name="Cobalt_after_recycl"/>
+						</plot>
+						<plot color="black" title="Steel demand" pen_width="1" index="0" right_axis="true" show_y_axis="true">
+							<entity name="Steel_in"/>
+						</plot>
+						<plot color="black" pen_style="dot_dashed" title="Modified steel demand" pen_width="1" index="1" right_axis="true" show_y_axis="true">
+							<entity name="Steel_after_recycl"/>
+						</plot>
+					</graph>
+				</stacked_container>
+				<connector uid="248" angle="71.5651">
+					<from>
+						<alias uid="249"/>
+					</from>
+					<to>recycledEOLB</to>
+				</connector>
+				<connector uid="250" angle="40.8151">
+					<from>
+						<alias uid="251"/>
+					</from>
+					<to>modified_LIB_demand</to>
+				</connector>
+				<stacked_container uid="252" x="678.75" y="340">
+					<graph x="503.75" y="215" width="350" height="250" type="time_series" isee:points_only="false" show_grid="false" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" title="Graph" isee:fill_intensity="0.1" left_axis_title="SLB demand in kWh" left_axis_multi_scale="false" left_axis_auto_scale="true" right_axis_multi_scale="false" right_axis_auto_scale="true">
+						<plot color="blue" pen_width="1" index="0" show_y_axis="true">
+							<entity name="SLBdemand"/>
+						</plot>
+						<plot color="red" pen_style="dot_dashed" pen_width="1" index="1" show_y_axis="true">
+							<entity name="reman_SLB"/>
+						</plot>
+					</graph>
+				</stacked_container>
+				<connector uid="253" angle="42.8789">
+					<from>
+						<alias uid="254"/>
+					</from>
+					<to>EOL_value_from_remanufacturing</to>
+				</connector>
+				<connector uid="255" angle="321.34">
+					<from>
+						<alias uid="254"/>
+					</from>
+					<to>total_EOL_value</to>
+				</connector>
+				<text_box font_weight="bold" font_size="16pt" uid="256" x="1686.88" y="661.25" width="16.12" height="28">B</text_box>
+				<aux color="black" label_side="bottom" x="1208.58" y="1205" name="Aluminum RE"/>
+				<connector uid="257" angle="26.854">
+					<from>Aluminum_RE</from>
+					<to>Aluminum_after_recycl</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1335.25" y="1175.33" name="Cobalt RE"/>
+				<connector uid="258" angle="33.6112">
+					<from>Cobalt_RE</from>
+					<to>Cobalt_after_recycl</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1467.67" y="1161.75" name="Copper RE"/>
+				<connector uid="259" angle="347.585">
+					<from>Copper_RE</from>
+					<to>Copper_after_recycl</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1627.5" y="1136.67" name="Nickel RE"/>
+				<connector uid="260" angle="276.583">
+					<from>Nickel_RE</from>
+					<to>Nickel_after_recycl</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1609.5" y="1282.17" name="Steel RE"/>
+				<connector uid="261" angle="282.189">
+					<from>Steel_RE</from>
+					<to>Steel_after_recycl</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1557.67" y="1346.33" name="Iron RE"/>
+				<connector uid="262" angle="238.239">
+					<from>Iron_RE</from>
+					<to>Iron_after_recycl</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1501.33" y="1475.33" name="Manganese RE"/>
+				<connector uid="263" angle="160.408">
+					<from>Manganese_RE</from>
+					<to>Manganese_after_recycl</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1296.5" y="1364.33" name="Lithium RE"/>
+				<connector uid="264" angle="171.543">
+					<from>Manganese_after_recycl</from>
+					<to>Manganese_demand_modified</to>
+				</connector>
+				<connector uid="265" angle="287.58">
+					<from>Lithium_RE</from>
+					<to>Lithium_after_recycl</to>
+				</connector>
+				<aux x="331.458" y="1135.75" name="LiCoO2 fraction"/>
+				<aux x="313.458" y="1220.34" name="LiMn2O4 fraction"/>
+				<aux x="317.333" y="1308.67" name="LiFePO4 fraction"/>
+				<aux x="283.333" y="1363.84" name="NMC fraction"/>
+				<aux x="495.083" y="1135.75" name="aluminum fraction"/>
+				<connector uid="266" angle="36.4946">
+					<from>LiCoO2_fraction</from>
+					<to>aluminum_fraction</to>
+				</connector>
+				<connector uid="267" angle="59.016">
+					<from>LiMn2O4_fraction</from>
+					<to>aluminum_fraction</to>
+				</connector>
+				<connector uid="268" angle="28.1234">
+					<from>LiFePO4_fraction</from>
+					<to>aluminum_fraction</to>
+				</connector>
+				<connector uid="269" angle="48.1976">
+					<from>NMC_fraction</from>
+					<to>aluminum_fraction</to>
+				</connector>
+				<aux x="533.416" y="1207.42" name="Cobalt fraction"/>
+				<connector uid="270" angle="340.461">
+					<from>LiCoO2_fraction</from>
+					<to>Cobalt_fraction</to>
+				</connector>
+				<connector uid="271" angle="16.5093">
+					<from>LiMn2O4_fraction</from>
+					<to>Cobalt_fraction</to>
+				</connector>
+				<connector uid="272" angle="56.7248">
+					<from>LiFePO4_fraction</from>
+					<to>Cobalt_fraction</to>
+				</connector>
+				<connector uid="273" angle="27.7066">
+					<from>NMC_fraction</from>
+					<to>Cobalt_fraction</to>
+				</connector>
+				<aux x="583.416" y="1257.42" name="Copper fraction"/>
+				<connector uid="274" angle="2.82321">
+					<from>LiCoO2_fraction</from>
+					<to>Copper_fraction</to>
+				</connector>
+				<connector uid="275" angle="34.5198">
+					<from>LiMn2O4_fraction</from>
+					<to>Copper_fraction</to>
+				</connector>
+				<connector uid="276" angle="43.6356">
+					<from>LiFePO4_fraction</from>
+					<to>Copper_fraction</to>
+				</connector>
+				<connector uid="277" angle="12.7577">
+					<from>NMC_fraction</from>
+					<to>Copper_fraction</to>
+				</connector>
+				<aux x="633.416" y="1307.42" name="Lithium fraction"/>
+				<connector uid="278" angle="30.7069">
+					<from>LiCoO2_fraction</from>
+					<to>Lithium_fraction</to>
+				</connector>
+				<connector uid="279" angle="344.774">
+					<from>LiMn2O4_fraction</from>
+					<to>Lithium_fraction</to>
+				</connector>
+				<connector uid="280" angle="36.8675">
+					<from>LiFePO4_fraction</from>
+					<to>Lithium_fraction</to>
+				</connector>
+				<connector uid="281" angle="355.147">
+					<from>NMC_fraction</from>
+					<to>Lithium_fraction</to>
+				</connector>
+				<aux x="551.416" y="1381.84" name="Manganese fraction"/>
+				<connector uid="282" angle="335.802">
+					<from>LiCoO2_fraction</from>
+					<to>Manganese_fraction</to>
+				</connector>
+				<connector uid="283" angle="340.554">
+					<from>LiMn2O4_fraction</from>
+					<to>Manganese_fraction</to>
+				</connector>
+				<connector uid="284" angle="352.972">
+					<from>LiFePO4_fraction</from>
+					<to>Manganese_fraction</to>
+				</connector>
+				<connector uid="285" angle="1.57261">
+					<from>NMC_fraction</from>
+					<to>Manganese_fraction</to>
+				</connector>
+				<aux x="163.083" y="1117.75" name="Nickel fraction"/>
+				<connector uid="286" angle="201.802">
+					<from>LiCoO2_fraction</from>
+					<to>Nickel_fraction</to>
+				</connector>
+				<connector uid="287" angle="145.312">
+					<from>LiMn2O4_fraction</from>
+					<to>Nickel_fraction</to>
+				</connector>
+				<connector uid="288" angle="113.629">
+					<from>LiFePO4_fraction</from>
+					<to>Nickel_fraction</to>
+				</connector>
+				<connector uid="289" angle="64.1098">
+					<from>NMC_fraction</from>
+					<to>Nickel_fraction</to>
+				</connector>
+				<aux x="145.083" y="1183.33" name="Steel fraction"/>
+				<connector uid="290" angle="183.995">
+					<from>LiCoO2_fraction</from>
+					<to>Steel_fraction</to>
+				</connector>
+				<connector uid="291" angle="184.121">
+					<from>LiMn2O4_fraction</from>
+					<to>Steel_fraction</to>
+				</connector>
+				<connector uid="292" angle="159.291">
+					<from>LiFePO4_fraction</from>
+					<to>Steel_fraction</to>
+				</connector>
+				<connector uid="293" angle="144.999">
+					<from>NMC_fraction</from>
+					<to>Steel_fraction</to>
+				</connector>
+				<aux x="93.5831" y="1257.42" name="Iron fraction"/>
+				<connector uid="294" angle="247.606">
+					<from>LiCoO2_fraction</from>
+					<to>Iron_fraction</to>
+				</connector>
+				<connector uid="295" angle="194.119">
+					<from>LiMn2O4_fraction</from>
+					<to>Iron_fraction</to>
+				</connector>
+				<connector uid="296" angle="162.897">
+					<from>LiFePO4_fraction</from>
+					<to>Iron_fraction</to>
+				</connector>
+				<connector uid="297" angle="163.296">
+					<from>NMC_fraction</from>
+					<to>Iron_fraction</to>
+				</connector>
+				<connector uid="298" angle="87.1376">
+					<from>
+						<alias uid="299"/>
+					</from>
+					<to>Lithium_in</to>
+				</connector>
+				<connector uid="300" angle="100.305">
+					<from>
+						<alias uid="301"/>
+					</from>
+					<to>Manganese_in</to>
+				</connector>
+				<connector uid="302" angle="110.854">
+					<from>
+						<alias uid="303"/>
+					</from>
+					<to>Iron_in</to>
+				</connector>
+				<connector uid="304" angle="161.991">
+					<from>
+						<alias uid="305"/>
+					</from>
+					<to>Steel_in</to>
+				</connector>
+				<connector uid="306" angle="112.62">
+					<from>
+						<alias uid="307"/>
+					</from>
+					<to>Nickel_in</to>
+				</connector>
+				<connector uid="308" angle="185.711">
+					<from>
+						<alias uid="309"/>
+					</from>
+					<to>Copper_in</to>
+				</connector>
+				<connector uid="310" angle="255.964">
+					<from>
+						<alias uid="311"/>
+					</from>
+					<to>Cobalt_in</to>
+				</connector>
+				<connector uid="312" angle="308.66">
+					<from>
+						<alias uid="313"/>
+					</from>
+					<to>Aluminum_in</to>
+				</connector>
+				<connector uid="314" angle="78.6901">
+					<from>
+						<alias uid="315"/>
+					</from>
+					<to>Aluminum_after_recycl</to>
+				</connector>
+				<connector uid="316" angle="116.565">
+					<from>
+						<alias uid="317"/>
+					</from>
+					<to>Cobalt_after_recycl</to>
+				</connector>
+				<connector uid="318" angle="177.138">
+					<from>
+						<alias uid="319"/>
+					</from>
+					<to>Lithium_after_recycl</to>
+				</connector>
+				<connector uid="320" angle="205.463">
+					<from>
+						<alias uid="321"/>
+					</from>
+					<to>Copper_after_recycl</to>
+				</connector>
+				<connector uid="322" angle="81.8699">
+					<from>
+						<alias uid="323"/>
+					</from>
+					<to>Nickel_after_recycl</to>
+				</connector>
+				<connector uid="324" angle="217.304">
+					<from>
+						<alias uid="325"/>
+					</from>
+					<to>Steel_after_recycl</to>
+				</connector>
+				<connector uid="326" angle="309.289">
+					<from>
+						<alias uid="327"/>
+					</from>
+					<to>Iron_after_recycl</to>
+				</connector>
+				<connector uid="328" angle="233.616">
+					<from>
+						<alias uid="329"/>
+					</from>
+					<to>Manganese_after_recycl</to>
+				</connector>
+				<aux color="black" label_side="bottom" x="1909" y="675.75" name="cost of reman\ncapacity total"/>
+				<connector uid="330" angle="341.495">
+					<from>reman_capacity</from>
+					<to>cost_of_reman_capacity_total</to>
+				</connector>
+				<connector uid="331" angle="66.4654">
+					<from>cost_of_reman_capacity_total</from>
+					<to>cost_of_reman_capacity_per_SLB_kWh</to>
+				</connector>
+				<connector uid="332" angle="180.532">
+					<from>cost_of_reman_capacity</from>
+					<to>cost_of_reman_capacity_total</to>
+				</connector>
+				<aux color="#AA007F" font_color="#AA007F" label_side="bottom" x="1471.25" y="845.75" name="recycled material value percent increase"/>
+				<aux color="black" x="1477" y="788.75" name="Recycled material value"/>
+				<connector uid="333" angle="66.2155">
+					<from>recycled_material_value_percent_increase</from>
+					<to>Recycled_material_value</to>
+				</connector>
+				<connector uid="334" angle="169.497">
+					<from>recycled_material_value_in_2020</from>
+					<to>Recycled_material_value</to>
+				</connector>
+				<connector uid="335" angle="73.2325">
+					<from>Recycled_material_value</from>
+					<to>EOL_Recycling_value</to>
+				</connector>
+				<alias color="black" font_style="italic" uid="44" x="751.5" y="64.333" width="18" height="18">
+					<of>hyb_battery_energy_out_per_year</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="42" x="713.5" y="120.667" width="18" height="18">
+					<of>BEV_battery_energy_out_per_year</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="46" x="857.833" y="74.8333" width="18" height="18">
+					<of>PHEV10_battery_energy_out_per_year</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="48" x="937.667" y="125.667" width="18" height="18">
+					<of>PHEV40_battery_energy_out_per_year</of>
+				</alias>
+				<alias color="#008F44" font_style="italic" font_color="#008F44" uid="52" x="1137.33" y="503.917" width="18" height="18">
+					<of>sum_total_cap_eol_bat</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="74" x="1424" y="436" width="18" height="18">
+					<of>SLBdemand</of>
+				</alias>
+				<alias color="#AA007F" font_style="italic" font_color="#AA007F" uid="88" x="1635" y="559.25" width="18" height="18">
+					<of>Start_year_for_reman</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="93" x="831" y="842.75" width="18" height="18">
+					<of>reman_SLB</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="105" x="2009.75" y="394.75" width="45" height="35">
+					<of>reman_capacity</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="99" x="1784.75" y="292" width="18" height="18">
+					<of>reman_SLB</of>
+				</alias>
+				<alias color="#AA007F" font_style="italic" font_color="#AA007F" uid="112" x="1764.63" y="702.75" width="18" height="18">
+					<of>technically_feasible_batteries_fraction</of>
+				</alias>
+				<alias color="#AA007F" font_style="italic" font_color="#AA007F" uid="117" x="2119" y="805.75" width="18" height="18">
+					<of>&quot;kWh/kg&quot;</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="127" x="2303.5" y="389" width="18" height="18">
+					<of>cost_of_reman_capacity_per_SLB_kWh</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="129" x="2283.5" y="457.75" width="18" height="18">
+					<of>cost_of_electricity_per_SLB_kWh</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="131" x="2352.25" y="504" width="18" height="18">
+					<of>cost_of_materials_per_SLB_kWh</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="133" x="2488.5" y="486" width="18" height="18">
+					<of>transportation_costs_per_SLB_kWh</of>
+				</alias>
+				<alias color="#AA007F" font_style="italic" font_color="#AA007F" uid="125" x="2127.25" y="660.25" width="18" height="18">
+					<of>technically_feasible_batteries_fraction</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="137" x="2504.5" y="560.5" width="18" height="18">
+					<of>cost_of_materials_per_SLB_kWh</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="142" x="2761.75" y="292.75" width="18" height="18">
+					<of>selling_price_of_SLB</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="144" x="2860" y="337" width="18" height="18">
+					<of>reman_SLB</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="149" x="2796" y="546.5" width="18" height="18">
+					<of>EOL_Recycling_value</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="152" x="2304.25" y="1023" width="45" height="35">
+					<of>reman_capacity</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="164" x="2407.25" y="319" width="18" height="18">
+					<of>Cost_of_labor_per_SLB_kWh</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="166" x="2642.25" y="585.25" width="18" height="18">
+					<of>Cost_of_labor_per_SLB_kWh</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="171" x="1462.25" y="607.75" width="18" height="18">
+					<of>reman_SLB</of>
+				</alias>
+				<alias color="#AA007F" font_style="italic" font_color="#AA007F" uid="173" x="1743.5" y="560.25" width="18" height="18">
+					<of>technically_feasible_batteries_fraction</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="176" x="514.75" y="4" width="18" height="18">
+					<of>hyb_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="178" x="524.667" y="253.5" width="18" height="18">
+					<of>PHEV10_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="182" x="503.5" y="503.5" width="18" height="18">
+					<of>PHEV40_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="185" x="533.5" y="754.75" width="18" height="18">
+					<of>EV100_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="187" x="588.5" y="748.5" width="18" height="18">
+					<of>EV200_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="189" x="638.5" y="757.25" width="18" height="18">
+					<of>EV300_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="193" x="832.25" y="364.833" width="18" height="18">
+					<of>hyb_battery_energy_in_per_year</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="195" x="798.5" y="419.75" width="18" height="18">
+					<of>PHEV10_battery_energy_in_per_year</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="191" x="903.5" y="387.25" width="18" height="18">
+					<of>PHEV40_battery_energy_in_per_year</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="197" x="823.5" y="487.25" width="18" height="18">
+					<of>BEV_battery_energy_in_per_year</of>
+				</alias>
+				<alias color="#AA007F" font_style="italic" font_color="#AA007F" uid="199" x="904.75" y="189.75" width="18" height="18">
+					<of>value_of_throughput_old_battery</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="204" x="1178.5" y="257.25" width="18" height="18">
+					<of>reman_SLB</of>
+				</alias>
+				<alias font_style="italic" uid="207" x="876.083" y="1174.33" width="18" height="18">
+					<of>total_LIB_demand</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="216" x="1376" y="1297.67" width="18" height="18">
+					<of>recycledEOLB</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="224" x="1207.67" y="1134.75" width="18" height="18">
+					<of>Aluminum_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="227" x="1423.92" y="1104.75" width="18" height="18">
+					<of>Cobalt_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="231" x="1483.5" y="1031.75" width="18" height="18">
+					<of>Copper_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="246" x="1688.5" y="1154.75" width="18" height="18">
+					<of>Nickel_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="243" x="1685.75" y="1314.83" width="18" height="18">
+					<of>Steel_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="240" x="1618.5" y="1466.33" width="18" height="18">
+					<of>Iron_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="237" x="1421.08" y="1518.92" width="18" height="18">
+					<of>Manganese_in</of>
+				</alias>
+				<alias color="black" font_style="italic" uid="233" x="1226.33" y="1404.09" width="18" height="18">
+					<of>Lithium_in</of>
+				</alias>
+				<alias color="#AA007F" font_style="italic" font_color="#AA007F" uid="249" x="1373.5" y="732.25" width="18" height="18">
+					<of>Start_year_for_reman</of>
+				</alias>
+				<alias color="#AA007F" font_style="italic" font_color="#AA007F" uid="251" x="1144.75" y="372.25" width="18" height="18">
+					<of>Start_year_for_reman</of>
+				</alias>
+				<alias color="#AA007F" font_style="italic" font_color="#AA007F" uid="254" x="2728.5" y="434.75" width="18" height="18">
+					<of>Start_year_for_reman</of>
+				</alias>
+				<alias color="#550000" background="white" font_style="italic" uid="313" x="904.333" y="987.667" width="18" height="18">
+					<shape type="circle" radius="18"/>
+					<of>aluminum_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="311" x="1011" y="1027.67" width="18" height="18">
+					<of>Cobalt_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="309" x="1086" y="1102.67" width="18" height="18">
+					<of>Copper_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="299" x="879.333" y="1371" width="18" height="18">
+					<of>Lithium_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="301" x="961" y="1329.33" width="18" height="18">
+					<of>Manganese_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="307" x="1121" y="1192.33" width="18" height="18">
+					<of>Nickel_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="305" x="1131" y="1268.5" width="18" height="18">
+					<of>Steel_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="303" x="1041" y="1302.67" width="18" height="18">
+					<of>Iron_fraction</of>
+				</alias>
+				<alias color="#550000" background="white" font_style="italic" uid="315" x="1254.33" y="1236" width="18" height="18">
+					<shape type="circle" radius="18"/>
+					<of>aluminum_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="317" x="1414.33" y="1211" width="18" height="18">
+					<of>Cobalt_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="319" x="1374.33" y="1406" width="18" height="18">
+					<of>Lithium_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="321" x="1549.33" y="1162.67" width="18" height="18">
+					<of>Copper_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="323" x="1649.33" y="1227.67" width="18" height="18">
+					<of>Nickel_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="325" x="1661" y="1287.67" width="18" height="18">
+					<of>Steel_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="327" x="1494.33" y="1332.67" width="18" height="18">
+					<of>Iron_fraction</of>
+				</alias>
+				<alias font_style="italic" uid="329" x="1456" y="1414.33" width="18" height="18">
+					<of>Manganese_fraction</of>
+				</alias>
+			</view>
+		</views>
+	</model>
+</xmile>
+

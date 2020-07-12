@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="/static/images/favicon.png"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}">
+    <link href="//db.onlinewebfonts.com/c/3cbd18ee75a23e404e78614692aa64e8?family=Ford+Antenna+Light" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Dashboard</h1>
+        </div>
+    </header>
+    <div id="mySidenav" class="sidenav">
+        <a href="{% url 'dashboard' %}" id="home">Home</a>
+        <a href="#" id="save" data-toggle="modal" data-target="#mymodal">Save/Edit</a>
+        <a href="{% url 'comparison' %}" id="compare" target="_blank">Compare</a>
+    </div>
+    <div class="container">
+        <div class="result-title">
+            <h2>Outputs</h2>
+        </div>
+        <div style="display: grid;
+        grid-template-columns: auto auto auto auto;">
+            <div class="box text-center">
+                <p id="pv-capacity" style="font-size: 18px; margin-bottom: 8px;">{{ PV_capacity }} kW</p>
+                <strong>PV Capacity</strong>
+            </div>
+            <div class="box text-center">
+                <p id="bat-capacity" style="font-size: 18px; margin-bottom: 8px;">{{ bat_capacity }} kWh</p>
+                <strong>Battery Capacity</strong>
+            </div>
+            <div class="box text-center">
+                <p id="inv-capacity" style="font-size: 18px; margin-bottom: 8px;">{{ inverter_cap }} kW</p>
+                <strong>Inverter Capacity</strong>
+            </div>
+            <div class="box text-center">
+                <p id="cost" style="font-size: 18px; margin-bottom: 8px;">${{ cost }}</p>
+                <strong>Annualized cost</strong>
+            </div>
+        </div>
+        <div style="display: grid; grid-template-columns: auto auto auto;">
+            <div class="box text-center">
+                <p id="glob-warm-pot" style="font-size: 18px; margin-bottom: 8px;">{{ gwp }} Kg CO<sub>2</sub> eq.</p>
+                <strong>Global Warming Potential</strong>
+            </div>
+            <div class="box text-center">
+                <p id="cum-energ-demand" style="font-size: 18px; margin-bottom: 8px;">{{ ced }} Megajoules</p>
+                <strong>Cumulative Energy Demand</strong>
+            </div>
+            <div class="box text-center">
+                <p id="disp-thrpt" style="font-size: 18px; margin-bottom: 8px;">{{ disp_thrpt }} kWh</p>
+                <strong>Lifetime battery throughput</strong>
+            </div>
+        </div>
+        <div style="display: grid; grid-template-columns: auto auto auto;">
+            <div class="box text-center">
+                <p id="clim-zone" style="font-size: 18px; margin-bottom: 8px;">{{ climate_zone_code }}</p>
+                <strong>Climate Zone</strong>
+            </div>
+            <div class="box text-center">
+                <p id="egrid" style="font-size: 18px; margin-bottom: 8px;">{{ e_grid_code }}</p>
+                <strong>eGRID subregion</strong>
+            </div>
+            <div class="box text-center">
+                <p id="egrid" style="font-size: 18px; margin-bottom: 8px;">{{ elec_bought_grid_sum }}</p>
+                <strong>Grid Electricity Purchased</strong>
+            </div>
+        </div>
+        <h3>State of charge of battery</h3>
+        <div class="text-center">
+            <img id="state-of-charge-image" src="data:image/png;base64, {{ matrix_stateOfCharge }}" alt="Matrix">
+        </div>
+        <h3>PV generation</h3>
+        <div class="text-center">
+            <img id="pv-gen-image" src="data:image/png;base64, {{ matrix_pv_power }}" alt="Matrix">
+        </div>
+        <h3>Electricity consumption</h3>
+        <div class="text-center">
+            <img id="elect-consump-image" src="data:image/png;base64, {{ matrix_elec_consumption }}" alt="Matrix">
+        </div>
+        <button id="second-life-graph-but">Second-life Battery Graphs ↓</button>
+        <div class="box" id="second-life-graph-container" style="display:none">
+            <img id="slb-image" src="data:image/png;base64, {{ temp_matrix }}" alt="Matrix">
+        </div>
+        <button class="btn btn-success" data-toggle="modal" data-target="#cash-flow-diagram-modal">Cash flow diagram</button>
+        <button class="btn btn-success" data-toggle="modal" data-target="#moreBaseModal">Baseline Scenario Details</button>
+        <!-- TEST CODE -->
+        <!-- <p>zipcode: {{ zipcode }}</p>
+        <p>state: {{ state }}</p>
+        <p>proj_lifetime: {{ proj_lifetime }}</p>
+        <p>system_app: {{ system_app }}</p>
+        <p>conn_fee: {{ conn_fee }}</p>
+        <p>elec_price_change: {{ elec_price_change }}</p>
+        <p>feed_in_tariff: {{ feed_in_tariff }}</p>
+        <p>net_metering: {{ net_metering }}</p>
+        <p>PV_cost: {{ PV_cost }}</p>
+        <p>PV_effi: {{ PV_effi }}</p>
+        <p>inv_cost: {{ inv_cost }}</p>
+        <p>inv_effi: {{ inv_effi }}</p>
+        <p>rebate_state: {{ rebate_state }}</p>
+        <p>rebate_federal: {{ rebate_federal }}</p>
+        <p>bat_cost: {{ bat_cost }}</p>
+        <p>bat_effi: {{ bat_effi }}</p>
+        <p>bat_warranty: {{ bat_warranty }}</p>
+        <p>bat_app: {{ bat_app }}</p> -->
+    </div>
+    <div class="modal fade" id="moreBaseModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Baseline Scenario Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="dialog-body-feed-in-tariff">
+                <div class="container">
+                    <div style="display: grid; grid-template-columns: auto auto;">
+                        <div class="box text-center">
+                            <p id="glob-warm-pot" style="font-size: 18px; margin-bottom: 8px;">$ {{ base_AC }}</p>
+                            <strong>Annualized Cost</strong>
+                        </div>
+                        <div class="box text-center">
+                            <p id="cum-energ-demand" style="font-size: 18px; margin-bottom: 8px;">{{ base_LCOE }} kWh</p>
+                            <strong>Levelized cost of electricity</strong>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: auto auto;">
+                        <div class="box text-center">
+                            <p id="clim-zone" style="font-size: 18px; margin-bottom: 8px;">{{ base_GWP }} Kg CO<sub>2</sub> eq.</p>
+                            <strong>Global Warming Potential</strong>
+                        </div>
+                        <div class="box text-center">
+                            <p id="egrid" style="font-size: 18px; margin-bottom: 8px;">{{ base_CED }} Megajoules</p>
+                            <strong>Cumulative Energy Demand</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="cash-flow-diagram-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Cash flow diagram</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="dialog-body-cash-flow-diagram">
+                <!--<img id="matrix_bar_chart" src="data:image/png;base64, {{ matrix_bar_chart }}" alt="Matrix">-->
+                <canvas id="chart"></canvas>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="mymodal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Save/Edit Datas</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="dialog-body">
+                <ul id="modal-body-unlist">
+                </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" id="save-data">Save Data</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/result.js' %}"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            var grid = JSON.parse("{{ grid }}");
+            var capital_cost = JSON.parse("{{ capital_cost }}");
+            var operation_main = JSON.parse("{{ operation_main }}");
+            
+            var label_list = [];
+            for (var i = 0; i < grid.length; i++) {
+                label_list.push(i)
+            }
+
+            var ctx = document.getElementById('chart');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: label_list,
+                    datasets: [
+                        {
+                            label: 'Grid',
+                            data: grid,
+                            backgroundColor: '#D6E9C6'
+                        },
+                        {
+                            label: 'Capital Costs',
+                            data: capital_cost,
+                            backgroundColor: '#FAEBCC'
+                        },
+                        {
+                            label: 'Operation and Maintenance',
+                            data: operation_main,
+                            backgroundColor: '#EBCCD1'
+                        }
+                    ]},
+                options: {
+                    scales: {
+                        xAxes: [{ 
+                            stacked: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Year'
+                            }
+                        }],
+                        yAxes: [{ 
+                            stacked: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Dollar ($)'
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</html>
+{% endblock %}

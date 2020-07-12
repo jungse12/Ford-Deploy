@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% block content %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Result</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-heatmap.min.js"></script>
+    <script>
+      anychart.onDocumentLoad(function () {
+        var data = [
+        {x: "2010", y: "A", heat: 15},
+        {x: "2011", y: "A", heat: 17},
+        {x: "2012", y: "A", heat: 21},
+        {x: "2010", y: "B", heat: 34},
+        {x: "2011", y: "B", heat: 33},
+        {x: "2012", y: "B", heat: 32},
+        {x: "2010", y: "C", heat: 51},
+        {x: "2011", y: "C", heat: 50},
+        {x: "2012", y: "C", heat: 47}
+        ];
+
+        // create a chart and set the data
+        chart = anychart.heatMap(data);
+
+        // set the container id
+        chart.container("container");
+
+        // initiate drawing the chart
+        chart.draw();
+      });
+    </script>
+</head>
+<body>
+    <div id="container" style="width: 500px; height: 400px;"></div>
+    <h2>Inputs</h2>
+    <p>Zipcode: {{ zipcode }}</p>
+    <p>Point: {{ lat }}{{ lon }}</p>
+    <p>{{ location }}</p>
+
+    <h2>NSRDB TMY3 API</h2>
+    {% for w in weather %}
+        <a href="{{ w }}">{{ w }}</a>
+    {% endfor %}
+
+    <h2>Openei</h2>
+    {% for n, u in utility_checkpoint %}
+        <p>{{ n }}: <a href="{{ u }}">{{ u }}</a></p>
+    {% endfor %}
+    
+</body>
+</html>
+{% endblock %}
