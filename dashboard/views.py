@@ -267,6 +267,7 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
     
     file_location='static'
     weather_file_name='/samples/Detroit_TMY3_weather_data.csv'
+    tot_irrad = 0
     '''
     if t_z[3] == '-':
         t_z = 'Etc/GMT+' + t_z[-1]
