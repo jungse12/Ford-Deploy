@@ -399,6 +399,7 @@ $(document).ready(function() {
                 document.getElementById('Elec-GWP').value = data[0]['fields']['gwp'];
                 document.getElementById('Elec-CED').value = data[1]['fields']['ced'];
                 climateZone = data[2]['fields']['climate_zone'];
+                console.log(climateZone);
             }
         });
     });
