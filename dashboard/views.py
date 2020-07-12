@@ -652,9 +652,9 @@ def calc(request):
         
         """The following code loads an excel  file of hourly consumption into python and converts into a 24 by 365 numercial matrix """
 
-        
+        print(elecConsump.array_list)
         Elec_consumption_dataframe=pd.DataFrame(elecConsump.array_list) # the file is uploaded in python in form of a dataframe 
-    
+        
         Elec_consumption_matrix=Elec_consumption_dataframe.as_matrix() # dataframe converted in workaable matix format
         
         Transposed_elec_consumption_vector=Elec_consumption_matrix.transpose() #transposed the column vector into row vector
