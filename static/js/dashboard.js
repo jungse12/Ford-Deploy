@@ -381,7 +381,7 @@ $(document).ready(function() {
 
         req = $.ajax({
             url:'load',
-            type: 'POST',
+            type: 'GET',
             data: {
                 file: JSON.stringify(fileUpload),
                 filecheck: fileCheck,
