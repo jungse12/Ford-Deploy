@@ -1415,14 +1415,14 @@ def calc(request):
     print("Available Scenario Managers and Scenarios:")
     print()
     managers = bptk.scenario_manager_factory.get_scenario_managers(scenario_managers_to_filter=[])
-
+    
     for key, manager in managers.items():
         print("")
         print("*** {} ***".format(key))
 
         for name in manager.get_scenario_names():
             print("\t {}".format(name))
-
+    '''
     scenario_manager_labor={
         "smTemp":
             {
@@ -1631,9 +1631,9 @@ def calc(request):
         'base_LCOE': round(base_LCOE,2),
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2)
-    })
+    })'''
 
-    #return render(request, 'result.html', {})
+    return render(request, 'result.html', {})
 
 def apitest(request):
     zipcode = 48823
