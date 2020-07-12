@@ -267,18 +267,17 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
     
     file_location='static'
     weather_file_name='/samples/Detroit_TMY3_weather_data.csv'
-    tot_irrad = 0
     '''
     if t_z[3] == '-':
         t_z = 'Etc/GMT+' + t_z[-1]
     else:
         t_z = 'Etc/GMT-' + t_z[-1]
-    '''
+
     print("timezone",t_z)
     tim_stmp=pd.read_csv(file_location + weather_file_name,usecols=[0],skiprows=1,)
     tim_stmp=pd.date_range('1988-01-01',periods=8760,freq='H')
     tim_stmp=tim_stmp.tz_localize(t_z)
-    '''
+
     #calling in the values of direct normal irradiance
     dni=pd.read_csv(file_location + weather_file_name,usecols=[7],skiprows=1,)
     dni_vector=dni.as_matrix()
@@ -319,8 +318,10 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
         irrad_comp=pvlib.irradiance.get_total_irradiance(surface_tilt=tilt,surface_azimuth=gamma_s,solar_zenith=my_azm.zenith,solar_azimuth=my_azm.azimuth,dni=dni_vector[i],ghi=ghi_vector[i],dhi=dhi_vector[i],dni_extra=extra_dni_vector[i],airmass=None,albedo=albdo,surface_type=None,model='isotropic')                         
         tot_irrad[i]=(loss*(irrad_comp.poa_global))/1000
 
-    '''
+    
     return tot_irrad
+    '''
+    return 0
 
 def calc_env_impact(year_analysis,arbit_solar_panel_size,pv_lifetime,invrtr_lifetime,capacity_of_batt_module,batt_replc,batt_replc_hour,batt_rplcmt_year,ILR,elec_bought_grid,total_net_met_benf,rate_matrix,total_feed_in_tarff_benf,feed_in_tariff_rate,PV_GWP,PV_CED,Batt_GWP,Batt_CED,Inv_GWP,Inv_CED,Elec_GWP,Elec_CED):
     
