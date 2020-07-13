@@ -465,12 +465,12 @@ def assignDatabase(request, format=None):
     TouMatrix.objects.all().delete()
     ElectricConsumption.objects.all().delete()
 
-    TouMatrix.objects.create(array_list=json.loads(request.POST.get('rateList')))
-    ElectricConsumption.objects.create(array_list=json.loads(request.POST.get('zoneList')))
+    TouMatrix.objects.create(array_list=json.loads(request.POST.get('rateList'))[0])
+    ElectricConsumption.objects.create(array_list=json.loads(request.POST.get('zoneList'))[0])
     #touMatrix.set_array(json.loads(request.POST.get('rateList')))
     #elecConsump.set_array(json.loads(request.POST.get('zoneList')))
 
-    return HttpResponse(json.dumps(TouMatrix.objects.all()))
+    return HttpResponse(TouMatrix.objects.all())
 
 def checkDatabase(request, format=None):
 
