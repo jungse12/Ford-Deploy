@@ -564,7 +564,9 @@ $(document).ready(function() {
             }
         ];
         console.log(data_values_WD); 
-        console.log("THIS IS TOU: " + touRateList.length)
+        document.getElementById('touMatrix').value = touRateList;
+
+        //console.log("THIS IS TOU: " + touRateList.length)
         var test = 1;
         Plotly.newPlot('weekday', dataWeekday, layoutWeekday, defaultPlotlyConfiguration);
         Plotly.newPlot('weekend', dataWeekend, layoutWeekend, defaultPlotlyConfiguration);
@@ -613,8 +615,10 @@ $(document).ready(function() {
                             totalDay += 1;
                         }
                     }
+                    document.getElementById('elecArray').value = zone_list;
                     //console.log("totalDaY: " + zone_list.slice(0,360));
                 }
+                /*
                 $.ajax({
                     url:'assignDatabase',
                     type: 'POST',
@@ -626,7 +630,7 @@ $(document).ready(function() {
                     success: function(data){
                         console.log("HERE:" + data);
                     }
-                });
+                });*/
             }
         });
         weatherDataMsg.innerHTML = "";
@@ -635,6 +639,7 @@ $(document).ready(function() {
         utilityData.innerHTML = "";
         utilityDataMsg.innerHTML = "";
         locationErrorMsg.innerHTML = "";
+        console.log(document.getElementById('touMatrix').value)
     });
     $("input[name='system-app']").change(function(){
         var x = document.getElementById('fast-charger-div')
