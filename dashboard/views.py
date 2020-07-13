@@ -1460,32 +1460,32 @@ def calc(request):
     scenario_manager_labor={
         "smTemp":
             {
-            "source":os.path.join(BASE_DIR, "static/slb/labor/simulation_models/SLBremanlabor.stmx"),
-            "model":os.path.join(BASE_DIR, "static/slb/labor/simulation_models/SLBremanlabor")
+            "source": "static/slb/labor/simulation_models/SLBremanlabor.stmx",
+            "model": "static/slb/labor/simulation_models/SLBremanlabor"
             }
     }
 
     scenario_manager_elec={
         "smTemp":
             {
-            "source":os.path.join(BASE_DIR, "static/slb/electricity/simulation_models/SLBremanelectricity.stmx"),
-            "model":os.path.join(BASE_DIR, "static/slb/electricity/simulation_models/SLBremanelectricity")
+            "source": "static/slb/electricity/simulation_models/SLBremanelectricity.stmx",
+            "model": "static/slb/electricity/simulation_models/SLBremanelectricity"
             }
     }
 
     scenario_manager_trans={
         "smTemp":
             {
-            "source":os.path.join(BASE_DIR, "static/slb/transportation/simulation_models/SLBreman3.stmx"),
-            "model":os.path.join(BASE_DIR, "static/slb/transportation/simulation_models/SLBreman3")
+            "source":"static/slb/transportation/simulation_models/SLBreman3.stmx",
+            "model":"static/slb/transportation/simulation_models/SLBreman3"
             }
     }
 
     scenario_manager_eol={
         "smTemp":
             {
-            "source":os.path.join(BASE_DIR, "static/slb/EOLvalue/simulation_models/EOLvalue.stmx"),
-            "model":os.path.join(BASE_DIR, "static/slb/EOLvalue/simulation_models/EOLvalue")
+            "source":"static/slb/EOLvalue/simulation_models/EOLvalue.stmx",
+            "model":"static/slb/EOLvalue/simulation_models/EOLvalue"
             }
     }
 
