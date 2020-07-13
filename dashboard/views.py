@@ -1456,7 +1456,7 @@ def calc(request):
 
         for name in manager.get_scenario_names():
             print("\t {}".format(name))
-    weatherfile = os.path.join(BASE_DIR, 'static/samples/Detroit_TMY3_weather_data.csv')
+    #weatherfile = os.path.join(BASE_DIR, 'static/samples/Detroit_TMY3_weather_data.csv')
     scenario_manager_labor={
         "smTemp":
             {
