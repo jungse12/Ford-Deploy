@@ -477,8 +477,8 @@ def calc(request):
 
     #check = HomeESS.objects.get(Zone_1='Zone_1')
     #print("check", elecConsump.array_list[:360])
-    touMatrix = request.POST.get('tou-matrix', False)
-    elecArray = request.POST.get('elecArray', False)
+    touMatrix = request.POST.get('tou-matrix')
+    elecArray = request.POST.get('elecArray')
 
     _zipcode = request.POST['zipcode']
     _state = request.POST['state']
