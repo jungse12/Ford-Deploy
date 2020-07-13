@@ -43,6 +43,7 @@ bptk = bptk()
 #touMatrix = TouMatrix()
 #elecConsump = ElectricConsumption()
 customEss = CustomESS()
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Create your views here.
 def dashboard(request):
@@ -267,7 +268,6 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
     
     #file_location='static'
     #weather_file_name='/samples/home/ray/ford/static/samples/Detroit_TMY3_weather_data.csv'
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if t_z[3] == '-':
         t_z = 'Etc/GMT+' + t_z[-1]
     else:
