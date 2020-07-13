@@ -480,8 +480,6 @@ def calc(request):
     _touMatrix = request.POST['tou-matrix']
     _elecArray = request.POST.get('elec-array')
 
-    print("THIS IS TOU:",_touMatrix)
-
     _zipcode = request.POST['zipcode']
     _state = request.POST['state']
     _proj_lifetime = request.POST['proj-lifetime']
