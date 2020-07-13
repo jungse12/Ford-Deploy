@@ -644,10 +644,9 @@ def calc(request):
         Batt_CED=float(_bat_CED)
         touMatrix = TouMatrix.objects.all().first().array_list.strip('][').split(', ')
         elecConsump = ElectricConsumption.objects.all().first().array_list.strip('][').split(',')
-        print("THIS IS FKING TYPE: ", type(elecConsump))
-        print("THIS IS FKING YES: ", elecConsump[:300])
-        print("THIS IS FKING SIZE ONE ARRAY: ", len(touMatrix[0]))
-        touMatrix = list(map(float,touMatrix))
+        print("THIS IS FKING SIZE ONE ARRAY: ", len(touMatrix))
+        #for i in touMatrix:
+            
         elecConsump = list(map(float,elecConsump))
         print("THIS IS FKING TYPE: ", type(elecConsump))
         print("THIS IS FKING YES: ", elecConsump[:300])
