@@ -143,7 +143,9 @@ function callGoogleAPI() {
             return response.json();
         })
         .then(function(data) {
-            console.log("this is weather: " + data)
+            console.log("WEATHER");
+            console.log(data);
+            console.log("lng: " + lng + ' ' + 'lat: ' + lat);
             weather = data;
             var result = data.outputs;
             var found = false;

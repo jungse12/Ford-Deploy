@@ -642,7 +642,7 @@ def calc(request):
         Elec_CED=float(_elec_CED)
         Batt_GWP=float(_bat_GWP)  
         Batt_CED=float(_bat_CED)
-        touMatrix = TouMatrix.objects.all().first().array_list.strip('][').split(',')
+        touMatrix = TouMatrix.objects.all().first().array_list.strip('][').split(',').split(',')
         elecConsump = ElectricConsumption.objects.all().first().array_list.strip('][').split(',')
         print("THIS IS FKING SIZE ONE ARRAY: ", len(touMatrix))
 
