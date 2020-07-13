@@ -564,7 +564,7 @@ $(document).ready(function() {
             }
         ];
         console.log(data_values_WD); 
-        document.getElementById('touMatrix').value = parseString(touRateList);
+        document.getElementById('touMatrix').value = JSON.stringify(touRateList);
 
         //console.log("THIS IS TOU: " + touRateList.length)
         var test = 1;
