@@ -644,7 +644,7 @@ def calc(request):
         Batt_CED=float(_bat_CED)
         touMatrix = TouMatrix.objects.all().first().array_list
         elecConsump = ElectricConsumption.objects.all().first().array_list.strip('][').split(',')
-        print("THIS IS FKING SIZE ONE ARRAY: ", len(touMatrix))
+        print("THIS IS FKING SIZE ONE ARRAY: ", touMatrix)
         #for i in touMatrix:
             
         elecConsump = list(map(float,elecConsump))
