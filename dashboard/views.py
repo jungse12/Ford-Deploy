@@ -465,12 +465,12 @@ def assignDatabase(request, format=None):
     TouMatrix.objects.all().delete()
     ElectricConsumption.objects.all().delete()
 
-    TouMatrix.objects.create(array_list=json.loads(request.POST.get('rateList')))
-    ElectricConsumption.objects.create(array_list=json.loads(request.POST.get('zoneList')))
+    TouMatrix.objects.create(array_list=request.POST.get('rateList'))
+    ElectricConsumption.objects.create(array_list=request.POST.get('zoneList'))
     #touMatrix.set_array(json.loads(request.POST.get('rateList')))
     #elecConsump.set_array(json.loads(request.POST.get('zoneList')))
-    toulist = TouMatrix.objects.all().first().array_list.strip('][').split(', ') 
-    return HttpResponse(toulist)
+    touList = TouMatrix.objects.all().first().array_list
+    return HttpResponse(touList)
     
 def calc(request):
     #print("here")
@@ -642,8 +642,8 @@ def calc(request):
         Elec_CED=float(_elec_CED)
         Batt_GWP=float(_bat_GWP)  
         Batt_CED=float(_bat_CED)
-        touList = TouMatrix.objects.all().first().array_list.strip('][').split(',')
-        elecConsump = ElectricConsumption.objects.all().first().array_list.strip('][').split(',')
+        touList = TouMatrix.objects.all().first().array_list
+        elecConsump = ElectricConsumption.objects.all().first().array_list
         #print("ELECT:",Elec_GWP, Elec_CED)
         """==============================================================================================================================="""
         """Empty arrays/matrices created to account for holding the battery capacity and state of charge of battery in each hour"""
