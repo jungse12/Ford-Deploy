@@ -469,8 +469,8 @@ def assignDatabase(request, format=None):
     ElectricConsumption.objects.create(array_list=json.loads(request.POST.get('zoneList'))[0])
     #touMatrix.set_array(json.loads(request.POST.get('rateList')))
     #elecConsump.set_array(json.loads(request.POST.get('zoneList')))
-    checktype = str(type(TouMatrix.objects.all().first().array_list))
-    return HttpResponse(checktype)
+    toulist = TouMatrix.objects.all().first().array_list.strip('][').split(', ') 
+    return HttpResponse(toulist)
     
 def calc(request):
     #print("here")
