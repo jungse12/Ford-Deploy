@@ -642,8 +642,11 @@ def calc(request):
         Elec_CED=float(_elec_CED)
         Batt_GWP=float(_bat_GWP)  
         Batt_CED=float(_bat_CED)
-        touList = TouMatrix.objects.all().first().array_list.strip('][').split(', ')
+        touMatrix = TouMatrix.objects.all().first().array_list.strip('][').split(', ')
         elecConsump = ElectricConsumption.objects.all().first().array_list.strip('][').split(',')
+
+        touMatrix = list(map(float,touMatrix))
+        elecConsump = list(map(float,elecConsump))
         print("THIS IS FKING TYPE: ", type(elecConsump))
         print("THIS IS FKING YES: ", elecConsump[:300])
         #print("ELECT:",Elec_GWP, Elec_CED)
@@ -749,7 +752,7 @@ def calc(request):
     # """======================================================================================================================================================================================"""
     # 
     # =============================================================================
-        rate_dataframe=pd.DataFrame(touMatrix.array_list)
+        rate_dataframe=pd.DataFrame(touMatrix)
         monthly_rate_columns=rate_dataframe.as_matrix()
         rate_type_1=monthly_rate_columns[:,0]
         rate_type_2=monthly_rate_columns[:,3]
