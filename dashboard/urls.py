@@ -10,5 +10,4 @@ urlpatterns = [
     path('compare', views.compare, name="compare"),
     path('load', views.load, name="load"),
     path('matrixDatabase', views.matrixDatabase, name="matrixDatabase"),
-    path('assignDatabase', views.assignDatabase, name="assignDatabase"),
 ]

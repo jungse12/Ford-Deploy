@@ -273,7 +273,7 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
     else:
         t_z = 'Etc/GMT-' + t_z[-1]
     weatherfile = os.path.join(BASE_DIR, 'static/samples/Detroit_TMY3_weather_data.csv')
-    print("timezone",t_z)
+    #print("timezone",t_z)
     tim_stmp=pd.read_csv(weatherfile,usecols=[0],skiprows=1,)
     tim_stmp=pd.date_range('1988-01-01',periods=8760,freq='H')
     tim_stmp=tim_stmp.tz_localize(t_z)
@@ -460,17 +460,6 @@ def matrixDatabase(request, format=None):
                 zone_list.append(0.0)
 
     return HttpResponse(json.dumps(zone_list))
-
-def assignDatabase(request, format=None):
-    TouMatrix.objects.all().delete()
-    ElectricConsumption.objects.all().delete()
-
-    TouMatrix.objects.create(array_list=request.POST.get('rateList'))
-    ElectricConsumption.objects.create(array_list=request.POST.get('zoneList'))
-    #touMatrix.set_array(json.loads(request.POST.get('rateList')))
-    #elecConsump.set_array(json.loads(request.POST.get('zoneList')))
-    touList = TouMatrix.objects.all().first().array_list
-    return HttpResponse(touList)
     
 def calc(request):
     weatherfile = os.path.join(BASE_DIR, 'static/samples/Detroit_TMY3_weather_data.csv')
@@ -566,8 +555,8 @@ def calc(request):
     pop_size = int(_pop_size)
     calc_amount = int(_calc_amount)
 
-    print("pop size", pop_size)
-    print("calc amount", calc_amount)
+    #print("pop size", pop_size)
+    #print("calc amount", calc_amount)
     
     #print("here start pvlib irrad")
     #calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))
@@ -1665,7 +1654,7 @@ def calc(request):
         'base_LCOE': round(base_LCOE,2),
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2),
-        'final_soc_matrix': final_soc_matrix
+        'final_soc_matrix': str(final_soc_matrix),
     })
 
 def apitest(request):
