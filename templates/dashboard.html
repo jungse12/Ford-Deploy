@@ -34,6 +34,10 @@
         <form method="post" action="calc">
             <div class="box-container-12">
             {% csrf_token %}
+                <div>
+                    <input type="text" id="touMatrix" value=''>
+                    <input type="text" id="elecArray" value=''>
+                </div>
                 <div class="box">
                     <h3>System infomation</h3>
                     <div class="box-grid">
@@ -1303,10 +1307,6 @@
             </div>
             <div class="sticky-top alert-box loading" id="load-alert">
                 <strong>Loading!</strong> Optimization in progress, please wait ...
-            </div>
-            <div>
-                <input type="text" id="touMatrix" value=''>
-                <input type="text" id="elecArray" value=''>
             </div>
         </form>
     </div>
