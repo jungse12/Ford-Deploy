@@ -571,8 +571,8 @@ def calc(request):
     
     #print("here start pvlib irrad")
     #calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))
-    const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
-    #const = {"ghi_column_vector": np.zeros((8760,1))}
+    #const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
+    const = {"ghi_column_vector": np.zeros((8760,1))}
     def evaluate(x, const):
         touMatrix = _touMatrix.split(',')
         
