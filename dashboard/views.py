@@ -645,7 +645,7 @@ def calc(request):
         touMatrix = TouMatrix.objects.all().first().array_list.split('],')
         elecConsump = ElectricConsumption.objects.all().first().array_list.strip('][').split(',')
         print("THIS IS FKING SIZE ONE ARRAY: ", len(touMatrix))
-
+        print(touMatrix[:2])
             
         elecConsump = list(map(float,elecConsump))
         print("THIS IS FKING TYPE: ", type(elecConsump))
