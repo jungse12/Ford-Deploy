@@ -1665,7 +1665,7 @@ def calc(request):
         'base_LCOE': round(base_LCOE,2),
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2),
-        #'final_soc_matrix': final_soc_matrix
+        'final_soc_matrix': final_soc_matrix
     })
 
 def apitest(request):
