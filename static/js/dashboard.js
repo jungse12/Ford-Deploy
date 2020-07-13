@@ -564,7 +564,8 @@ $(document).ready(function() {
             }
         ];
         console.log(data_values_WD); 
-        document.getElementById('tou-matrix').value = toString(touRateList);
+        console.log(touRateList);
+        document.getElementById('tou-matrix').value = JSON.stringify(touRateList);
 
         //console.log("THIS IS TOU: " + touRateList.length)
         var test = 1;
@@ -617,7 +618,7 @@ $(document).ready(function() {
                     }
                     //console.log("totalDaY: " + zone_list.slice(0,360));
                 }
-                document.getElementById('elec-array').value = toString(zone_list);
+                document.getElementById('elec-array').value = JSON.stringify(zone_list);
             }
         });
         weatherDataMsg.innerHTML = "";

@@ -576,6 +576,8 @@ def calc(request):
         touMatrix = _touMatrix.strip('][').split(',')
         elecArray = _elecArray.strip('][').split(',')
 
+        elecArray = list(map(float,elecConsump))
+
         arbit_solar_panel_size, capacity_of_batt_module = x
 
         #arbit_solar_panel_size=1.635 #For now assuming this in squae meteres 
