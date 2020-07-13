@@ -672,7 +672,7 @@ def calc(request):
         
         
         """=====================================================GHI data================================================================================================================"""
-        '''       
+       
         #Importing the values of direct Normal Irradiance
         #dni=pd.read_csv(file_location + weather_file_name,usecols=[7],skiprows=1,) # downloading GHI data in the python dataframe
         
@@ -1637,9 +1637,7 @@ def calc(request):
         'base_LCOE': round(base_LCOE,2),
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2)
-    })'''
-
-    return render(request, 'result.html', {})
+    })
 
 def apitest(request):
     zipcode = 48823
