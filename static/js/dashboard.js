@@ -639,7 +639,6 @@ $(document).ready(function() {
         utilityData.innerHTML = "";
         utilityDataMsg.innerHTML = "";
         locationErrorMsg.innerHTML = "";
-        console.log(document.getElementById('touMatrix').value)
     });
     $("input[name='system-app']").change(function(){
         var x = document.getElementById('fast-charger-div')

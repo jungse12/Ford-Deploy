@@ -477,6 +477,9 @@ def calc(request):
 
     #check = HomeESS.objects.get(Zone_1='Zone_1')
     #print("check", elecConsump.array_list[:360])
+    touMatrix = request.POST['touMatrix']
+    elecArray = request.POST['elecArray']
+
     _zipcode = request.POST['zipcode']
     _state = request.POST['state']
     _proj_lifetime = request.POST['proj-lifetime']
@@ -642,6 +645,8 @@ def calc(request):
         Elec_CED=float(_elec_CED)
         Batt_GWP=float(_bat_GWP)  
         Batt_CED=float(_bat_CED)
+        print("HERE ---------")
+        print(len(touMatrix),type(touMatrix))
         #touMatrix = TouMatrix.objects.all().first().array_list.strip('][').split('], [')
         #elecConsump = ElectricConsumption.objects.all().first().array_list.strip('][').split(',')
         #print("THIS IS FKING SIZE ONE ARRAY: ", len(touMatrix))
@@ -664,7 +669,7 @@ def calc(request):
         
         """The following code loads an excel  file of hourly consumption into python and converts into a 24 by 365 numercial matrix """
 
-        Elec_consumption_dataframe=pd.DataFrame(elecConsump) # the file is uploaded in python in form of a dataframe 
+        Elec_consumption_dataframe=pd.DataFrame(0) # the file is uploaded in python in form of a dataframe 
         
         Elec_consumption_matrix=Elec_consumption_dataframe.as_matrix() # dataframe converted in workaable matix format
         
