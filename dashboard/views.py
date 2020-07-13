@@ -267,37 +267,37 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
     
     #file_location='static'
     #weather_file_name='/samples/home/ray/ford/static/samples/Detroit_TMY3_weather_data.csv'
-    
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     if t_z[3] == '-':
         t_z = 'Etc/GMT+' + t_z[-1]
     else:
         t_z = 'Etc/GMT-' + t_z[-1]
-
+    weatherfile = os.path.join(BASE_DIR, 'static/samples/Detroit_TMY3_weather_data.csv')
     print("timezone",t_z)
-    tim_stmp=pd.read_csv('home/ray/ford/static/samples/Detroit_TMY3_weather_data.csv',usecols=[0],skiprows=1,)
+    tim_stmp=pd.read_csv(weatherfile,usecols=[0],skiprows=1,)
     tim_stmp=pd.date_range('1988-01-01',periods=8760,freq='H')
     tim_stmp=tim_stmp.tz_localize(t_z)
 
     
     #calling in the values of direct normal irradiance
-    dni=pd.read_csv('home/ray/ford/static/samples/Detroit_TMY3_weather_data.csv',usecols=[7],skiprows=1,)
+    dni=pd.read_csv(weatherfile,usecols=[7],skiprows=1,)
     dni_vector=dni.as_matrix()
     
     #Calling in the values of DHI
-    dhi=pd.read_csv('home/ray/ford/static/samples/Detroit_TMY3_weather_data.csv',usecols=[10],skiprows=1,)
+    dhi=pd.read_csv(weatherfile,usecols=[10],skiprows=1,)
     dhi_vector=dhi.as_matrix()
     
     #Calling in the values of GHI
-    ghi=pd.read_csv('home/ray/ford/static/samples/Detroit_TMY3_weather_data.csv',usecols=[4],skiprows=1,)
+    ghi=pd.read_csv(weatherfile,usecols=[4],skiprows=1,)
     ghi_vector=ghi.as_matrix()
     
     
     #Calling in the values of extraterrestrial irradiance
-    extra_dni=pd.read_csv('home/ray/ford/static/samples/Detroit_TMY3_weather_data.csv',usecols=[1],skiprows=1,)
+    extra_dni=pd.read_csv(weatherfile,usecols=[1],skiprows=1,)
     extra_dni_vector=extra_dni.as_matrix()
     
     #Finding out the elevation value from the weather file 
-    ele=pd.read_csv('home/ray/ford/static/samples/Detroit_TMY3_weather_data.csv',index_col=[0],header=None,error_bad_lines=False,warn_bad_lines=False)
+    ele=pd.read_csv(weatherfile,index_col=[0],header=None,error_bad_lines=False,warn_bad_lines=False)
     elev=float(ele.values[0,5])
 
     
@@ -473,6 +473,7 @@ def assignDatabase(request, format=None):
     return HttpResponse(touList)
     
 def calc(request):
+    weatherfile = os.path.join(BASE_DIR, 'static/samples/Detroit_TMY3_weather_data.csv')
     #print("here")
 
     #check = HomeESS.objects.get(Zone_1='Zone_1')
@@ -729,7 +730,7 @@ def calc(request):
         
         
         """================================================Wind speed data====================================================================="""
-        wind_speed=pd.read_csv('home/ray/ford/static/samples/Detroit_TMY3_weather_data.csv',usecols=[46],skiprows=1,)
+        wind_speed=pd.read_csv(weatherfile,usecols=[46],skiprows=1,)
         
         wind_speed_col_vector=wind_speed.as_matrix()
         
@@ -739,7 +740,7 @@ def calc(request):
         
         """=================================Dry bulb temperature data========================================================================"""
         
-        temp=pd.read_csv('home/ray/ford/static/samples/Detroit_TMY3_weather_data.csv',usecols=[31],skiprows=1,)
+        temp=pd.read_csv(weatherfile,usecols=[31],skiprows=1,)
         
         temp_col_vector=temp.as_matrix()
         
