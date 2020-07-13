@@ -1456,36 +1456,36 @@ def calc(request):
 
         for name in manager.get_scenario_names():
             print("\t {}".format(name))
-    
+    weatherfile = os.path.join(BASE_DIR, 'static/samples/Detroit_TMY3_weather_data.csv')
     scenario_manager_labor={
         "smTemp":
             {
-            "source":"static/slb/labor/simulation_models/SLBremanlabor.stmx",
-            "model":"static/slb/labor/simulation_models/SLBremanlabor"
+            "source":os.path.join(BASE_DIR, "static/slb/labor/simulation_models/SLBremanlabor.stmx"),
+            "model":os.path.join(BASE_DIR, "static/slb/labor/simulation_models/SLBremanlabor")
             }
     }
 
     scenario_manager_elec={
         "smTemp":
             {
-            "source":"static/slb/electricity/simulation_models/SLBremanelectricity.stmx",
-            "model":"static/slb/electricity/simulation_models/SLBremanelectricity"
+            "source":os.path.join(BASE_DIR, "static/slb/electricity/simulation_models/SLBremanelectricity.stmx"),
+            "model":os.path.join(BASE_DIR, "static/slb/electricity/simulation_models/SLBremanelectricity")
             }
     }
 
     scenario_manager_trans={
         "smTemp":
             {
-            "source":"static/slb/transportation/simulation_models/SLBreman3.stmx",
-            "model":"static/slb/transportation/simulation_models/SLBreman3"
+            "source":os.path.join(BASE_DIR, "static/slb/transportation/simulation_models/SLBreman3.stmx"),
+            "model":os.path.join(BASE_DIR, "static/slb/transportation/simulation_models/SLBreman3")
             }
     }
 
     scenario_manager_eol={
         "smTemp":
             {
-            "source":"static/slb/EOLvalue/simulation_models/EOLvalue.stmx",
-            "model":"static/slb/EOLvalue/simulation_models/EOLvalue"
+            "source":os.path.join(BASE_DIR, "static/slb/EOLvalue/simulation_models/EOLvalue.stmx"),
+            "model":os.path.join(BASE_DIR, "static/slb/EOLvalue/simulation_models/EOLvalue")
             }
     }
 
@@ -1665,6 +1665,7 @@ def calc(request):
         'base_LCOE': round(base_LCOE,2),
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2),
+        'final_soc_matrix': final_soc_matrix
     })
 
 def apitest(request):
