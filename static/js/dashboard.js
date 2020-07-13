@@ -615,9 +615,9 @@ $(document).ready(function() {
                             totalDay += 1;
                         }
                     }
-                    document.getElementById('elecArray').value = zone_list;
                     //console.log("totalDaY: " + zone_list.slice(0,360));
                 }
+                document.getElementById('elec-array').value = JSON.stringify(zone_list);
                 /*
                 $.ajax({
                     url:'assignDatabase',
