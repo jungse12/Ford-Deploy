@@ -274,7 +274,7 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
         t_z = 'Etc/GMT-' + t_z[-1]
 
     print("timezone",t_z)
-    tim_stmp=pd.read_csv('Detroit_TMY3_weather_data.csv'',usecols=[0],skiprows=1,)
+    tim_stmp=pd.read_csv('Detroit_TMY3_weather_data.csv',usecols=[0],skiprows=1,)
     tim_stmp=pd.date_range('1988-01-01',periods=8760,freq='H')
     tim_stmp=tim_stmp.tz_localize(t_z)
 
