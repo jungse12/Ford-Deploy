@@ -562,7 +562,7 @@ $(document).ready(function() {
             }
         ];
         console.log(data_values_WD); 
-        console.log("THIS IS TOU: " + touRateList.length())
+        console.log("THIS IS TOU: " + touRateList.length)
         var test = 1;
         Plotly.newPlot('weekday', dataWeekday, layoutWeekday, defaultPlotlyConfiguration);
         Plotly.newPlot('weekend', dataWeekend, layoutWeekend, defaultPlotlyConfiguration);
