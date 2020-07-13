@@ -642,7 +642,7 @@ def calc(request):
         Elec_CED=float(_elec_CED)
         Batt_GWP=float(_bat_GWP)  
         Batt_CED=float(_bat_CED)
-
+        touList = TouMatrix.objects.all().first().array_list.strip('][').split(', ') 
         #print("ELECT:",Elec_GWP, Elec_CED)
         """==============================================================================================================================="""
         """Empty arrays/matrices created to account for holding the battery capacity and state of charge of battery in each hour"""
@@ -657,7 +657,7 @@ def calc(request):
         
         """The following code loads an excel  file of hourly consumption into python and converts into a 24 by 365 numercial matrix """
 
-        Elec_consumption_dataframe=pd.DataFrame(TouMatrix.objects.all().first().array_list) # the file is uploaded in python in form of a dataframe 
+        Elec_consumption_dataframe=pd.DataFrame(touList) # the file is uploaded in python in form of a dataframe 
         
         Elec_consumption_matrix=Elec_consumption_dataframe.as_matrix() # dataframe converted in workaable matix format
         
