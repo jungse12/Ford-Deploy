@@ -40,8 +40,8 @@ PROJECT_DIR += '/static'
 
 bptk = bptk()
 
-touMatrix = TouMatrix()
-elecConsump = ElectricConsumption()
+#touMatrix = TouMatrix()
+#elecConsump = ElectricConsumption()
 customEss = CustomESS()
 
 # Create your views here.
@@ -462,14 +462,19 @@ def matrixDatabase(request, format=None):
     return HttpResponse(json.dumps(zone_list))
 
 def assignDatabase(request, format=None):
-    touMatrix.set_array(json.loads(request.POST.get('rateList')))
-    elecConsump.set_array(json.loads(request.POST.get('zoneList')))
+    TouMatrix.objects.all().delete()
+    ElectricConsumption.objects.all().delete()
 
-    return HttpResponse(json.dumps(elecConsump.array_list))
+    TouMatrix.objects.create(array_list=json.loads(request.POST.get('rateList')))
+    ElectricConsumption.objects.create(array_list=json.loads(request.POST.get('zoneList')))
+    #touMatrix.set_array(json.loads(request.POST.get('rateList')))
+    #elecConsump.set_array(json.loads(request.POST.get('zoneList')))
+
+    return HttpResponse(json.dumps(TouMatrix.objects.all()))
 
 def checkDatabase(request, format=None):
 
-    return HttpResponse(json.dumps(elecConsump.array_list))
+    return HttpResponse(json.dumps(TouMatrix.objects.all()))
 
 def calc(request):
     #print("here")
