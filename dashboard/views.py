@@ -1235,8 +1235,7 @@ def calc(request):
                 "percent_dec_matrix":percent_dec_matrix} 
         
         return obj, data, pv_power_matrix, Elec_consumption_matrix
-        '''
-        return 0
+
     class MyProblem(Problem):
         def __init__(self,const):
             super().__init__(n_var=2, n_obj=1, n_constr=0,
@@ -1275,7 +1274,7 @@ def calc(request):
 
     print("Best solution found: \nX = %s\nF = %s" % (res.X, res.F))
     _, data, pv_power_matrix, Elec_consumption_matrix = evaluate(res.X, const)
-    '''
+
     final_soc_matrix = data['final_soc_matrix']
     total_net_met_benf=data['total_net_met_benf']
     elec_bought_grid=data['elec_bought_grid']
