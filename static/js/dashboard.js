@@ -618,19 +618,6 @@ $(document).ready(function() {
                     //console.log("totalDaY: " + zone_list.slice(0,360));
                 }
                 document.getElementById('elec-array').value = JSON.stringify(zone_list);
-                /*
-                $.ajax({
-                    url:'assignDatabase',
-                    type: 'POST',
-                    data: {
-                        rateList: JSON.stringify(touRateList),
-                        zoneList: JSON.stringify(zone_list),
-                        csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
-                    },
-                    success: function(data){
-                        console.log("HERE:" + data);
-                    }
-                });*/
             }
         });
         weatherDataMsg.innerHTML = "";

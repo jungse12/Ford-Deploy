@@ -477,8 +477,8 @@ def calc(request):
 
     #check = HomeESS.objects.get(Zone_1='Zone_1')
     #print("check", elecConsump.array_list[:360])
-    touMatrix = request.POST.get('tou-matrix')
-    elecArray = request.POST.get('elec-array')
+    _touMatrix = request.POST.get('tou-matrix')
+    _elecArray = request.POST.get('elec-array')
 
     _zipcode = request.POST['zipcode']
     _state = request.POST['state']
@@ -573,6 +573,9 @@ def calc(request):
     #const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
     const = {"ghi_column_vector": np.zeros((8760,1))}
     def evaluate(x, const):
+        touMatrix = _touMatrix.strip('][').split(',')
+        elecArray = _elecArray.strip('][').split(',')
+
         arbit_solar_panel_size, capacity_of_batt_module = x
 
         #arbit_solar_panel_size=1.635 #For now assuming this in squae meteres 
