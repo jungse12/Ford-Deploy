@@ -265,8 +265,8 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
 
     """===These values are obtained from the files and then transferrred to the function ===================================================="""
     
-    file_location='static'
-    weather_file_name='/samples/Detroit_TMY3_weather_data.csv'
+    #file_location='static'
+    #weather_file_name='/samples/Detroit_TMY3_weather_data.csv'
     
     if t_z[3] == '-':
         t_z = 'Etc/GMT+' + t_z[-1]
@@ -274,30 +274,30 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
         t_z = 'Etc/GMT-' + t_z[-1]
 
     print("timezone",t_z)
-    tim_stmp=pd.read_csv('home/ray/ford/static/samples/Detroit_TMY3_weather_data.csv',usecols=[0],skiprows=1,)
+    tim_stmp=pd.read_csv('Detroit_TMY3_weather_data.csv'',usecols=[0],skiprows=1,)
     tim_stmp=pd.date_range('1988-01-01',periods=8760,freq='H')
     tim_stmp=tim_stmp.tz_localize(t_z)
 
     
     #calling in the values of direct normal irradiance
-    dni=pd.read_csv(file_location + weather_file_name,usecols=[7],skiprows=1,)
+    dni=pd.read_csv('Detroit_TMY3_weather_data.csv',usecols=[7],skiprows=1,)
     dni_vector=dni.as_matrix()
     
     #Calling in the values of DHI
-    dhi=pd.read_csv(file_location + weather_file_name,usecols=[10],skiprows=1,)
+    dhi=pd.read_csv('Detroit_TMY3_weather_data.csv',usecols=[10],skiprows=1,)
     dhi_vector=dhi.as_matrix()
     
     #Calling in the values of GHI
-    ghi=pd.read_csv(file_location + weather_file_name,usecols=[4],skiprows=1,)
+    ghi=pd.read_csv('Detroit_TMY3_weather_data.csv',usecols=[4],skiprows=1,)
     ghi_vector=ghi.as_matrix()
     
     
     #Calling in the values of extraterrestrial irradiance
-    extra_dni=pd.read_csv(file_location + weather_file_name,usecols=[1],skiprows=1,)
+    extra_dni=pd.read_csv('Detroit_TMY3_weather_data.csv',usecols=[1],skiprows=1,)
     extra_dni_vector=extra_dni.as_matrix()
     
     #Finding out the elevation value from the weather file 
-    ele=pd.read_csv(file_location + weather_file_name,index_col=[0],header=None,error_bad_lines=False,warn_bad_lines=False)
+    ele=pd.read_csv('Detroit_TMY3_weather_data.csv',index_col=[0],header=None,error_bad_lines=False,warn_bad_lines=False)
     elev=float(ele.values[0,5])
 
     
@@ -729,23 +729,23 @@ def calc(request):
         
         
         """================================================Wind speed data====================================================================="""
-        #wind_speed=pd.read_csv(PROJECT_DIR + weather_file_name,usecols=[46],skiprows=1,)
+        wind_speed=pd.read_csv('Detroit_TMY3_weather_data.csv',usecols=[46],skiprows=1,)
         
-        #wind_speed_col_vector=wind_speed.as_matrix()
+        wind_speed_col_vector=wind_speed.as_matrix()
         
-        #Transposed_wind_vector=wind_speed_col_vector.transpose() #Transposing the column vector into a row vector 
+        Transposed_wind_vector=wind_speed_col_vector.transpose() #Transposing the column vector into a row vector 
         
-        #wind_matrix=np.reshape(Transposed_wind_vector,(24,365),order='F')
+        wind_matrix=np.reshape(Transposed_wind_vector,(24,365),order='F')
         
         """=================================Dry bulb temperature data========================================================================"""
         
-        #temp=pd.read_csv(PROJECT_DIR + weather_file_name,usecols=[31],skiprows=1,)
+        temp=pd.read_csv('Detroit_TMY3_weather_data.csv',usecols=[31],skiprows=1,)
         
-        #temp_col_vector=temp.as_matrix()
+        temp_col_vector=temp.as_matrix()
         
-        #Transposed_temp_vector=temp_col_vector.transpose() #Transposing the column vector into a row vector 
+        Transposed_temp_vector=temp_col_vector.transpose() #Transposing the column vector into a row vector 
         
-        #temp_matrix=np.reshape(Transposed_temp_vector,(24,365),order='F')
+        temp_matrix=np.reshape(Transposed_temp_vector,(24,365),order='F')
         
         #This commented piece of code is for Detroit' electricity price matrix generation 
     # =============================================================================
