@@ -573,10 +573,19 @@ def calc(request):
     #const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
     const = {"ghi_column_vector": np.zeros((8760,1))}
     def evaluate(x, const):
-        touMatrix = _touMatrix.strip('][').split(',')
+        touMatrix = _touMatrix.split(',')
+        
+        touMatrixReal = []
+        index = 0
+        for i in range(24):
+            tmpArray = touMatrix[0:365]
+            touMatrix = touMatrix[365:]
+            tmpArray = list(map(float,tmpArray))
+            touMatrixReal.append(tmpArray)
+        
         elecArray = _elecArray.strip('][').split(',')
 
-        elecArray = list(map(float,elecConsump))
+        elecArray = list(map(float,elecArray))
 
         arbit_solar_panel_size, capacity_of_batt_module = x
 
@@ -674,7 +683,7 @@ def calc(request):
         
         """The following code loads an excel  file of hourly consumption into python and converts into a 24 by 365 numercial matrix """
 
-        Elec_consumption_dataframe=pd.DataFrame(0) # the file is uploaded in python in form of a dataframe 
+        Elec_consumption_dataframe=pd.DataFrame(elecArray) # the file is uploaded in python in form of a dataframe 
         
         Elec_consumption_matrix=Elec_consumption_dataframe.as_matrix() # dataframe converted in workaable matix format
         
@@ -763,7 +772,7 @@ def calc(request):
     # """======================================================================================================================================================================================"""
     # 
     # =============================================================================
-        rate_dataframe=pd.DataFrame(touMatrix)
+        rate_dataframe=pd.DataFrame(touMatrixReal)
         monthly_rate_columns=rate_dataframe.as_matrix()
         rate_type_1=monthly_rate_columns[:,0]
         rate_type_2=monthly_rate_columns[:,3]
