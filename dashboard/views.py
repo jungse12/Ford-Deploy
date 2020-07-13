@@ -470,11 +470,11 @@ def assignDatabase(request, format=None):
     #touMatrix.set_array(json.loads(request.POST.get('rateList')))
     #elecConsump.set_array(json.loads(request.POST.get('zoneList')))
 
-    return HttpResponse(TouMatrix.objects.all())
+    return HttpResponse(TouMatrix.objects.all().first().array_list)
 
 def checkDatabase(request, format=None):
 
-    return HttpResponse(json.dumps(TouMatrix.objects.all()))
+    return HttpResponse(TouMatrix.objects.all().first().array_list)
 
 def calc(request):
     #print("here")
