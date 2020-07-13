@@ -642,8 +642,8 @@ def calc(request):
         Elec_CED=float(_elec_CED)
         Batt_GWP=float(_bat_GWP)  
         Batt_CED=float(_bat_CED)
-        touList = TouMatrix.objects.all().first().array_list
-        elecConsump = ElectricConsumption.objects.all().first().array_list
+        touList = TouMatrix.objects.all().first().array_list.strip('][').split(', ')
+        elecConsump = ElectricConsumption.objects.all().first().array_list.strip('][').split(', ')
         #print("ELECT:",Elec_GWP, Elec_CED)
         """==============================================================================================================================="""
         """Empty arrays/matrices created to account for holding the battery capacity and state of charge of battery in each hour"""
