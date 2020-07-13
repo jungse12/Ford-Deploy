@@ -1646,7 +1646,9 @@ def calc(request):
         'base_AC': round(base_AC,2),
         'base_LCOE': round(base_LCOE,2),
         'base_GWP': round(base_GWP,2),
-        'base_CED': round(base_CED,2)
+        'base_CED': round(base_CED,2),
+        'tou_matrix': touMatrix,
+        'elec_array': elecArray,
     })
 
 def apitest(request):
