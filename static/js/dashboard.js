@@ -617,7 +617,7 @@ $(document).ready(function() {
                     }
                     //console.log("totalDaY: " + zone_list.slice(0,360));
                 }
-                document.getElementById('elec-array').value = JSON.stringify(zone_list);
+                document.getElementById('elec-array').value = toString(zone_list);
             }
         });
         weatherDataMsg.innerHTML = "";
