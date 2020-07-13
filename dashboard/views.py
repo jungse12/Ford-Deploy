@@ -660,7 +660,7 @@ def calc(request):
         """ function to caluclte the battery charging in one day """ 
         
         """The following code loads an excel  file of hourly consumption into python and converts into a 24 by 365 numercial matrix """
-
+        '''
         Elec_consumption_dataframe=pd.DataFrame(elecConsump.array_list) # the file is uploaded in python in form of a dataframe 
         
         Elec_consumption_matrix=Elec_consumption_dataframe.as_matrix() # dataframe converted in workaable matix format
@@ -670,7 +670,7 @@ def calc(request):
         Elec_consumption_matrix=np.reshape(Transposed_elec_consumption_vector,(24,365),order='F')  #the last parameter will place it in Fortran like orde  
         
         Elec_consumption_matrix=np.tile(Elec_consumption_matrix,year_analysis)      # The matrix has been made a giant matrix of 
-            
+        '''  
         """ The follwing code loads loads an excel file of GHI, wind and dry bulb temperature data into python and converts it into a 24 by 365 numerical matrix """
         
         
