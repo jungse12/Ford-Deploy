@@ -1243,7 +1243,10 @@ def calc(request):
                 "base_GWP":base_GWP,
                 "base_CED":base_CED,
                 "year_analysis":year_analysis,
-                "percent_dec_matrix":percent_dec_matrix} 
+                "percent_dec_matrix":percent_dec_matrix,
+                'tou_matrix': touMatrix,
+                'elec_array': elecArray,
+        } 
         
         return obj, data, pv_power_matrix, Elec_consumption_matrix
 
@@ -1647,8 +1650,6 @@ def calc(request):
         'base_LCOE': round(base_LCOE,2),
         'base_GWP': round(base_GWP,2),
         'base_CED': round(base_CED,2),
-        'tou_matrix': touMatrix,
-        'elec_array': elecArray,
     })
 
 def apitest(request):
