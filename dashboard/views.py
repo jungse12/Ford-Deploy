@@ -57,7 +57,7 @@ def loginPage(request):
 
         if user is not None:
             login(request, user)
-            reutnr redirect('dashboard')
+            return redirect('dashboard')
 
     context = {}
     return render(request,'login.html')
