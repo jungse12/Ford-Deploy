@@ -1,1 +1,8 @@
 <h3>Login</h3>
+<form method="POST" action="">
+{% csrf_token %}
+  <label for="username">Username</label>
+  <input type="text" name="username" id="username">
+  <label for="password">Password</label>
+  <input type="password" name="password" id="password">
+</form>
