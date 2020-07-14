@@ -314,7 +314,7 @@ function toggleSecondBatteryLife(flag) {
     var bat_effi_slider = $('#bat-effi-slider');
     var bat_warranty = document.getElementById('bat-warranty');
     var bat_warranty_slider = $('#bat-warranty-slider');
-    var system_app_val = $("input[name='bat-app']:checked").val();
+    var system_app_val = $("input[name='system-app']:checked").val();
 
     console.log("toggle: " + system_app_val)
 
@@ -329,15 +329,15 @@ function toggleSecondBatteryLife(flag) {
         bat_warranty_slider.prop("disabled",true);
         localStorage.setItem("checked","second");
         if (system_app_val === "home-ESS" || system_app_val === "micro-ESS" || system_app_val === "home-charger") {
-            document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-New'][0]
-            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['HomeESS-New'][0]
-            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-New'][1]
-            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['HomeESS-New'][1]
+            document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-Second'][0]
+            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['HomeESS-Second'][0]
+            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-Second'][1]
+            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['HomeESS-Second'][1]
         } else {
-            document.getElementById('cal-ageing-param').value = cal_cyc_dict['FastCharger-New'][0]
-            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['FastCharger-New'][0]
-            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['FastCharger-New'][1]
-            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['FastCharger-New'][1]
+            document.getElementById('cal-ageing-param').value = cal_cyc_dict['FastCharger-Second'][0]
+            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['FastCharger-Second'][0]
+            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['FastCharger-Second'][1]
+            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['FastCharger-Second'][1]
         }
     } else {
         y.style.display = "none";
@@ -349,15 +349,15 @@ function toggleSecondBatteryLife(flag) {
         bat_warranty_slider.prop("disabled",false);
         localStorage.setItem("checked","new");
         if (system_app_val === "home-ESS" || system_app_val === "micro-ESS" || system_app_val === "home-charger") {
-            document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-Second'][0]
-            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['HomeESS-Second'][0]
-            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-Second'][1]
-            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['HomeESS-Second'][1]
+            document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-New'][0]
+            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['HomeESS-New'][0]
+            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-New'][1]
+            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['HomeESS-New'][1]
         } else {
-            document.getElementById('cal-ageing-param').value = cal_cyc_dict['FastCharger-Second'][0]
-            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['FastCharger-Second'][0]
-            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['FastCharger-Second'][1]
-            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['FastCharger-Second'][1]
+            document.getElementById('cal-ageing-param').value = cal_cyc_dict['FastCharger-New'][0]
+            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['FastCharger-New'][0]
+            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['FastCharger-New'][1]
+            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['FastCharger-New'][1]
         }
     }
 
