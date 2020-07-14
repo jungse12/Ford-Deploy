@@ -150,8 +150,8 @@ function callGoogleAPI() {
             var result = data.outputs;
             var found = false;
             for (var i = 0; i < result.length; i++) {
-                link = result[i]["links"][0]["link"].replace("yourapikey", "YeWSwIxO37j4AHerp8lyZhnBajXEpTBYI1bAyiC5");
-                link = result[i]["links"][0]["link"].replace("youremail", "jungse12@msu.edu");
+                link = result[i]["links"][0]["link"].replace("yourapikey", "YeWSwIxO37j4AHerp8lyZhnBajXEpTBYI1bAyiC5").replace("youremail", "jungse12@msu.edu");
+
                 if (link.includes("tmy3") == true) {
                     weatherDataMsg.innerHTML = "Weather data: ";
                     weatherData.innerHTML = "download";
