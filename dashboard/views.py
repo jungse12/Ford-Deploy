@@ -45,6 +45,10 @@ bptk = bptk()
 customEss = CustomESS()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+def loginPage(request):
+    context = {}
+    return render(request,'login.html')
+
 # Create your views here.
 def dashboard(request):
     return render(request, 'dashboard.html')
@@ -141,8 +145,8 @@ def calc_npv(year_analysis,pv_cost,inverter_cost,batt_cost,batt_replc_hour,base_
     elec_bought_vector=cost_of_buy_elec.flatten('F')
     npv_elec=np.sum(elec_bought_vector[0:365*24])/(1+I)
     
-    #Remove plot after testing
-    np_this_year_list=[]
+    #Remove plot after teing
+    np_this_year_list=[] 
     np_this_year_list.append(npv_elec)
     count=365
     for el in range(year_analysis-1):
