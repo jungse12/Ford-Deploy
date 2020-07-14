@@ -552,6 +552,10 @@ def calc(request):
     _bat_upper_limit = request.POST['bat-upper-limit']
     _cyclic_ageing_param = request.POST['cyclic-ageing-param']
 
+    _minimize_cost = request.POST['minimize-cost']
+    _carbn_ftprnt = request.POST['carbn-ftprnt']
+    _cum_dem = request.POST['cum-dem']
+
     _lat = request.POST['lat']
     _long = request.POST['long']
 
@@ -659,9 +663,9 @@ def calc(request):
         feed_in_tariff=int(_feed_in_tariff)
 
         #Switch function for optimizing cost or environemental impacts
-        Cost=0
-        carbn_ftprnt=0
-        cum_dem=0
+        Cost=int(_minimize_cost)
+        carbn_ftprnt=int(_minimize_cost)
+        cum_dem=int(_cum_dem)
 
         #Variable for environmental impact function
         PV_GWP=float(_pv_GWP)
@@ -672,17 +676,7 @@ def calc(request):
         Elec_CED=float(_elec_CED)
         Batt_GWP=float(_bat_GWP)  
         Batt_CED=float(_bat_CED)
-        #print("HERE ---------")
-        #print(len(touMatrix),type(touMatrix))
-        #touMatrix = TouMatrix.objects.all().first().array_list.strip('][').split('], [')
-        #elecConsump = ElectricConsumption.objects.all().first().array_list.strip('][').split(',')
-        #print("THIS IS FKING SIZE ONE ARRAY: ", len(touMatrix))
-        #print(touMatrix[:2])
-            
-        #elecConsump = list(map(float,elecConsump))
-        #print("THIS IS FKING TYPE: ", type(elecConsump))
-        #print("THIS IS FKING YES: ", elecConsump[:300])
-        #print("ELECT:",Elec_GWP, Elec_CED)
+
         """==============================================================================================================================="""
         """Empty arrays/matrices created to account for holding the battery capacity and state of charge of battery in each hour"""
         soc_vect= np.zeros((8760*year_analysis,1)) # An empty numpy array created to hold the State of charge of the battery throughout the optmization

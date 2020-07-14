@@ -175,7 +175,7 @@
                         <div class="text-center">
                             <label class="btn btn-success m-3 mx-auto" for="custom-file">
                                 <input id="custom-file" type="file" style="display:none" onchange="$('#upload-file-info').html(this.files[0].name)" accept=".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
-                                Upload Database File
+                                Upload your own profile
                             </label>
                             <span class='label label-info' id="upload-file-info"></span>
                         </div>
@@ -319,11 +319,11 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text">$</span>
                                 </div>
-                                <input type="number" class="form-control" id="conn-fee" name="conn-fee" value="0.83" step="0.01"
+                                <input type="number" class="form-control" id="conn-fee" name="conn-fee" value="500" step="0.01"
                                     onkeyup="updateSliderValue(this.value, 'conn-fee-slider')">
                                 
                                 <input type="range" class="form-control-range slider" id="conn-fee-slider"
-                                    name="conn-fee-slider" min="0" max="2" value="0.83" step="0.01" onchange="updateTextInput(this.value, 'conn-fee');">
+                                    name="conn-fee-slider" min="0" max="500" value="0.83" step="0.01" onchange="updateTextInput(this.value, 'conn-fee');">
                             </div>
                         </div>
                     </div>
@@ -374,7 +374,7 @@
                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title">More Battery Inputs</h5>
+                              <h5 class="modal-title">More Electricity Inputs</h5>
                               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                               </button>
@@ -397,12 +397,11 @@
                                     <div class="form-group">
                                         <label for="hourly-limit">Hourly limit on grid purchase</label>
                                         <div class="input-group">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">$</span>
-                                            </div>
                                             <input type="number" class="form-control" id="hourly-limit" name="hourly-limit" value="1000"
                                                 onkeyup="updateSliderValue(this.value, 'hourly-limit-slider')">
-                                            
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">kW/$</span>
+                                            </div>
                                             <input type="range" class="form-control-range slider" id="hourly-limit-slider"
                                                 name="hourly-limit-slider" min="0" max="1000" value="1000" onchange="updateTextInput(this.value, 'hourly-limit');">
                                         </div>

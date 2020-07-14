@@ -3,6 +3,17 @@ var zone_list;
 var fileUpload;
 var fileCheck = 0;
 
+var cal_cyc_dict = {
+    "HomeESS-New": [0.000331,0.0055547],
+    "MicroGridESS-New": [0.000331,0.0055547],
+    "HomeEVESS-New": [0.000331,0.0055547],
+    "FastCharger-New": [0.000256,0.000893],
+    "HomeESS-Second": [0.000331,0.0074331],
+    "MicroGridESS-Seocnd": [0.000331,0.0074331],
+    "HomeEVESS-Second": [0.000331,0.0074331],
+    "FastCharger-Second": [0.000256,0.000893]
+}
+
 function updateTextInput(val, input_Id) {
     document.getElementById(input_Id).value = val;
 
@@ -303,6 +314,7 @@ function toggleSecondBatteryLife(flag) {
     var bat_effi_slider = $('#bat-effi-slider');
     var bat_warranty = document.getElementById('bat-warranty');
     var bat_warranty_slider = $('#bat-warranty-slider');
+    var system_app_val = $("input[name='system-app']").val;
 
     if (flag == 1) {
         y.style.display = "block";
@@ -314,8 +326,17 @@ function toggleSecondBatteryLife(flag) {
         bat_warranty.readOnly = true;
         bat_warranty_slider.prop("disabled",true);
         localStorage.setItem("checked","second");
-        //$(bat_cost_slider).addClass('hover-disabled-cursor');
-        //$("#slider::-moz-range-thumb").style.setProperty("cursor","not-allowed");
+        if (system_app_val === "home-ESS" || system_app_val === "micro-ESS" || system_app_val === "home-charger") {
+            document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-New'][0]
+            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['HomeESS-New'][0]
+            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-New'][1]
+            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['HomeESS-New'][1]
+        } else {
+            document.getElementById('cal-ageing-param').value = cal_cyc_dict['FastCharger-New'][0]
+            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['FastCharger-New'][0]
+            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['FastCharger-New'][1]
+            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['FastCharger-New'][1]
+        }
     } else {
         y.style.display = "none";
         bat_cost.readOnly = false;
@@ -325,6 +346,17 @@ function toggleSecondBatteryLife(flag) {
         bat_warranty.readOnly = false;
         bat_warranty_slider.prop("disabled",false);
         localStorage.setItem("checked","new");
+        if (system_app_val === "home-ESS" || system_app_val === "micro-ESS" || system_app_val === "home-charger") {
+            document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-Second'][0]
+            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['HomeESS-Second'][0]
+            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-Second'][1]
+            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['HomeESS-Second'][1]
+        } else {
+            document.getElementById('cal-ageing-param').value = cal_cyc_dict['FastCharger-Second'][0]
+            document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['FastCharger-Second'][0]
+            document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['FastCharger-Second'][1]
+            document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['FastCharger-Second'][1]
+        }
     }
 
 };
@@ -641,6 +673,17 @@ $(document).ready(function() {
             } else {
                 x.style.display = 'block'
             }
+            if ($("input[name='bat-app']").val === "new") {
+                document.getElementById('cal-ageing-param').value = cal_cyc_dict['FastCharger-New'][0]
+                document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['FastCharger-New'][0]
+                document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['FastCharger-New'][1]
+                document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['FastCharger-New'][1]
+            } else {
+                document.getElementById('cal-ageing-param').value = cal_cyc_dict['FastCharger-Second'][0]
+                document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['FastCharger-Second'][0]
+                document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['FastCharger-Second'][1]
+                document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['FastCharger-Second'][1]
+            }
         } else {
             x.style.display = 'none'
         }
@@ -649,12 +692,32 @@ $(document).ready(function() {
             document.getElementById('pv-upper-limit').value = 500;
             document.getElementById('bat-lower-limit').value = 0;
             document.getElementById('bat-upper-limit').value = 500;
+
+            if ($("input[name='bat-app']").val === "new") {
+                document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-New'][0]
+                document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['HomeESS-New'][0]
+                document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-New'][1]
+                document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['HomeESS-New'][1]
+
+            } else {
+                document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-Second'][0]
+                document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['HomeESS-Second'][0]
+                document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-Second'][1]
+                document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['HomeESS-Second'][1]
+            }
         }
         if (this.value === 'home-charger') {
             document.getElementById('pv-lower-limit').value = 5;
             document.getElementById('pv-upper-limit').value = 5;
             document.getElementById('bat-lower-limit').value = 0;
             document.getElementById('bat-upper-limit').value = 20;
+            if ($("input[name='system-app']").val === "new") {
+                document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-New'][0]
+                document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-New'][1]
+            } else {
+                document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-Second'][0]
+                document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-Second'][1]
+            }
         }
     });
 });
