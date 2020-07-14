@@ -3,7 +3,11 @@ from django.http import HttpResponse
 from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm
 
+from django.contrib import messages
+
 from django.contrib.auth import authenticate, login, logout
+
+from django.contrib.auth.decorators import login_required
 
 from django.views.decorators.csrf import csrf_exempt
 from .models import ClimateZone, EGRID, ZipcodeCounty, GWP, CED, HomeESS, MicrogridESS, Fastcharger, ElectricConsumption, CustomESS, TouMatrix
@@ -58,11 +62,13 @@ def loginPage(request):
         if user is not None:
             login(request, user)
             return redirect('dashboard')
+        else:
+            messages.info(requeste, 'Username Or password is incorrect')
 
     context = {}
-    return render(request,'login.html')
+    return render(request,'login.html', context)
 
-# Create your views here.
+@login_required(login_url='login')
 def dashboard(request):
     return render(request, 'dashboard.html')
 

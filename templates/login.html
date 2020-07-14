@@ -8,3 +8,7 @@
 
   <input class="btn" type="submit" value="Login">
 </form>
+
+{% for message in messages %}
+  <p id="messages">{{message}}</p>
+{% endfor %}
