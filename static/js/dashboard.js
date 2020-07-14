@@ -317,7 +317,6 @@ function toggleSecondBatteryLife(flag) {
     var system_app_val = $("input[name='system-app']:checked").val();
 
     console.log("toggle: " + system_app_val)
-
     if (flag == 1) {
         y.style.display = "block";
         bat_cost.readOnly = true;
