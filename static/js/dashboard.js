@@ -314,7 +314,7 @@ function toggleSecondBatteryLife(flag) {
     var bat_effi_slider = $('#bat-effi-slider');
     var bat_warranty = document.getElementById('bat-warranty');
     var bat_warranty_slider = $('#bat-warranty-slider');
-    var system_app_val = $("input[name='bat-app']:checked").val;
+    var system_app_val = $("input[name='bat-app']:checked").val();
 
     console.log("toggle: " + system_app_val)
 
@@ -697,7 +697,7 @@ $(document).ready(function() {
             document.getElementById('bat-lower-limit').value = 0;
             document.getElementById('bat-upper-limit').value = 500;
 
-            if ($("input[name='bat-app']:checked").val === "new") {
+            if ($("input[name='bat-app']:checked").val() === "new") {
                 document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-New'][0]
                 document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['HomeESS-New'][0]
                 document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-New'][1]
@@ -715,7 +715,7 @@ $(document).ready(function() {
             document.getElementById('pv-upper-limit').value = 5;
             document.getElementById('bat-lower-limit').value = 0;
             document.getElementById('bat-upper-limit').value = 20;
-            if ($("input[name='system-app']").val === "new") {
+            if ($("input[name='system-app']").val() === "new") {
                 document.getElementById('cal-ageing-param').value = cal_cyc_dict['HomeESS-New'][0]
                 document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['HomeESS-New'][1]
             } else {
