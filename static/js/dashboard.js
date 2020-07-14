@@ -675,13 +675,13 @@ $(document).ready(function() {
             } else {
                 x.style.display = 'block'
             }
-            if ($("input[name='bat-app']:checked").val === "new") {
+            if ($("input[name='bat-app']:checked").val() === "new") {
                 document.getElementById('cal-ageing-param').value = cal_cyc_dict['FastCharger-New'][0]
                 document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['FastCharger-New'][0]
                 document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['FastCharger-New'][1]
                 document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['FastCharger-New'][1]
             } else {
-                console.log("CHECK: " + $("input[name='bat-app']").val)
+                console.log("CHECK: " + $("input[name='bat-app']").val())
                 document.getElementById('cal-ageing-param').value = cal_cyc_dict['FastCharger-Second'][0]
                 console.log("CHECK2: " + cal_cyc_dict['FastCharger-Second'][0])
                 document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['FastCharger-Second'][0]
