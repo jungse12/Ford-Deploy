@@ -45,7 +45,7 @@ bptk = bptk()
 customEss = CustomESS()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-def loginPage(request):
+def login(request):
     context = {}
     return render(request,'login.html')
 
