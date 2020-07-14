@@ -68,7 +68,7 @@ def loginPage(request):
     context = {}
     return render(request,'login.html', context)
 
-@login_required(login_url='comparison')
+@login_required(login_url='login')
 def dashboard(request):
     return render(request, 'dashboard.html')
 
