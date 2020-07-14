@@ -314,7 +314,9 @@ function toggleSecondBatteryLife(flag) {
     var bat_effi_slider = $('#bat-effi-slider');
     var bat_warranty = document.getElementById('bat-warranty');
     var bat_warranty_slider = $('#bat-warranty-slider');
-    var system_app_val = $("input[name='system-app']").val;
+    var system_app_val = $("input[name='bat-app']").val;
+
+    console.log("toggle: " + system_app_val)
 
     if (flag == 1) {
         y.style.display = "block";
@@ -679,7 +681,9 @@ $(document).ready(function() {
                 document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['FastCharger-New'][1]
                 document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['FastCharger-New'][1]
             } else {
+                console.log("CHECK: " + $("input[name='bat-app']").val)
                 document.getElementById('cal-ageing-param').value = cal_cyc_dict['FastCharger-Second'][0]
+                console.log("CHECK2: " + cal_cyc_dict['FastCharger-Second'][0])
                 document.getElementById('cal-ageing-param-slider').value = cal_cyc_dict['FastCharger-Second'][0]
                 document.getElementById('cyclic-ageing-param').value = cal_cyc_dict['FastCharger-Second'][1]
                 document.getElementById('cyclic-ageing-param-slider').value = cal_cyc_dict['FastCharger-Second'][1]
