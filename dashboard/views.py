@@ -552,9 +552,9 @@ def calc(request):
     _bat_upper_limit = request.POST['bat-upper-limit']
     _cyclic_ageing_param = request.POST['cyclic-ageing-param']
 
-    _minimize_cost = request.POST['minimize-cost']
-    _carbn_ftprnt = request.POST['carbn-ftprnt']
-    _cum_dem = request.POST['cum-dem']
+    _minimize_cost = request.POST.get('minimize-cost')
+    _carbn_ftprnt = request.POST.get('carbn-ftprnt')
+    _cum_dem = request.POST.get('cum-dem')
 
     _lat = request.POST['lat']
     _long = request.POST['long']
