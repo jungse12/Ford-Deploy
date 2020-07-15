@@ -71,6 +71,7 @@ $(document).on('click', '#save-data', function (event) {
   var disp_thrpt = document.getElementById('disp-thrpt').textContent
   var clim_zone = document.getElementById('clim-zone').textContent
   var egrid = document.getElementById('egrid').textContent
+  var elecSum = document.getElementById('elec-bought-grid').textContent
   var state_of_charge_img = document.getElementById('state-of-charge-image')
   var state_of_charge_data = getBase64Image(state_of_charge_img)
   var pv_gen_image = document.getElementById('pv-gen-image')
@@ -92,7 +93,8 @@ $(document).on('click', '#save-data', function (event) {
       'egrid-sub' : egrid,
       'state-of-charge' : state_of_charge_data,
       'pv-gen' : pv_gen_data,
-      'elect-consump' : elect_consump_data
+      'elect-consump' : elect_consump_data,
+      'elec-bought-grid': elecSum
     }
     var nameId = name.replace(' ', '-')
     saveData[nameId] = dict

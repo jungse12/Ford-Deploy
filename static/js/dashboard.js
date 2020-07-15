@@ -160,16 +160,32 @@ function callGoogleAPI() {
             weather = data;
             var result = data.outputs;
             var found = false;
+            var link;
             for (var i = 0; i < result.length; i++) {
-                link = result[i]["links"][0]["link"].replace("yourapikey", "YeWSwIxO37j4AHerp8lyZhnBajXEpTBYI1bAyiC5").replace("youremail", "jungse12@msu.edu");
-
-                if (link.includes("tmy3") == true) {
-                    weatherDataMsg.innerHTML = "Weather data: ";
-                    weatherData.innerHTML = "download";
-                    weatherData.href = link;
-                    found = true;
+                //link = result[i]["links"][5]["link"].replace("yourapikey", "YeWSwIxO37j4AHerp8lyZhnBajXEpTBYI1bAyiC5").replace("youremail", "jungse12@msu.edu");
+                //console.log(link)
+                if (result[i]["apiDocs"] === "https://developer.nrel.gov/docs/solar/nsrdb/psm3_tmy_data_download") {
+                    for (var j = 0; j < result[i]["links"].length; j++) {
+                        if (result[i]["links"][j]["year"] === "tmy-2018") {
+                            link = result[i]["links"][j]["link"].replace("yourapikey", "YeWSwIxO37j4AHerp8lyZhnBajXEpTBYI1bAyiC5").replace("youremail", "jungse12@msu.edu");
+                            weatherDataMsg.innerHTML = "Weather data: ";
+                            weatherData.innerHTML = "download";
+                            weatherData.href = link;
+                            found = true;
+                            break;
+                        }
+                    }
                 }
             }
+            $.ajax({
+                type: "GET",  
+                url: weatherData.href,
+                dataType: "text",       
+                success: function(data)  
+                {
+                  console.log(data);
+                }   
+            });
             if (found == false) {
                 weatherDataMsg.innerHTML = "Weather file is not found.";
                 weatherData.innerHTML = "";

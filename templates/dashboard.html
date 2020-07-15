@@ -34,7 +34,7 @@
         <form method="post" action="calc">
             <div class="box-container-12">
             {% csrf_token %}
-                <div>
+                <div style="display: none;">
                     <label for="tou-matrix">tou</label>
                     <input type="text" id="tou-matrix" name='tou-matrix' value=''>
                     <label for="elec-array">elec</label>
@@ -321,11 +321,11 @@
                                 <div class="input-group-append">
                                     <span class="input-group-text">$</span>
                                 </div>
-                                <input type="number" class="form-control" id="conn-fee" name="conn-fee" value="500" step="0.01"
+                                <input type="number" class="form-control" id="conn-fee" name="conn-fee" value="0" step="0.01"
                                     onkeyup="updateSliderValue(this.value, 'conn-fee-slider')">
                                 
                                 <input type="range" class="form-control-range slider" id="conn-fee-slider"
-                                    name="conn-fee-slider" min="0" max="500" value="0.83" step="0.01" onchange="updateTextInput(this.value, 'conn-fee');">
+                                    name="conn-fee-slider" min="0" max="100" value="0" step="0.01" onchange="updateTextInput(this.value, 'conn-fee');">
                             </div>
                         </div>
                     </div>
@@ -1314,6 +1314,7 @@
         </form>
     </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.5/xlsx.full.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"

@@ -297,26 +297,26 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
         t_z = 'Etc/GMT-' + t_z[-1]
     weatherfile = os.path.join(BASE_DIR, 'static/samples/Detroit_TMY3_weather_data.csv')
     #print("timezone",t_z)
-    tim_stmp=pd.read_csv(weatherfile,usecols=[0],skiprows=1,)
-    tim_stmp=pd.date_range('1988-01-01',periods=8760,freq='H')
+    #tim_stmp=pd.read_csv(weatherfile,usecols=[0],skiprows=1,) 
+    tim_stmp=pd.date_range('2018-01-01',periods=8760,freq='H')
     tim_stmp=tim_stmp.tz_localize(t_z)
 
     
     #calling in the values of direct normal irradiance
-    dni=pd.read_csv(weatherfile,usecols=[7],skiprows=1,)
+    dni=pd.read_csv(weatherfile,usecols=[7],skiprows=1,) #6
     dni_vector=dni.as_matrix()
     
     #Calling in the values of DHI
-    dhi=pd.read_csv(weatherfile,usecols=[10],skiprows=1,)
+    dhi=pd.read_csv(weatherfile,usecols=[10],skiprows=1,) #7
     dhi_vector=dhi.as_matrix()
     
     #Calling in the values of GHI
-    ghi=pd.read_csv(weatherfile,usecols=[4],skiprows=1,)
+    ghi=pd.read_csv(weatherfile,usecols=[4],skiprows=1,) #8
     ghi_vector=ghi.as_matrix()
     
     
     #Calling in the values of extraterrestrial irradiance
-    extra_dni=pd.read_csv(weatherfile,usecols=[1],skiprows=1,)
+    extra_dni=pd.read_csv(weatherfile,usecols=[1],skiprows=1,) #
     extra_dni_vector=extra_dni.as_matrix()
     
     #Finding out the elevation value from the weather file 
@@ -516,6 +516,7 @@ def calc(request):
     _elec_CED = request.POST['Elec-CED']
     _discnt_rate = request.POST['discnt_rate']
     _infl_rate = request.POST['infl_rate']
+    _hourly_limit = request.POST['hourly-limit']
 
     _pv_cost = request.POST['PV-cost']
     _pv_effi = request.POST['PV-effi']
@@ -591,7 +592,6 @@ def calc(request):
         touMatrix = _touMatrix.split(',')
         
         touMatrixReal = []
-        index = 0
         for i in range(24):
             tmpArray = touMatrix[0:365]
             touMatrix = touMatrix[365:]
@@ -609,17 +609,18 @@ def calc(request):
         
         pv_module_efficiency=round(float(_pv_effi) / 100, 2)   # (UI)modules conversion efficinecy
         max_power_temp_coeff=float(_max_power_coeff) #Maximum power temperature cofficient
-        cell_temp=50 #critical temperature of the cell assumed constant for now i.e. 
+        #cell_temp=50 #critical temperature of the cell assumed constant for now i.e. 
         year_analysis=int(_proj_lifetime)
+        #print(pv_module_efficiency,max_power_temp_coeff,cell_temp,year_analysis)
 
         lat = float(_lat)
         lng = float(_long)
 
 
         cost_of_batt_module_per_kWh=int(_bat_cost)  # Cost of one battery module per kWh in dollars (This is just an assumption)
-        inverter_ccost_per_kw = 100
+        inverter_ccost_per_kw = int(_inv_cost)
         cost_of_solar_panel=int(_pv_cost)  #(UI) Cost of solar panel in dollars (adopted from earler HOMER models)
-        base_fee_conec_cost=float(_conn_fee)  #(UI) need to look this up (For the purpose of trial this thing has been kept as 82.5 cents, the same as mentioned in the Liet al , 2018 )
+        base_fee_conec_cost=0#float(_conn_fee)  #(UI) need to look this up (For the purpose of trial this thing has been kept as 82.5 cents, the same as mentioned in the Liet al , 2018 )
         sales_tax_perc = float(_sales_tax_perc)
         liab_insu_fee = int(_liab_insu_fee)
         one_time_conec_fee = int(_one_time_conec_fee)
@@ -631,30 +632,37 @@ def calc(request):
         infl_rate = float(_infl_rate)
         real_discnt=discnt_rate-infl_rate
 
+        #print(cost_of_batt_module_per_kWh,inverter_ccost_per_kw,cost_of_solar_panel,base_fee_conec_cost,sales_tax_perc,liab_insu_fee,one_time_conec_fee,net_metering_tou_percentage,pv_onm,batt_onm,invrtr_onm,discnt_rate,infl_rate,real_discnt)
+
 
         tilt = float(_tilt)
         gamma_s = float(_gamma_s)
-        pv_panel_area=(10/1.5)*arbit_solar_panel_size
+
+        pv_panel_area=(7.427/1)*arbit_solar_panel_size
         feed_in_tariff_rate = float(_feed_in_tariff_rate)
         percent_inc_in_elec_price= int(_elec_price_change)  # (UI)enter the annual percentage in electriciy prices here 
-        alpha_cap = 0.00#float(_cal_ageing_param)
-        beta_cap = 0.00#float(_cyclic_ageing_param)
+        alpha_cap = float(_cal_ageing_param)
+        beta_cap = float(_cyclic_ageing_param)
         day_stamp=1
         voltage=float(_voltage)
         throughput_limit = int(_max_allow_per_kwh)
         thrpt_replacement = throughput_limit/voltage
-        batt_rplcmt_year=5
+        batt_rplcmt_year=int(_bat_warranty)
         max_alow_dod=int(_maximum_depth_discharge)
         minm_bat_capac=(100-max_alow_dod)/100
         string_capacity=float(_cap_ea_string)
         batt_rtrip_eff=float(_bat_effi)
-        ILR=2.9
+        ILR=float(_invert_load_ratio)
         invert_eff= float(_inv_effi)
         pv_lifetime=int(_pv_lifetime)
         invrtr_lifetime=int(_invrtr_lifetime)
         soil_shad_loss=int(_soil_shad_loss)
 
-        max_bought_elec_grid=1000
+        #print(pv_panel_area,feed_in_tariff_rate,percent_inc_in_elec_price,alpha_cap,beta_cap,day_stamp,voltage,throughput_limit,)
+
+
+
+        max_bought_elec_grid=int(_hourly_limit)
 
         #Switch statement for FIT or net metering (1 is on and 0 is off, both net metering and FIT can not be on simulatenously)
         net_metering=int(_net_metering)
@@ -665,12 +673,12 @@ def calc(request):
         cum_dem=0
 
         #Switch function for optimizing cost or environemental impacts
-        #if _opt == "minimize-cost":
-        #    Cost = 1
-        #elif _opt == "carbn-ftprnt":
-        #    carbn_ftprnt = 1
-        #else:
-        #    cum_dem = 1
+        if _opt == "minimize-cost":
+            Cost = 1
+        elif _opt == "carbn-ftprnt":
+            carbn_ftprnt = 1
+        else:
+            cum_dem = 1
 
 
         #Variable for environmental impact function
@@ -849,6 +857,10 @@ def calc(request):
         pv_power_matrix=np.tile(pv_power_matrix,year_analysis)
         
         percent_dec_matrix=np.ones((24,365*year_analysis))
+
+        for n in range(year_analysis-1):
+        
+            percent_dec_matrix[:,((n+1)*365):(n+2)*365]=percent_dec_matrix[:,(n*365):((n+1)*365)]*(1-(0.5/100))
         
         
         

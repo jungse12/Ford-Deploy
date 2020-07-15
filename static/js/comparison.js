@@ -22,6 +22,7 @@ function changeSelect (option) {
   var state_of_charge_img = document.getElementById('state-of-charge-image')
   var pv_gen_image = document.getElementById('pv-gen-image')
   var elect_consump_image = document.getElementById('elect-consump-image')
+  var elec_sum = document.getElementById('elec-bought-grid')
   if (option.value === '') {
     pv_capacity.innerText = ''
     bat_capacity.innerText = ''
@@ -32,6 +33,7 @@ function changeSelect (option) {
     disp_thrpt.innerText = ''
     clim_zone.innerText = ''
     egrid.innerText = ''
+    elec_sum.innerText = ''
     state_of_charge_img.src = ''
     pv_gen_image.src = ''
     elect_consump_image.src = ''
@@ -46,6 +48,7 @@ function changeSelect (option) {
     disp_thrpt.innerText = dict['disp-thrpt']
     clim_zone.innerText = dict['clim-zone']
     egrid.innerText = dict['egrid-sub']
+    elec_sum.innerText = dict['elec-bought-grid']
     state_of_charge_img.src = 'data:image/png;base64,' + dict['state-of-charge']
     pv_gen_image.src = 'data:image/png;base64,' + dict['pv-gen']
     elect_consump_image.src = 'data:image/png;base64,' + dict['elect-consump']
@@ -65,6 +68,7 @@ function changeSelect2 (option) {
   var state_of_charge_img = document.getElementById('state-of-charge-image-2')
   var pv_gen_image = document.getElementById('pv-gen-image-2')
   var elect_consump_image = document.getElementById('elect-consump-image-2')
+  var elec_sum = document.getElementById('elec-bought-grid-2')
   if (option.value === '') {
     pv_capacity.innerText = ''
     bat_capacity.innerText = ''
@@ -78,6 +82,7 @@ function changeSelect2 (option) {
     state_of_charge_img.src = ''
     pv_gen_image.src = ''
     elect_consump_image.src = ''
+    elec_sum.innerText = ''
   } else {
     var dict = JSON.parse(option.value)
     pv_capacity.innerText = dict['pv-capacity']
@@ -88,6 +93,7 @@ function changeSelect2 (option) {
     cum_energ_demand.innerText = dict['cum-energ-demand']
     disp_thrpt.innerText = dict['disp-thrpt']
     clim_zone.innerText = dict['clim-zone']
+    elec_sum.innerText = dict['elec-bought-grid']
     egrid.innerText = dict['egrid-sub']
     state_of_charge_img.src = 'data:image/png;base64,' + dict['state-of-charge']
     pv_gen_image.src = 'data:image/png;base64,' + dict['pv-gen']
