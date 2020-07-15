@@ -552,9 +552,7 @@ def calc(request):
     _bat_upper_limit = request.POST['bat-upper-limit']
     _cyclic_ageing_param = request.POST['cyclic-ageing-param']
 
-    _minimize_cost = request.POST.get('minimize-cost')
-    _carbn_ftprnt = request.POST.get('carbn-ftprnt')
-    _cum_dem = request.POST.get('cum-dem')
+    _opt = request.POST['opt']
 
     _lat = request.POST['lat']
     _long = request.POST['long']
@@ -662,10 +660,18 @@ def calc(request):
         net_metering=int(_net_metering)
         feed_in_tariff=int(_feed_in_tariff)
 
+        Cost=0
+        carbn_ftprnt=0
+        cum_dem=0
+
         #Switch function for optimizing cost or environemental impacts
-        Cost=int(_minimize_cost)
-        carbn_ftprnt=int(_minimize_cost)
-        cum_dem=int(_cum_dem)
+        if _opt == "minized-cost":
+            Cost = 1
+        elif _opt == "carbn-ftprnt":
+            carbn_ftprnt = 1
+        else:
+            cum_dem = 1
+
 
         #Variable for environmental impact function
         PV_GWP=float(_pv_GWP)

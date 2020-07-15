@@ -39,6 +39,8 @@
                     <input type="text" id="tou-matrix" name='tou-matrix' value=''>
                     <label for="elec-array">elec</label>
                     <input type="text" id="elec-array" name='elec-array' value=''>
+                    <label for="opt">opt</label>
+                    <input type="text" id="opt" name="opt" value='minimized_cost'>
                 </div>
                 <div class="box">
                     <h3>System infomation</h3>
@@ -1285,13 +1287,13 @@
                             <div class="modal-body" id="dialog-body-submit">
                                 <div class="container-opt">
                                     <div class="box-item vertical-center">
-                                        <label class="opt-options" name="minimize-cost">
+                                        <label class="opt-options">
                                             <input type="radio" name="ios" checked="checked" value = "1" id = "minimize-cost" onchange = "updateOptOptions(this)"> Minimize cost
                                         </label>
-                                        <label class="opt-options" name="carbn-ftprnt">
+                                        <label class="opt-options">
                                             <input type="radio" name="ios" value = "0" id = "carbn-ftprnt" onchange = "updateOptOptions(this)"> Minimized Carbon footprin
                                         </label>
-                                        <label class="opt-options" name="cum-dem">
+                                        <label class="opt-options">
                                             <input type="radio" name="ios" value = "0" id = "cum-dem" onchange = "updateOptOptions(this)"> Minimize Cumulative Energy Demand
                                         </label>                    
                                     </div>

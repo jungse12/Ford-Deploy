@@ -661,6 +661,17 @@ $(document).ready(function() {
         utilityDataMsg.innerHTML = "";
         locationErrorMsg.innerHTML = "";
     });
+    $("input[name='ios]").change(function() {
+        var opt = document.getElementById('opt')
+
+        if ($("input[name='ios']:checked").id() === "minimize-cost") {
+            opt.value = "minimize-cost";
+        } else if ($("input[name='ios']:checked").id() === "carbn-ftprnt") {
+            opt.value = "carbn-ftprnt";
+        } else {
+            opt.value = "cum-dem";
+        }
+    })
     $("input[name='system-app']").change(function(){
         var x = document.getElementById('fast-charger-div')
         if (this.value === 'fast-charger'){
