@@ -637,8 +637,8 @@ def calc(request):
         pv_panel_area=(10/1.5)*arbit_solar_panel_size
         feed_in_tariff_rate = float(_feed_in_tariff_rate)
         percent_inc_in_elec_price= int(_elec_price_change)  # (UI)enter the annual percentage in electriciy prices here 
-        alpha_cap = float(_cal_ageing_param)
-        beta_cap = float(_cyclic_ageing_param)
+        alpha_cap = 0.00#float(_cal_ageing_param)
+        beta_cap = 0.00#float(_cyclic_ageing_param)
         day_stamp=1
         voltage=float(_voltage)
         throughput_limit = int(_max_allow_per_kwh)
