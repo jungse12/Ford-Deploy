@@ -34,10 +34,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static_env')
 ]
 
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-]
-
 # Application definition
 
 INSTALLED_APPS = [
