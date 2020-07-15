@@ -647,9 +647,9 @@ def calc(request):
         max_alow_dod=int(_maximum_depth_discharge)
         minm_bat_capac=(100-max_alow_dod)/100
         string_capacity=float(_cap_ea_string)
-        batt_rtrip_eff=91.3
+        batt_rtrip_eff=float(_bat_effi)
         ILR=2.9
-        invert_eff=98
+        invert_eff= float(_inv_effi)
         pv_lifetime=int(_pv_lifetime)
         invrtr_lifetime=int(_invrtr_lifetime)
         soil_shad_loss=int(_soil_shad_loss)
@@ -665,7 +665,7 @@ def calc(request):
         cum_dem=0
 
         #Switch function for optimizing cost or environemental impacts
-        if _opt == "minized-cost":
+        if _opt == "minimize-cost":
             Cost = 1
         elif _opt == "carbn-ftprnt":
             carbn_ftprnt = 1
