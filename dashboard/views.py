@@ -665,12 +665,12 @@ def calc(request):
         cum_dem=0
 
         #Switch function for optimizing cost or environemental impacts
-        if _opt == "minimize-cost":
-            Cost = 1
-        elif _opt == "carbn-ftprnt":
-            carbn_ftprnt = 1
-        else:
-            cum_dem = 1
+        #if _opt == "minimize-cost":
+        #    Cost = 1
+        #elif _opt == "carbn-ftprnt":
+        #    carbn_ftprnt = 1
+        #else:
+        #    cum_dem = 1
 
 
         #Variable for environmental impact function
