@@ -47,12 +47,6 @@ class CED(models.Model):
     def __str__(self):
         return str(self.year)+", "+self.eGRID_subregion+": "+str(self.ced)
 
-class ElectricConsumption(models.Model):
-    array_list = models.CharField(max_length=120000, default='')
-    def set_array(self, new_array):
-        self.array_list = new_array
-    # data = ???
-
 class PVSoilingLoss(models.Model):
     climate_zone = models.IntegerField(null=True)
     loss_percent = models.FloatField()

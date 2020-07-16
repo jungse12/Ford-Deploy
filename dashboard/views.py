@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 from django.views.decorators.csrf import csrf_exempt
-from .models import ClimateZone, EGRID, ZipcodeCounty, GWP, CED, HomeESS, MicrogridESS, Fastcharger, ElectricConsumption, CustomESS, TouMatrix
+from .models import ClimateZone, EGRID, ZipcodeCounty, GWP, CED, HomeESS, MicrogridESS, Fastcharger
 import requests
 import json
 from BPTK_Py import bptk
@@ -50,7 +50,6 @@ bptk = bptk()
 
 #touMatrix = TouMatrix()
 #elecConsump = ElectricConsumption()
-customEss = CustomESS()
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def loginPage(request):
@@ -433,11 +432,11 @@ def load(request, format=None):
     _zipcode = request.POST['zipcode']
     _state = request.POST['state']
     _year = request.POST['year']
-    _file = request.POST.get('file')
-    _fileCheck = bool(int(request.POST.get('filecheck')))
+    #_file = request.POST.get('file')
+    #_fileCheck = bool(int(request.POST.get('filecheck')))
 
-    if _fileCheck:
-        customEss.set_array(json.loads(_file))
+    #if _fileCheck:
+    #    customEss.set_array(json.loads(_file))
 
     zipcode_county = ZipcodeCounty.objects.filter(zip_code=int(_zipcode)).first()
     county_name = zipcode_county.county_name[:-7]
@@ -464,6 +463,7 @@ def matrixDatabase(request, format=None):
     _fileCheck = bool(int(request.POST.get('filecheck')))
     system_app = request.POST.get('system_app')
     climate_zone = request.POST.get('climate_zone')
+    custom_array = request.POST.get('custom_array')
     zone_number = 'Zone_' + str(climate_zone)
     if _fileCheck != True:
         if system_app == 'home-ESS':
@@ -477,13 +477,10 @@ def matrixDatabase(request, format=None):
         zone_list = zone_list.strip('][').split(', ')
         for i in range(len(zone_list)):
             zone_list[i] = float(zone_list[i].strip("'"))
+        print("len of not file", len(zone_list))
     else:
-        zone_list = customEss.array_list
-        if len(zone_list) > 8760:
-            zone_list = zone_list[:8760]
-        elif len(zone_list) < 8760:
-            for i in range(len(zone_list),8760):
-                zone_list.append(0.0)
+        zone_list = custom_array
+        zone_list = zone_list.split(',')
 
     return HttpResponse(json.dumps(zone_list))
     

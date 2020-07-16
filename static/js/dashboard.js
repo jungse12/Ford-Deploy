@@ -424,21 +424,19 @@ $(document).ready(function() {
         var zipcode = $('#zipcode').val();
         var state = $('#state').val();
         var year = $('#year').val();
-        
+        //console.log(fileUpload);
+        document.getElementById("custom-array").value = fileUpload
         req = $.ajax({
             url:'load',
             type: 'POST',
             
             data: {
-                file: JSON.stringify(fileUpload),
-                filecheck: fileCheck,
+                //file: JSON.stringify(fileUpload),
+                //filecheck: fileCheck,
                 zipcode: zipcode,
                 state: state,
                 year: year,
                 csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                alert("Status: " + textStatus); alert("Error: " + errorThrown); 
             },
             success: function(data){
                 console.log("after loaded" + data);
@@ -621,11 +619,13 @@ $(document).ready(function() {
         Plotly.newPlot('weekend', dataWeekend, layoutWeekend, defaultPlotlyConfiguration);
         e.preventDefault();
         var category = document.querySelector('input[name="system-app"]:checked').value;
+        var custom_array = document.getElementById('custom-array').value;
         req = $.ajax({
             url:'matrixDatabase',
             type: 'POST',
             data: {
                 filecheck: fileCheck,
+                custom_array: custom_array,
                 //rateList: JSON.stringify(touRateList),
                 system_app: category,
                 climate_zone: climateZone,
