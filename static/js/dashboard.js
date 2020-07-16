@@ -178,13 +178,12 @@ function callGoogleAPI() {
                 }
             }
             $.ajax({
-                type: "GET",  
-                url: weatherData.href,
-                dataType: "text",       
-                success: function(data)  
-                {
-                  console.log(data);
-                }   
+                type: "HEAD",
+                url: link,
+                success: function(message, text, response) {
+                    var header = response.getResponseHeader('Content-Disposition');
+                    console.log(header);
+                }
             });
             if (found == false) {
                 weatherDataMsg.innerHTML = "Weather file is not found.";

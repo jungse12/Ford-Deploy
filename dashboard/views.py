@@ -316,8 +316,8 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
     
     
     #Calling in the values of extraterrestrial irradiance
-    extra_dni=pd.read_csv(weatherfile,usecols=[1],skiprows=1,) #
-    extra_dni_vector=extra_dni.as_matrix()
+    #extra_dni=pd.read_csv(weatherfile,usecols=[1],skiprows=1,) #
+    extra_dni_vector=np.zeros((8760,1))#extra_dni.as_matrix() #8760, 1
     
     #Finding out the elevation value from the weather file 
     ele=pd.read_csv(weatherfile,index_col=[0],header=None,error_bad_lines=False,warn_bad_lines=False)

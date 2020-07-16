@@ -25,7 +25,7 @@ SECRET_KEY = '+jez(mz=3fk7pe@gmeryp^iv=!axjv99&&xq^#@!%fukesyu@5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '161.35.8.246']
+ALLOWED_HOSTS = ['localhost', "http://161.35.8.246/"]
 
 #for server (digital ocean)
 STATIC_URL = '/static/'
@@ -38,11 +38,12 @@ STATICFILES_DIRS = [
 #for debugging locally
 '''
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = [
     #STATIC_ROOT,
-    os.path.join(BASE_DIR, 'static_env'),
-]'''
+    os.path.join(BASE_DIR, 'static/'),
+]
+'''
 
 print(STATICFILES_DIRS)
 '''
@@ -96,7 +97,7 @@ WSGI_APPLICATION = 'Ford_Project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -106,13 +107,15 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '',
     }
-}'''
+}
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+'''
 
 
 
