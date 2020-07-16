@@ -31,7 +31,7 @@
         </div>
     </header>
     <div class="container">
-        <form method="post" action="calc">
+        <form method="post" action="calc" id="myform">
             <div class="box-container-12">
             {% csrf_token %}
                 <div style="display: none;">
@@ -41,6 +41,8 @@
                     <input type="text" id="elec-array" name='elec-array' value=''>
                     <label for="opt">opt</label>
                     <input type="text" id="opt" name="opt" value='minimize-cost'>
+                    <label for="weather-url">weather</label>
+                    <input type="text" id="weather-url" name="weather-url" value=''>
                 </div>
                 <div class="box">
                     <h3>System infomation</h3>
@@ -182,8 +184,12 @@
                             <span class='label label-info' id="upload-file-info"></span>
                         </div>
                         <div class="text-center">
-                            <button onclick="callGoogleAPI()" type="submit" class="btn btn-success m-3 mx-auto" data-toggle="modal" data-target="#exampleModal" id="loadData">Load Data</button>
+                            <button onclick="callGoogleAPI()" type="submit" class="btn btn-success m-3 mx-auto" data-toggle="modal" data-target="#exampleModal" id="loadData" value="0" disabled>Load Data</button>
                         </div>
+                        <div id="caution-load" style="display:block">
+                            <p style="font-size: 12px; color: #d33838;">User must set right zipcode and state above</p>
+                        </div>
+                        
                     </div>
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
@@ -220,12 +226,12 @@
                             <label for="discnt_rate">Annual Discount Rate</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" id="discnt_rate" name="discnt_rate"
-                                    value="6.9" onkeyup="updateSliderValue(this.value, 'discnt_rate-slider')">
+                                    value="6.9" step="0.1" onkeyup="updateSliderValue(this.value, 'discnt_rate-slider')">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
                                 <input type="range" class="form-control-range slider" id="discnt_rate-slider"
-                                    name="discnt_rate-slider" min="0" max="100" value="5"
+                                    name="discnt_rate-slider" min="0" max="100" value="5" step="0.1"
                                     onchange="updateTextInput(this.value, 'discnt_rate');">
                             </div>
                         </div>
@@ -235,12 +241,12 @@
                             <label for="infl_rate">Annual Inflation Rate</label>
                             <div class="input-group">
                                 <input type="number" class="form-control" id="infl_rate" name="infl_rate"
-                                    value="2.5" onkeyup="updateSliderValue(this.value, 'infl_rate-slider')">
+                                    value="2.5" step="0.1" onkeyup="updateSliderValue(this.value, 'infl_rate-slider')">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
                                 <input type="range" class="form-control-range slider" id="infl_rate-slider"
-                                    name="infl_rate-slider" min="0" max="100" value="2.5"
+                                    name="infl_rate-slider" min="0" max="100" value="2.5" step="0.1"
                                     onchange="updateTextInput(this.value, 'infl_rate');">
                             </div>
                         </div>
@@ -333,7 +339,7 @@
                         <div class="form-group">
                             <label for="elec-price-change">Annual increase in price of electricity</label>
                             <div class="input-group">
-                                <input type="number" class="form-control" id="elec-price-change" name="elec-price-change" value="20">
+                                <input type="number" class="form-control" id="elec-price-change" name="elec-price-change" value="20.0" step="0.1">
                                 <div class="input-group-append">
                                     <span class="input-group-text">%</span>
                                 </div>
@@ -386,13 +392,13 @@
                                     <div class="form-group">
                                         <label for="sales-tax-perc">Sales tax on Monthly Electricity</label>
                                         <div class="input-group">
-                                            <input type="number" class="form-control" id="sales-tax-perc" name="sales-tax-perc" value="4.5" 
+                                            <input type="number" class="form-control" id="sales-tax-perc" name="sales-tax-perc" value="4.5" step="0.1"
                                                 onkeyup="updateSliderValue(this.value, 'sales-tax-perc-slider')">
                                             <div class="input-group-append">
                                                 <span class="input-group-text">%</span>
                                             </div>
                                             <input type="range" class="form-control-range slider" id="sales-tax-perc-slider"
-                                                name="sales-tax-perc-slider" min="0" max="100" value="4.5"
+                                                name="sales-tax-perc-slider" min="0" max="100" value="4.5" step="0.1"
                                                 onchange="updateTextInput(this.value, 'sales-tax-perc');">
                                         </div>
                                     </div>
@@ -427,13 +433,13 @@
                                         <div class="form-group">
                                             <label for="Elec-GWP">Global Warming Potential</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" id="Elec-GWP" name="Elec-GWP" value="0.57" 
+                                                <input type="number" class="form-control" id="Elec-GWP" name="Elec-GWP" value="0.57" step="any"
                                                     onkeyup="updateSliderValue(this.value, 'Elec-GWP-slider')" step='Any'>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">KgCO<sub>2</sub>/kWh</span>
                                                 </div>
                                                 <input type="range" class="form-control-range slider" id="Elec-GWP-slider"
-                                                    name="Elec-GWP-slider" min="0" max="10" value="0.57"
+                                                    name="Elec-GWP-slider" min="0" max="10" value="0.57" step="any"
                                                     onchange="updateTextInput(this.value, 'Elec-GWP');">
                                             </div>
                                         </div>
@@ -455,13 +461,13 @@
                                         <div class="form-group">
                                             <label for="Elec-CED">Cumulative Energy Demand</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" id="Elec-CED" name="Elec-CED" value="11.50" 
+                                                <input type="number" class="form-control" id="Elec-CED" name="Elec-CED" value="11.50" step="any"
                                                     onkeyup="updateSliderValue(this.value, 'Elec-CED-slider')" step='Any'>
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">MJ/kWh</span>
                                                 </div>
                                                 <input type="range" class="form-control-range slider" id="Elec-CED-slider"
-                                                    name="Elec-CED-slider" min="0" max="100" value="11.50"
+                                                    name="Elec-CED-slider" min="0" max="100" value="11.50" step="any"
                                                     onchange="updateTextInput(this.value, 'Elec-CED');">
                                             </div>
                                         </div>
@@ -537,13 +543,13 @@
                                                 <div class="form-group">
                                                     <label for="max-power-temp-coeff">Maximum power temperature</label>
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" id="max-power-temp-coeff" name="max-power-temp-coeff" value="0.5" 
+                                                        <input type="number" class="form-control" id="max-power-temp-coeff" name="max-power-temp-coeff" value="0.5" step="0.1"
                                                             onkeyup="updateSliderValue(this.value, 'max-power-temp-coeff-slider')">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text">%/&#8451;</span>
                                                         </div>
                                                         <input type="range" class="form-control-range slider" id="max-power-temp-coeff-slider"
-                                                            name="max-power-temp-coeff-slider" min="0" max="5" value="0.5"
+                                                            name="max-power-temp-coeff-slider" min="0" max="5" value="0.5" step="0.1"
                                                             onchange="updateTextInput(this.value, 'max-power-temp-coeff');">
                                                     </div>
                                                 </div>
@@ -613,13 +619,13 @@
                                                 <div class="form-group">
                                                     <label for="PV-GWP">Global Warming Potential</label>
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" id="PV-GWP" name="PV-GWP" value="1853.64" 
+                                                        <input type="number" class="form-control" id="PV-GWP" name="PV-GWP" value="1853.64" step="any"
                                                             onkeyup="updateSliderValue(this.value, 'PV-GWP-slider')">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text">KgCO<sub>2</sub>/kW</span>
                                                         </div>
                                                         <input type="range" class="form-control-range slider" id="PV-GWP-slider"
-                                                            name="PV-GWP-slider" min="0" max="10000" value="1853.64"
+                                                            name="PV-GWP-slider" min="0" max="10000" value="1853.64" step="any"
                                                             onchange="updateTextInput(this.value, 'PV-GWP');">
                                                     </div>
                                                 </div>
@@ -637,13 +643,13 @@
                                                 <div class="form-group">
                                                     <label for="PV-CED">Cumulative Energy Demand</label>
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" id="PV-CED" name="PV-CED" value="30618.39" 
+                                                        <input type="number" class="form-control" id="PV-CED" name="PV-CED" value="30618.39" step="any"
                                                             onkeyup="updateSliderValue(this.value, 'PV-CED-slider')">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text">MJ/kW</span>
                                                         </div>
                                                         <input type="range" class="form-control-range slider" id="PV-CED-slider"
-                                                            name="PV-CED-slider" min="0" max="100000" value="30618.39"
+                                                            name="PV-CED-slider" min="0" max="100000" value="30618.39" step="any"
                                                             onchange="updateTextInput(this.value, 'PV-CED');">
                                                     </div>
                                                 </div>
@@ -736,13 +742,13 @@
                                                 <div class="form-group">
                                                     <label for="inv-GWP">Global Warming Potential</label>
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" id="inv-GWP" name="inv-GWP" value="81.01" 
+                                                        <input type="number" class="form-control" id="inv-GWP" name="inv-GWP" value="81.01" step="any"
                                                             onkeyup="updateSliderValue(this.value, 'inv-GWP-slider')">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text">KgCO<sub>2</sub>/kW</span>
                                                         </div>
                                                         <input type="range" class="form-control-range slider" id="inv-GWP-slider"
-                                                            name="inv-GWP-slider" min="0" max="1000" value="81.01"
+                                                            name="inv-GWP-slider" min="0" max="1000" value="81.01" step="any"
                                                             onchange="updateTextInput(this.value, 'inv-GWP');">
                                                     </div>
                                                 </div>
@@ -751,23 +757,23 @@
                                                 <div class="form-group">
                                                     <label for="invert-load-ratio">Inverter Loading Ratio</label>
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" id="invert-load-ratio" name="invert-load-ratio" value="1.25" 
+                                                        <input type="number" class="form-control" id="invert-load-ratio" name="invert-load-ratio" value="1.25" step="0.01"
                                                             onkeyup="updateSliderValue(this.value, 'invert-load-ratio-slider')">
                                                         <input type="range" class="form-control-range slider" id="invert-load-ratio-slider"
-                                                            name="invert-load-ratio-slider" min="0" max="10" value="1.25"
+                                                            name="invert-load-ratio-slider" min="0" max="10" value="1.25" step="0.01"
                                                             onchange="updateTextInput(this.value, 'invert-load-ratio');">
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="inv-CED">Cumulative Energy Demand</label>
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" id="inv-CED" name="inv-CED" value="1263.69" 
+                                                        <input type="number" class="form-control" id="inv-CED" name="inv-CED" value="1263.69" step="any"
                                                             onkeyup="updateSliderValue(this.value, 'inv-CED-slider')">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text">MJ/kW</span>
                                                         </div>
                                                         <input type="range" class="form-control-range slider" id="inv-CED-slider"
-                                                            name="inv-CED-slider" min="0" max="5000" value="1263.69"
+                                                            name="inv-CED-slider" min="0" max="5000" value="1263.69" step="any"
                                                             onchange="updateTextInput(this.value, 'inv-CED');">
                                                     </div>
                                                 </div>
@@ -872,13 +878,13 @@
                                         <div class="form-group">
                                             <label for="voltage">Voltage</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" id="voltage" name="voltage" value="14.4"
+                                                <input type="number" class="form-control" id="voltage" name="voltage" value="14.4" step="0.1"
                                                     onkeyup="updateSliderValue(this.value, 'voltage-slider')">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">V</span>
                                                 </div>
                                                 <input type="range" class="form-control-range slider" id="voltage-slider"
-                                                    name="voltage-slider" min="0" max="100" value="14.4"
+                                                    name="voltage-slider" min="0" max="100" value="14.4" step="0.1"
                                                     onchange="updateTextInput(this.value, 'voltage');">
                                             </div>
                                         </div>
@@ -900,13 +906,13 @@
                                         <div class="form-group">
                                             <label for="cap-ea-string">Capacity of each string</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" id="cap-ea-string" name="cap-ea-string" value="0.918"
+                                                <input type="number" class="form-control" id="cap-ea-string" name="cap-ea-string" value="0.918" step="0.001"
                                                     onkeyup="updateSliderValue(this.value, 'cap-ea-string-slider')">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">kWh</span>
                                                 </div>
                                                 <input type="range" class="form-control-range slider" id="cap-ea-string-slider"
-                                                    name="cap-ea-string-slider" min="0" max="10" value="0.918"
+                                                    name="cap-ea-string-slider" min="0" max="10" value="0.918" step="0.001"
                                                     onchange="updateTextInput(this.value, 'cap-ea-string');">
                                             </div>
                                         </div>
@@ -932,13 +938,13 @@
                                         <div class="form-group">
                                             <label for="glob-warm-pot-bat">Global Warming Potential</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" id="glob-warm-pot-bat" name="glob-warm-pot-bat" value="16.10"
+                                                <input type="number" class="form-control" id="glob-warm-pot-bat" name="glob-warm-pot-bat" value="16.10" step="any"
                                                     onkeyup="updateSliderValue(this.value, 'glob-warm-pot-bat-slider')">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">KgCO<sub>2</sub>/kWh</span>
                                                 </div>
                                                 <input type="range" class="form-control-range slider" id="glob-warm-pot-bat-slider"
-                                                    name="glob-warm-pot-bat-slider" min="0" max="100" value="16.10"
+                                                    name="glob-warm-pot-bat-slider" min="0" max="100" value="16.10" step="any"
                                                     onchange="updateTextInput(this.value, 'glob-warm-pot-bat');">
                                             </div>
                                         </div>
@@ -954,10 +960,10 @@
                                         <div class="form-group">
                                             <label for="cal-ageing-param">Calendar ageing parameter</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" id="cal-ageing-param" name="cal-ageing-param" value="0.000331" step="0.001"
+                                                <input type="number" class="form-control" id="cal-ageing-param" name="cal-ageing-param" value="0.000331" step="any"
                                                     onkeyup="updateSliderValue(this.value, 'cal-ageing-param-slider')">
                                                 <input type="range" class="form-control-range slider" id="cal-ageing-param-slider"
-                                                    name="cal-ageing-param-slider" min="0" max="1" value="0.000331" step="0.001"
+                                                    name="cal-ageing-param-slider" min="0" max="1" value="0.000331" step="any"
                                                     onchange="updateTextInput(this.value, 'cal-ageing-param');">
                                             </div>
                                         </div>
@@ -966,13 +972,13 @@
                                         <div class="form-group">
                                             <label for="cum-energy-demand-bat">Cumulative Energy Demand</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" id="cum-energy-demand-bat" name="cum-energy-demand-bat" value="268.04"
+                                                <input type="number" class="form-control" id="cum-energy-demand-bat" name="cum-energy-demand-bat" value="268.04" step="any"
                                                     onkeyup="updateSliderValue(this.value, 'cum-energy-demand-bat-slider')">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text">MJ/kWh</span>
                                                 </div>
                                                 <input type="range" class="form-control-range slider" id="cum-energy-demand-bat-slider"
-                                                    name="cum-energy-demand-bat-slider" min="0" max="1000" value="268.04"
+                                                    name="cum-energy-demand-bat-slider" min="0" max="1000" value="268.04" step="any"
                                                     onchange="updateTextInput(this.value, 'cum-energy-demand-bat');">
                                             </div>
                                         </div>
@@ -988,10 +994,10 @@
                                         <div class="form-group">
                                             <label for="cyclic-ageing-param">Cyclic ageing parameter</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" id="cyclic-ageing-param" name="cyclic-ageing-param" value="0.0055547" step="0.001"
+                                                <input type="number" class="form-control" id="cyclic-ageing-param" name="cyclic-ageing-param" value="0.0055547" step="any"
                                                     onkeyup="updateSliderValue(this.value, 'cyclic-ageing-param-slider')">
                                                 <input type="range" class="form-control-range slider" id="cyclic-ageing-param-slider"
-                                                    name="cyclic-ageing-param-slider" min="0" max="1" value="0.0055547" step="0.001"
+                                                    name="cyclic-ageing-param-slider" min="0" max="1" value="0.0055547" step="any"
                                                     onchange="updateTextInput(this.value, 'cyclic-ageing-param');">
                                             </div>
                                         </div>
@@ -1273,7 +1279,7 @@
             </div>
             <div class="box-item">
                 <div class="text-center">
-                    <button type="submit" class="btn btn-success btn-lg btn-custom-width" onclick = "showAlert('load-alert')" name="submit">Submit</button>
+                    <button type="submit" class="btn btn-success btn-lg btn-custom-width" onclick = "showAlert('load-alert')" name="submit" id="final-submit" disabled>Submit</button>
                     <img src="../static/images/info-2.png" id="info-image" data-toggle="modal" data-target="#moreSubmitModal">
                     <div class="modal fade" id="moreSubmitModal" tabindex="-1" role="dialog">
                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -1288,10 +1294,10 @@
                                 <div class="container-opt">
                                     <div class="box-item vertical-center">
                                         <label class="opt-options">
-                                            <input type="radio" name="ios" checked="checked" value = "1" id = "minimize-cost" onchange = "updateOptOptions(this)"> Minimize cost
+                                            <input type="radio" name="ios" checked="checked" value = "1" id = "minimize-cost" onchange = "updateOptOptions(this)"> Minimize Cost
                                         </label>
                                         <label class="opt-options">
-                                            <input type="radio" name="ios" value = "0" id = "carbn-ftprnt" onchange = "updateOptOptions(this)"> Minimized Carbon footprin
+                                            <input type="radio" name="ios" value = "0" id = "carbn-ftprnt" onchange = "updateOptOptions(this)"> Minimized Carbon Footprint
                                         </label>
                                         <label class="opt-options">
                                             <input type="radio" name="ios" value = "0" id = "cum-dem" onchange = "updateOptOptions(this)"> Minimize Cumulative Energy Demand
@@ -1303,6 +1309,9 @@
                           </div>
                         </div>
                     </div>
+                    <div id="caution-submit" style="display:block">
+                        <p style="font-size: 12px; color: #d33838;">User must achieve matrix by loading data to submit</p>
+                    </div>
                 </div>
             </div>
             <div class="sticky-top alert-box warning" id="elec-alert">
@@ -1310,6 +1319,15 @@
             </div>
             <div class="sticky-top alert-box loading" id="load-alert">
                 <strong>Loading!</strong> Optimization in progress, please wait ...
+            </div>
+            <div id="output-ajax">
+                <div class="ajaxProgress">
+                    <h3>Please Wait</h3>
+                    <p>Calculating the Datas...</p>
+                    Estimating time: <span id="timer"></span> s
+                    <p style="font-size: 10px; color: #d33838;">depending on the number of generations</p>
+                    <img src="{% static 'images/ajax-loader.gif' %}" alt="loading"/>
+                </div>
             </div>
         </form>
     </div>

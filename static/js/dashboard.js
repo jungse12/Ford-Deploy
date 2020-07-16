@@ -2,6 +2,7 @@ var climateZone = 0;
 var zone_list;
 var fileUpload;
 var fileCheck = 0;
+var submitYesOrNo = 0;
 
 var cal_cyc_dict = {
     "HomeESS-New": [0.000331,0.0055547],
@@ -177,18 +178,13 @@ function callGoogleAPI() {
                     }
                 }
             }
-            $.ajax({
-                type: "HEAD",
-                url: link,
-                success: function(message, text, response) {
-                    var header = response.getResponseHeader('Content-Disposition');
-                    console.log(header);
-                }
-            });
             if (found == false) {
                 weatherDataMsg.innerHTML = "Weather file is not found.";
                 weatherData.innerHTML = "";
                 weatherData.href = "";
+                document.getElementById("weather-url").value = '';
+            } else {
+                document.getElementById("weather-url").value = link;
             }
             return fetch('https://api.openei.org/utility_rates?version=3&format=json&api_key=oZ2QzF0Y9AmZ6ox5EhCVElgphCikPgB996W2uflv&lat='+lat+'&lon='+lng+'&sector=Residential&co_limit=1&detail=full&approved=true');
         })
@@ -611,6 +607,10 @@ $(document).ready(function() {
                 type: 'heatmap'
             }
         ];
+
+        document.getElementById("caution-submit").style.display = 'none';
+        document.getElementById("final-submit").disabled = false;
+
         console.log(data_values_WD); 
         console.log(touRateList);
         document.getElementById('tou-matrix').value = touRateList.toString();
@@ -751,6 +751,59 @@ $(document).ready(function() {
             }
         }
     });
+    $("#zipcode").change(function(){
+        var selectBox = document.getElementById('state');
+        var state = selectBox.options[selectBox.selectedIndex].value;
+        console.log(getState(this.value,state));
+        if (getState(this.value,state) === true) {
+            document.getElementById("loadData").disabled = false;
+            document.getElementById("caution-load").style.display = 'none';
+        } else {
+            document.getElementById("loadData").disabled = true;
+            document.getElementById("caution-load").style.display = 'block';
+        }
+    });
+    $("#state").change(function(){
+        var zipcode = document.getElementById('zipcode').value;
+        if (getState(zipcode,this.value) === true) {
+            document.getElementById("loadData").disabled = false;
+            document.getElementById("caution-load").style.display = 'none';
+        } else {
+            document.getElementById("loadData").disabled = true;
+            document.getElementById("caution-load").style.display = 'block';
+        }
+    });
+    $("#myform").on("submit", function(){
+        //alert("hi");
+        
+        var initial8760 = 60 * 1000;
+        var numGen = parseInt(document.getElementById("calc-amount").value) * 15000;
+        var estimateTime = initial8760 + numGen;
+        
+        $('.ajaxProgress').show();
+        var el = document.getElementById('timer');
+        var milliSecondsTime = 20000;
+        var timer;
+        el.innerHTML = estimateTime/1000;
+
+        timer = setInterval(function(){
+            estimateTime = estimateTime - 1000;
+            if(estimateTime/1000 == 0) {
+                clearTimeout(timer);
+                el.innerHTML = 'BOOOOM';
+            }
+            else {
+                el.innerHTML = estimateTime/1000;
+            }
+        },1000);
+        /*
+        var startTime = Date.now();
+        var interval = setInterval(function() {
+            var elapsedTime = Date.now() - startTime;
+            document.getElementById("timer").innerHTML = (elapsedTime / 1000).toFixed(3);
+        }, 100);*/
+        //$("#pageloader").fadeIn();
+    });//submit
 });
 
 
@@ -780,4 +833,122 @@ function lowestRate(data_values_WD, data_values_WE, month){
     return [wdIndex, weIndex];
 
 
+}
+
+
+function getState(zipcode,state) {
+
+    // Ensure param is a string to prevent unpredictable parsing results
+    if (typeof zipcode !== 'string') {
+        console.log('Must pass the zipcode as a string.');
+        return false;
+    }
+
+    // Ensure we have exactly 5 characters to parse
+    if (zipcode.length !== 5) {
+         console.log('Must pass a 5-digit zipcode.');
+         return false;
+    } 
+
+    // Ensure we don't parse strings starting with 0 as octal values
+    const thiszip = parseInt(zipcode, 10); 
+
+    // Code blocks alphabetized by state
+    if (thiszip >= 35000 && thiszip <= 36999) {
+        return state === 'AL';
+        }
+    else if (thiszip >= 99500 && thiszip <= 99999) {
+        return state === 'AK';
+
+        }
+    else if (thiszip >= 85000 && thiszip <= 86999) {
+        return state === 'AZ';
+        }
+    else if (thiszip >= 71600 && thiszip <= 72999) {
+        return state === 'AR';
+        }
+    else if (thiszip >= 90000 && thiszip <= 96699) {
+        return state === 'CA';
+        }
+    else if (thiszip >= 80000 && thiszip <= 81999) {
+        return state === 'CO';
+        }
+    else if (thiszip >= 6000 && thiszip <= 6999) {
+        return state === 'CT';
+        }
+    else if (thiszip >= 19700 && thiszip <= 19999) {
+        return state === 'DE';
+        }
+    else if (thiszip >= 32000 && thiszip <= 34999) {
+        return state === 'FL';
+        }
+    else if (thiszip >= 30000 && thiszip <= 31999) {
+        return state === 'GA';
+        }
+    else if (thiszip >= 96700 && thiszip <= 96999) {
+        return state === 'HI';
+        }
+    else if (thiszip >= 83200 && thiszip <= 83999) {
+        return state === 'ID';
+        }
+    else if (thiszip >= 60000 && thiszip <= 62999) {
+        return state === 'IL';
+        }
+    else if (thiszip >= 46000 && thiszip <= 47999) {
+        return state === 'IN';
+        }
+    else if (thiszip >= 50000 && thiszip <= 52999) {
+        return state === 'IA';
+        }
+    else if (thiszip >= 66000 && thiszip <= 67999) {
+        return state === 'KS';
+        }
+    else if (thiszip >= 40000 && thiszip <= 42999) {
+        return state === 'KY';
+        }
+    else if (thiszip >= 70000 && thiszip <= 71599) {
+        return state === 'LA';
+        }
+    else if (thiszip >= 3900 && thiszip <= 4999) {
+        return state === 'ME';
+        }
+    else if (thiszip >= 20600 && thiszip <= 21999) {
+        return state === 'MD';
+        }
+    else if (thiszip >= 1000 && thiszip <= 2799) {
+        return state === 'MA';
+        }
+    else if (thiszip >= 48000 && thiszip <= 49999) {
+        return state === 'MI';
+        }
+    else if (thiszip >= 55000 && thiszip <= 56999) {
+        return state === 'MN';
+        }
+    else if (thiszip >= 38600 && thiszip <= 39999) {
+        return state === 'MS';
+        }
+    else if (thiszip >= 63000 && thiszip <= 65999) {
+        return state === 'MO';
+        }
+    else if (thiszip >= 59000 && thiszip <= 59999) {
+        return state === 'MT';
+        }
+    else if (thiszip >= 27000 && thiszip <= 28999) {
+        return state === 'NC';
+        }
+    else if (thiszip >= 58000 && thiszip <= 58999) {
+        return state === 'ND';
+        }
+    else if (thiszip >= 68000 && thiszip <= 69999) {
+        return state === 'NE';
+        }
+    else if (thiszip >= 88900 && thiszip <= 89999) {
+        return state === 'NV';
+        }
+    else if (thiszip >= 3000 && thiszip <= 3899) {
+        return state === 'NH';
+        }
+    else if (thiszip >= 7000 && thiszip <= 8999) {
+        return state === 'NJ';
+        }
 }

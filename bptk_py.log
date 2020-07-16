@@ -341,3 +341,21 @@
 2020-07-15 05:57:24.493790, [ERROR] No simulation model containing equation "recyclingValue". Did you maybe mean one of "eolRecyclingValue, recycledeolb, totalEolValue"?
 2020-07-15 06:14:03.830294, [WARN] Unable to simulate equation "recyclingValue". Doesn't seem like it's part of the model.
 2020-07-15 06:14:03.883288, [ERROR] No simulation model containing equation "recyclingValue". Did you maybe mean one of "eolRecyclingValue, recycledeolb, totalEolValue"?
+2020-07-16 04:22:44.897354, [WARN] Unable to simulate equation "recyclingValue". Doesn't seem like it's part of the model.
+2020-07-16 04:22:44.937943, [ERROR] No simulation model containing equation "recyclingValue". Did you maybe mean one of "eolRecyclingValue, recycledeolb, totalEolValue"?
+2020-07-16 04:48:42.754328, [WARN] Unable to simulate equation "recyclingValue". Doesn't seem like it's part of the model.
+2020-07-16 04:48:42.800425, [ERROR] No simulation model containing equation "recyclingValue". Did you maybe mean one of "eolRecyclingValue, recycledeolb, totalEolValue"?
+2020-07-16 05:01:54.101801, [WARN] Unable to simulate equation "recyclingValue". Doesn't seem like it's part of the model.
+2020-07-16 05:01:54.165130, [ERROR] No simulation model containing equation "recyclingValue". Did you maybe mean one of "eolRecyclingValue, recycledeolb, totalEolValue"?
+2020-07-16 05:07:26.801551, [WARN] The scenario manager already exists. Will not change the model. Use another name to avoid surprising errors!
+2020-07-16 05:07:26.809472, [WARN] Unable to simulate equation "recyclingValue". Doesn't seem like it's part of the model.
+2020-07-16 05:07:26.868144, [ERROR] No simulation model containing equation "recyclingValue". Did you maybe mean one of "eolRecyclingValue, recycledeolb, totalEolValue"?
+2020-07-16 07:17:05.060276, [WARN] Unable to simulate equation "recyclingValue". Doesn't seem like it's part of the model.
+2020-07-16 07:17:05.102600, [ERROR] No simulation model containing equation "recyclingValue". Did you maybe mean one of "eolRecyclingValue, recycledeolb, totalEolValue"?
+2020-07-16 07:51:44.580222, [WARN] Unable to simulate equation "recyclingValue". Doesn't seem like it's part of the model.
+2020-07-16 07:51:44.619229, [ERROR] No simulation model containing equation "recyclingValue". Did you maybe mean one of "eolRecyclingValue, recycledeolb, totalEolValue"?
+2020-07-16 08:26:56.506663, [WARN] Unable to simulate equation "recyclingValue". Doesn't seem like it's part of the model.
+2020-07-16 08:26:56.535668, [ERROR] No simulation model containing equation "recyclingValue". Did you maybe mean one of "eolRecyclingValue, recycledeolb, totalEolValue"?
+2020-07-16 08:30:14.236599, [WARN] The scenario manager already exists. Will not change the model. Use another name to avoid surprising errors!
+2020-07-16 08:30:14.256602, [WARN] Unable to simulate equation "recyclingValue". Doesn't seem like it's part of the model.
+2020-07-16 08:30:14.280606, [ERROR] No simulation model containing equation "recyclingValue". Did you maybe mean one of "eolRecyclingValue, recycledeolb, totalEolValue"?

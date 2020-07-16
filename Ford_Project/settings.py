@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+jez(mz=3fk7pe@gmeryp^iv=!axjv99&&xq^#@!%fukesyu@5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', "161.35.8.246"]
+ALLOWED_HOSTS = ['localhost']
 
 #for server (digital ocean)
 STATIC_URL = '/static/'
@@ -34,6 +34,7 @@ STATICFILES_DIRS = [
     #STATIC_ROOT,
     os.path.join(BASE_DIR, 'static_env'),
 ]
+
 
 #for debugging locally
 '''
@@ -44,8 +45,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static/'),
 ]
 '''
-
-print(STATICFILES_DIRS)
+#print(STATICFILES_DIRS)
 '''
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',

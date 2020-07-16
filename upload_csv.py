@@ -10,9 +10,9 @@ with open(CSV_PATH, newline='') as csvfile:
     for row in reader:
         if index != 0:
             code = row[0]
-            for i in range(1, len(row)):
-                #print(years[i], code, row[i])
-                GWP.objects.create(year=years[i], eGRID_subregion=code, gwp=row[i])
+            for i in range(1, len(years)):
+                #print(years[i], code, row[i+1])
+                GWP.objects.create(year=years[i], eGRID_subregion=code, gwp=row[i+1])
         index += 1
 
 CSV_PATH = 'static/data/HomeESS.csv'

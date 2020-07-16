@@ -20,6 +20,7 @@ import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import seaborn as sns
+from urllib.request import Request, urlopen
 from io import BytesIO
 import base64
 import math
@@ -285,7 +286,7 @@ def calc_npv(year_analysis,pv_cost,inverter_cost,batt_cost,batt_replc_hour,base_
    
     return npv,pv_salv,batt_salv,inv_salv
 
-def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
+def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss, dni_vector, dhi_vector, ghi_vector, elev):
 
     """===These values are obtained from the files and then transferrred to the function ===================================================="""
     
@@ -301,7 +302,7 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
     tim_stmp=pd.date_range('2018-01-01',periods=8760,freq='H')
     tim_stmp=tim_stmp.tz_localize(t_z)
 
-    
+    '''
     #calling in the values of direct normal irradiance
     dni=pd.read_csv(weatherfile,usecols=[7],skiprows=1,) #6
     dni_vector=dni.as_matrix()
@@ -313,15 +314,17 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
     #Calling in the values of GHI
     ghi=pd.read_csv(weatherfile,usecols=[4],skiprows=1,) #8
     ghi_vector=ghi.as_matrix()
-    
+    '''
     
     #Calling in the values of extraterrestrial irradiance
     #extra_dni=pd.read_csv(weatherfile,usecols=[1],skiprows=1,) #
     extra_dni_vector=np.zeros((8760,1))#extra_dni.as_matrix() #8760, 1
     
+    '''
     #Finding out the elevation value from the weather file 
     ele=pd.read_csv(weatherfile,index_col=[0],header=None,error_bad_lines=False,warn_bad_lines=False)
     elev=float(ele.values[0,5])
+    '''
 
     
     albdo=0.2
@@ -342,7 +345,7 @@ def calc_pvlib_irrad(lat,lng,gamma_s,t_z,tilt,soil_shad_loss):
         irrad_comp=pvlib.irradiance.get_total_irradiance(surface_tilt=tilt,surface_azimuth=gamma_s,solar_zenith=my_azm.zenith,solar_azimuth=my_azm.azimuth,dni=dni_vector[i],ghi=ghi_vector[i],dhi=dhi_vector[i],dni_extra=extra_dni_vector[i],airmass=None,albedo=albdo,surface_type=None,model='isotropic')                         
         tot_irrad[i]=(loss*(irrad_comp.poa_global))/1000
 
-    
+    print("done 8760")
     return tot_irrad
 
 
@@ -485,13 +488,36 @@ def matrixDatabase(request, format=None):
     return HttpResponse(json.dumps(zone_list))
     
 def calc(request):
-    weatherfile = os.path.join(BASE_DIR, 'static/samples/Detroit_TMY3_weather_data.csv')
+    messages.info(request, 'Username Or password is incorrect')
+    
     #print("here")
 
     #check = HomeESS.objects.get(Zone_1='Zone_1')
     #print("check", elecConsump.array_list[:360])
     _touMatrix = request.POST['tou-matrix']
     _elecArray = request.POST['elec-array']
+    weather_url = request.POST['weather-url']
+
+    response = urlopen(weather_url)
+
+    dni = pd.read_csv(response.url,skiprows=2, usecols=["DNI"])
+    dni_vector=dni.as_matrix()
+
+    dhi = pd.read_csv(response.url, usecols=["DHI"],skiprows=2)
+    dhi_vector=dhi.as_matrix()
+
+    ghi = pd.read_csv(response.url, usecols=["GHI"],skiprows=2)
+    ghi_vector=ghi.as_matrix()
+
+    wind_speed=pd.read_csv(response.url,usecols=["Wind Speed"],skiprows=2)
+    wind_speed_col_vector=wind_speed.as_matrix()
+
+    temp=pd.read_csv(response.url,usecols=["Temperature"],skiprows=2)
+    temp_col_vector=temp.as_matrix()
+
+    ele=pd.read_csv(response.url,usecols=["Elevation"],nrows=1)
+    elev=float(ele.values)
+
 
     _zipcode = request.POST['zipcode']
     _state = request.POST['state']
@@ -586,7 +612,7 @@ def calc(request):
     
     #print("here start pvlib irrad")
     #calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))
-    const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss))}
+    const={"ghi_column_vector":calc_pvlib_irrad(float(_lat),float(_long),float(_gamma_s),t_z,float(_tilt),int(_soil_shad_loss),dni_vector,dhi_vector,ghi_vector,elev)}
     #const = {"ghi_column_vector": np.zeros((8760,1))}
     def evaluate(x, const):
         touMatrix = _touMatrix.split(',')
@@ -640,7 +666,7 @@ def calc(request):
 
         pv_panel_area=(7.427/1)*arbit_solar_panel_size
         feed_in_tariff_rate = float(_feed_in_tariff_rate)
-        percent_inc_in_elec_price= int(_elec_price_change)  # (UI)enter the annual percentage in electriciy prices here 
+        percent_inc_in_elec_price= float(_elec_price_change)  # (UI)enter the annual percentage in electriciy prices here 
         alpha_cap = float(_cal_ageing_param)
         beta_cap = float(_cyclic_ageing_param)
         day_stamp=1
@@ -750,19 +776,12 @@ def calc(request):
         
         
         """================================================Wind speed data====================================================================="""
-        wind_speed=pd.read_csv(weatherfile,usecols=[46],skiprows=1,)
-        
-        wind_speed_col_vector=wind_speed.as_matrix()
         
         Transposed_wind_vector=wind_speed_col_vector.transpose() #Transposing the column vector into a row vector 
         
         wind_matrix=np.reshape(Transposed_wind_vector,(24,365),order='F')
         
         """=================================Dry bulb temperature data========================================================================"""
-        
-        temp=pd.read_csv(weatherfile,usecols=[31],skiprows=1,)
-        
-        temp_col_vector=temp.as_matrix()
         
         Transposed_temp_vector=temp_col_vector.transpose() #Transposing the column vector into a row vector 
         

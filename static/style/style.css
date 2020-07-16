@@ -403,3 +403,16 @@ footer {
   max-width: 100%;
   height: auto;
 }
+
+.ajaxProgress {
+  display: none;
+  background-color: rgba(128,128,128,0.9);
+  position: absolute;
+  text-align: center;
+  padding: 10px;
+  width: 420px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 25px;
+}
