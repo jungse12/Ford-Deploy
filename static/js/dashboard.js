@@ -781,6 +781,10 @@ $(document).ready(function() {
         var estimateTime = initial8760 + numGen;
         
         $('.ajaxProgress').show();
+        /**
+        var initial8760 = 60 * 1000;
+        var numGen = parseInt(document.getElementById("calc-amount").value) * 15000;
+        var estimateTime = initial8760 + numGen;
         var el = document.getElementById('timer');
         var milliSecondsTime = 20000;
         var timer;
@@ -796,12 +800,12 @@ $(document).ready(function() {
                 el.innerHTML = estimateTime/1000;
             }
         },1000);
-        /*
+        */
         var startTime = Date.now();
         var interval = setInterval(function() {
             var elapsedTime = Date.now() - startTime;
             document.getElementById("timer").innerHTML = (elapsedTime / 1000).toFixed(3);
-        }, 100);*/
+        }, 100);
         //$("#pageloader").fadeIn();
     });//submit
 });

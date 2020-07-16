@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ClimateZone, EGRID, ZipcodeCounty, GWP, CED, PVSoilingLoss, MicrogridESS, Fastcharger, HomeESS, ElectricConsumption, TouMatrix, CustomESS, Weather
+from .models import ClimateZone, EGRID, ZipcodeCounty, GWP, CED, PVSoilingLoss, MicrogridESS, Fastcharger, HomeESS
 
 # Register your models here.
 admin.site.register(ClimateZone)
@@ -12,7 +12,3 @@ admin.site.register(PVSoilingLoss)
 admin.site.register(HomeESS)
 admin.site.register(MicrogridESS)
 admin.site.register(Fastcharger)
-admin.site.register(ElectricConsumption)
-admin.site.register(TouMatrix)
-admin.site.register(CustomESS)
-admin.site.register(Weather)

@@ -47,12 +47,6 @@ class CED(models.Model):
     def __str__(self):
         return str(self.year)+", "+self.eGRID_subregion+": "+str(self.ced)
 
-class TouMatrix(models.Model):
-    array_list = models.CharField(max_length=120000, default='')
-    def set_array(self, new_array):
-        self.array_list = new_array
-    # data = ???
-
 class ElectricConsumption(models.Model):
     array_list = models.CharField(max_length=120000, default='')
     def set_array(self, new_array):
@@ -65,12 +59,6 @@ class PVSoilingLoss(models.Model):
 
     def __str__(self):
         return str(self.climate_zone)+", "+str(self.loss_percent)
-
-class CustomESS(models.Model):
-    array_list = models.CharField(max_length=120000,default='')
-
-    def set_array(self, new_array):
-        self.array_list = new_array
 
 class HomeESS(models.Model):
     zone_number = models.CharField(max_length=6,default='')
@@ -89,40 +77,6 @@ class MicrogridESS(models.Model):
 
     def __str__(self):
         return str(self.zone_number)
-
-class Weather(models.Model):
-    time_stamp = models.CharField(max_length=200000, default='')
-    dni = models.CharField(max_length=120000,default='')
-    dhi = models.CharField(max_length=120000,default='')
-    ghi = models.CharField(max_length=120000,default='')
-    extra_dni = models.CharField(max_length=120000,default='')
-    elev = models.CharField(max_length=120000,default='')
-    wind_speed = models.CharField(max_length=120000,default='')
-    temp = models.CharField(max_length=120000,default='')
-
-    def set_time_stamp(self, new_time_stamp):
-        self.time_stamp = new_time_stamp
-
-    def set_dni(self, new_dni):
-        self.dni = new_dni
-    
-    def set_dhi(self, new_dhi):
-        self.dhi = new_dhi
-        
-    def set_ghi(self, new_ghi):
-        self.ghi = new_ghi
-
-    def set_extra_dni(self, new_extra_dni):
-        self.extra_dni = new_extra_dni
-
-    def set_elev(self, new_elev):
-        self.elev = new_elev
-
-    def set_wind_speed(self, new_wind_speed):
-        self.extra_dni = new_extra_dni
-
-    def set_temp(self, new_temp):
-        self.temp = new_temp
 
 class Fastcharger(models.Model):
     watt = models.CharField(max_length=120000,default='')
