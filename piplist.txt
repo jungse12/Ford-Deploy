@@ -1,5 +1,5 @@
 pyflakes==2.0.0
-Pygments==2.2.0
+Pygments==2.7.4
 pylint==2.1.1
 pymoo==0.3.2
 pymop==0.2.4
